@@ -1,0 +1,13 @@
+*.swp
+*.swo
+*.un~
+.netrwhist
+
+.DS_Store
+
+*.pdf
+
+02_threat_modeling.txt
+threat modeling_v1.txt
+
+.venv/
