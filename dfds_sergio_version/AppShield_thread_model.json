@@ -1559,6 +1559,7 @@
             },
             "visible": true,
             "shape": "process",
+            "zIndex": 1,
             "ports": {
               "groups": {
                 "top": {
@@ -1642,7 +1643,6 @@
               ]
             },
             "id": "07d5fc3d-cf87-467c-9729-34890e8e4eef",
-            "zIndex": 1,
             "data": {
               "type": "tm.Process",
               "name": "AppShield",
@@ -1679,6 +1679,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 2,
             "ports": {
               "groups": {
                 "top": {
@@ -1762,7 +1763,6 @@
               ]
             },
             "id": "39adee41-b389-42f2-9205-05fef8d83126",
-            "zIndex": 2,
             "data": {
               "type": "tm.Actor",
               "name": "Host OS",
@@ -1796,6 +1796,7 @@
             },
             "visible": true,
             "shape": "actor",
+            "zIndex": 3,
             "ports": {
               "groups": {
                 "top": {
@@ -1879,7 +1880,6 @@
               ]
             },
             "id": "998b3aac-8a4e-4273-858f-a7b7728df650",
-            "zIndex": 3,
             "data": {
               "type": "tm.Actor",
               "name": "Console User",
@@ -1916,6 +1916,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 4,
             "ports": {
               "groups": {
                 "top": {
@@ -1999,7 +2000,6 @@
               ]
             },
             "id": "a382f17e-5459-461d-952d-828442a00358",
-            "zIndex": 4,
             "data": {
               "type": "tm.Store",
               "name": "Baseline Data Store",
@@ -2040,6 +2040,7 @@
             },
             "visible": true,
             "shape": "store",
+            "zIndex": 5,
             "ports": {
               "groups": {
                 "top": {
@@ -2123,7 +2124,6 @@
               ]
             },
             "id": "c52d929b-f73f-490e-90ba-a1277ffdd47d",
-            "zIndex": 5,
             "data": {
               "type": "tm.Store",
               "name": "Stored Configs",
