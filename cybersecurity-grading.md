@@ -22,7 +22,7 @@
     - threat modeling report (m3)
         - 15%
         - week 1 to 5
-        - based on owasp thread modeling
+        - based on owasp threat modeling
             - phases:
                 - know and decompose application
                     - external deps
