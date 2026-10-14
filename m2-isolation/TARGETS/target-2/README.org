@@ -1,0 +1,17 @@
+#+title: Isolation Part 1 - Answers
+
+* Q1: What is the issue here?
+The *.env* file gets bundled with the docker image.
+
+* Q2: Can you recover the actual secrets from the image? Describe how you would do this and include a screenshot of the recovered secrets.
+
+Yes, by connecting to the docker container, and verifying checking */app/.env*.
+
+#+begin_src sh
+  > docker exec -it <container-id> cat /app/.env
+
+  API_KEY=430b3b1c-2535-4d96-855f-7d2b352552ca
+  USER=user01_team10
+#+end_src
+
+[[file:screenshot-dotenv.png]]
