@@ -1,13 +1,19 @@
-name: tm-report
+name: m3-threat-modeling
 
 on:
   push:
     branches: [main]
+    paths:
+      - m3-threat-modeling/**
+      - .github/workflows/m3-threat-modeling.yaml
   pull_request:
+    paths:
+      - m3-threat-modeling/**
+      - .github/workflows/m3-threat-modeling.yaml
   workflow_dispatch:
 
 concurrency:
-  group: tm-report-${{ github.ref }}
+  group: m3-threat-modeling-${{ github.ref }}
 
 jobs:
   build:
@@ -16,7 +22,7 @@ jobs:
       contents: write
     defaults:
       run:
-        working-directory: tm-report
+        working-directory: m3-threat-modeling/tm-report
     steps:
       - uses: actions/checkout@v7
 
@@ -36,10 +42,10 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: appshield-threat-model-report
-          path: tm-report/report.pdf
+          path: m3-threat-modeling/tm-report/report.pdf
 
       # Rolling release: always the report built from the latest push to main,
-      # at releases/download/report/appshield-threat-model.pdf
+      # at releases/download/m3-threat-modeling/appshield-threat-model.pdf
       - name: Publish report release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
@@ -47,9 +53,8 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           cp report.pdf appshield-threat-model.pdf
-          gh release delete report --cleanup-tag --yes || true
-          gh release create report appshield-threat-model.pdf \
+          gh release delete m3-threat-modeling --cleanup-tag --yes || true
+          gh release create m3-threat-modeling appshield-threat-model.pdf \
             --target "$GITHUB_SHA" \
-            --title "AppShield threat model report" \
-            --notes "Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d)." \
-            --latest
+            --title "M3 - AppShield threat model report" \
+            --notes "Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d)."

@@ -41,7 +41,7 @@ Phase 1 and phase 2 threat analysis, per depth:
   - [x] pytm model (`tools/pytm/lv0.py`), findings triaged in `2-stride.md`
 - lv1 - open the circles
   - [ ] Decompose: split console and host using the brief's verbs; data stores and console storage boundary appear; new list rows (baseline and configuration become assets)
-    - Carry in from `legacy/phase1-tables` (Sérgio): system clock (ED19, the brief compares "Date and time of the most recent update"), Service Control Manager (ED8, EP3), error messages as exit points (XP2, XP5; lecture 02 slide 15), configuration as scan scope (asset 2.3)
+    - Carry in from `../legacy/phase1-tables` (Sérgio): system clock (ED19, the brief compares "Date and time of the most recent update"), Service Control Manager (ED8, EP3), error messages as exit points (XP2, XP5; lecture 02 slide 15), configuration as scan scope (asset 2.3)
   - [ ] STRIDE on the new elements; attach lv0 threats to the smaller circles
   - [ ] pytm model `tools/pytm/lv1.py`
   - [ ] Bootable mode: its own lv1 DFD, STRIDE and model (lecture 02, slide 25: a level 1 diagram is a "single feature / scenario")

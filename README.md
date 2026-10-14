@@ -1,4 +1,4 @@
 # MESCC DECYS (Cybersecurity)
 
-- `tm-report/` - M3 threat modeling report for AppShield. Check its README.
-- `legacy/` - earlier M3 work, kept untouched for reference.
+- `m1-embedded/` - M1 embedded project
+- `m3-threat-modeling/` - M3 threat modeling report for AppShield
