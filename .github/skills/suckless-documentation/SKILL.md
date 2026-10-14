@@ -1,3 +1,8 @@
+---
+name: suckless-documentation
+description: Write minimal, dense documentation. Use when creating or editing READMEs, docs, or other written documentation.
+---
+
 WRITE DOCUMENTATION THAT SUCKS LESS
 
 - core idea: docs should be as minimal, dense and frugal as the software itself
