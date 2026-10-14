@@ -4,6 +4,17 @@
   align: (x, y) => if y == 0 { center + horizon } else { left + top },
 )
 
+// Compact summary used in the report appendix.
+#let pytm-summary(level) = {
+  let data = json("../build/" + level + "/pytm.json")
+  (
+    [#level],
+    [#data.findings],
+    [#data.threats.len()],
+    [#data.excluded],
+  )
+}
+
 // Threats pytm kept, one row per threat ID.
 #let pytm-threats(level) = {
   let data = json("../build/" + level + "/pytm.json")

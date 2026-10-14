@@ -13,8 +13,14 @@ External entities sit outside AppShield's control, so only what AppShield can ob
 Data flows carry no identity and run no code, so spoofing, repudiation and elevation of privilege don't apply to them; they can only be altered in transit (T), read by someone who shouldn't (I), or blocked (D).
 Processes are AppShield's own running code, so all six apply.
 
-34 questions in total. A row without an ID is not a separate threat; it says why.
-Assets are defined earlier, alongside the DFD. The pytm column is a manual vs. modeling tool cross-check: it lists the matching finding IDs from the pytm model when the same threat was also found automatically, or "-" when it wasn't.
+34 questions in total. Every category was checked. To keep the chapter readable, the tables below focus on the threats that are specific at level 0; inherited local-machine cases and non-assessable cases are summarized in prose.
+Assets are defined in the decomposition chapter. The `pytm` column is tool evidence only: it shows matching finding IDs, or `-` when the threat was found by hand.
+
+## Main observations
+
+- The biggest level 0 exposure is the console-to-host channel. The brief states no host authentication, console authentication, encryption or replay protection for it.
+- The host reads data from a machine that may already be compromised, so some threats are about false evidence, not just stolen data.
+- One console sees every host. Anything that compromises the console scales to the whole estate.
 
 ## Administrator (external entity)
 
@@ -54,32 +60,24 @@ Assets are defined earlier, alongside the DFD. The pytm column is a manual vs. m
 
 ## Data flows
 
+Local input tampering on flow 1 and local output tampering on flow 6 are inherited from control of the console machine (L0-06, `AC05`). Flow 3 tampering is inherited from the compromised monitored machine (L0-03, `AC05`). Flow 4 denial is the same load problem as L0-15. Flow 5 denial is the same blocked-channel problem as L0-20. Flow 4 information disclosure is rejected at this level because the contents have not left the monitored machine yet.
+
 | Flow | | ID | Threat | Assets | pytm |
 | --- | --- | --- | --- | --- | --- |
-| 1 | T | | Covered by L0-06: changing local input needs control of the console machine. | | AC05 |
 | 1 | I | L0-17 | **Credentials observed.** Someone watching the console machine's screen or keyboard captures the administrator's credentials. | A2 | AC23, DS06, DR01 |
-| 1 | D | | Not assessable: the brief doesn't describe the login (e.g. whether failed attempts lock the account). | | |
 | 2 | T | L0-18 | **Altered requests.** Someone on the network changes the requested paths, so a modified file is never asked about. | A1 | AC05, CR06, CR08 |
 | 2 | I | L0-19 | **Requests reveal what is monitored.** The traffic shows which hosts and paths are checked, so an attacker knows where to hide changes. | A3 | DE01, DE03, DS06, DR01 |
 | 2 | D | L0-20 | **Blocked traffic.** Dropping traffic between console and host stops scans. Changes made meanwhile go unnoticed until a scan succeeds. | A5 | - |
-| 3 | T | | Covered by L0-03: the reads go through the OS, which is the monitored entity. | | AC05 |
 | 3 | I | L0-21 | **Malware sees what is checked.** Malware on the monitored machine sees which files the host reads and when, and can hide changes only for those files or only during scans. | A1 | DS06, DR01 |
 | 3 | D | L0-22 | **Reads that never finish.** A recursive scan can hit locked files, very large files or directory loops (junctions), stalling or stopping the scan. | A5 | - |
-| 4 | T | | Covered by L0-03, seen from the flow. | | AC05 |
-| 4 | I | | Not a threat at this level: the contents stay on the monitored machine. They only leave as flow 5 (L0-24) or if the host is taken over (L0-16). pytm flags it because the data is classified secret. | | DS06, DR01 (rejected) |
-| 4 | D | | Covered by L0-15: the load comes from what the host is asked to read. | | |
 | 5 | T | L0-23 | **Altered results in transit.** Someone on the network replaces the new hashes with the old ones, so the console reports no change. This defeats the tool from the network alone. | A1 | AC05, CR06, CR08 |
 | 5 | I | L0-24 | **Integrity data readable on the network.** Filenames, ACLs, registry data and hashes cross the network, and the brief specifies no encryption. | A3 | DE01, DE03, DS06, DR01 |
-| 5 | D | | Covered by L0-20: same channel. | | |
-| 6 | T | | Covered by L0-06: changing what the console shows needs control of the console machine. | | AC05 |
-| 6 | I | | Covered by L0-08. | | DS06, DR01 |
 | 6 | D | L0-25 | **Alert flooding.** An attacker makes many harmless changes so the real one is lost among them. | A1, A5 | - |
 
-## Manual vs. pytm cross-check
+## Tool cross-check
 
-Summary of the cross-check above. pytm reports 76 findings (34 distinct threats) after excluding 33 that the brief rules out, each exclusion justified by a stated assumption in the pytm model. Full output in the appendix.
+pytm kept 76 findings (34 distinct threats) and excluded 33 by assumption.
 
-- **Input family**: INP02, INP07, INP08, INP12, INP13, INP14, INP23, INP24, INP25, INP26, INP31, INP32, INP33, INP35, INP41, DE02, AC12, AC13, AC14, AC15. All are ways crafted input can make a process run attacker code, so on the console they map to L0-10 and on the host to L0-16. INP12 (a hostile server attacking its client) fits the console best. INP32 and AC15 only apply if the protocol is XML, which the brief doesn't specify.
-- **Matched**: every other pytm finding appears in the pytm column above.
-- **Rejected**: DS06 and DR01 on flow 4 (see the flow 4 I row).
-- **Found by hand only**: L0-02, L0-04, L0-06, L0-07, L0-11, L0-12, L0-13, L0-20, L0-21, L0-22, L0-25. pytm's library has no threats for a lying data source, missing audit logs or alert flooding, which are the threats specific to an integrity checker.
+- **Collapsed by hand**: the input-family findings `INP02, INP07, INP08, INP12, INP13, INP14, INP23, INP24, INP25, INP26, INP31, INP32, INP33, INP35, INP41, DE02, AC12, AC13, AC14, AC15` map to two report threats, L0-10 on the console and L0-16 on the host.
+- **Rejected**: DS06 and DR01 on flow 4, because the data has not left the monitored machine yet.
+- **Found by hand only**: L0-02, L0-04, L0-06, L0-07, L0-11, L0-12, L0-13, L0-20, L0-21, L0-22 and L0-25. These are integrity-checker-specific threats that pytm's generic library does not model well.

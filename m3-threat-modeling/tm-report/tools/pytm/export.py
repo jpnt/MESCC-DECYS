@@ -10,6 +10,7 @@ It holds names only, no local paths, so the output is the same on any machine.
 
 import importlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -49,13 +50,31 @@ def group_excluded(findings):
     return list(assumptions.values())
 
 
+def patch_dfd(dot, name):
+    if name != "lv1":
+        return dot
+    dot = re.sub(
+        r'(dir = forward;\n)(\s*label = "\(13\) Past resource\\ninformation";)',
+        r'\1        tailport = n;\n        headport = n;\n\2',
+        dot,
+        count=1,
+    )
+    dot = re.sub(
+        r'(dir = forward;\n)(\s*label = "\(14\) Updated\\nbaseline";)',
+        r'\1        tailport = s;\n        headport = s;\n\2',
+        dot,
+        count=1,
+    )
+    return dot
+
+
 def main():
     name, out = sys.argv[1], Path(sys.argv[2])
     tm = importlib.import_module(name).tm
     tm.check()
     tm.resolve()
     out.mkdir(parents=True, exist_ok=True)
-    (out / "dfd.dot").write_text(tm.dfd())
+    (out / "dfd.dot").write_text(patch_dfd(tm.dfd(), name))
     result = {
         "model": tm.name,
         "findings": len(tm.findings),

@@ -2,6 +2,18 @@
 
 Shows AppShield in normal network mode as two processes, the external entities they exchange data with, and the trust boundaries between them.
 
+## AppShield in one minute
+
+Normal mode story:
+
+1. The administrator logs in to the console and starts a scan.
+2. The console asks the host for file and registry data.
+3. The host reads the monitored machine.
+4. The host sends raw integrity data back.
+5. The console compares it with the trusted baseline and shows the changes.
+
+In one line: Administrator -> Console -> Host -> Files and registry -> Host -> Console -> Administrator.
+
 ## Starting point: Figure 2 of the brief
 
 The brief says Figure 2 "illustrates the scope and boundaries of the AppShield software system".
@@ -17,7 +29,7 @@ From this diagram we added/changed:
 
 - **"Analyse Infrastructure" renamed to "Resource requests".** "The host software doesn't conduct analysis itself"; the console only asks it for data.
 
-- **Monitored filesystem and registry.** Figure 2's "Resource information" has no source. The host reads it from "files stored in the filesystem" and "registry keys".
+- **Monitored filesystem and registry.** This means the files, folders and registry keys AppShield is configured to check. Figure 2's "Resource information" has no source, so we made that source explicit.
 
 - **Administrator.** Nothing in Figure 2 starts a scan or receives its result. "A user can direct the admin console to establish a connection with a host".
 
@@ -59,6 +71,8 @@ Steps 1-5: external dependencies, trust levels, entry points, exit points, and a
 Trust levels come right after external dependencies, ahead of entry points and exit points, because both name trust levels by ID and need them defined first.
 Each depth lists only the rows it adds; IDs continue at the next depth.
 Elements and flow numbers are the ones drawn in the DFD figure; they aren't repeated here as a separate table.
+
+If the IDs feel heavy, read them as a glossary of the same level 0 story above: who can touch the system, where data enters and leaves it, and what the system is trying to protect.
 
 ### External dependencies
 
