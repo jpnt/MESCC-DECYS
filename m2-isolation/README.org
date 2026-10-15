@@ -1,0 +1,46 @@
+#+title: M2 - Isolation
+
+Team tag: =team10=.
+
+* Parts
+- Part 1 - Keeping secrets out of images (Q1-Q5), tags =insecurelabs01/02=
+- Part 2 - Docker and Linux capabilities (Q6-Q13), tag =capabilities01=
+- Part 3 - Security evasion / privileged containers (Q14-Q17), tag =insecurelabs03=
+
+* Layout
+Per the submission spec, =TARGETS/= holds one directory per artifact-bearing
+question plus the shared files:
+- =secrets.csv= - single line: =team,api_key_01,user_01,api_key_02,user_02,layer_sha256=
+- =target-2/= - recovered =.env= + =docker run ... cat .env= transcript (Q2)
+- =target-4/= - extracted layer =app/.env= and the =sha256= of its layer (Q4)
+- =target-12/= - =capsh --print= and =grep Cap /proc/1/status= (Q12)
+- =target-14/= - privileged-container =capsh --print= / =proc= Cap dump (Q14)
+- =target-15/= - host =fdisk -l=/=lsblk= + =mount= transcript and exploit video (Q15)
+
+Each =target-N/= keeps its =README.org= (answers), =scripts/= (helpers and
+their =outputs/=) and =screenshots/= (evidence).
+
+* Checklist
+** Part 1 - secrets out of images [5/5]
+- [X] Q1 - What is the issue?
+- [X] Q2 - Recover the secrets (artifact: =target-2/=)
+- [X] Q3 - What of Tom's fix?
+- [X] Q4 - Recover the new key (artifact: =target-4/=)
+- [X] Q5 - How would you do Scott's job?
+** Part 2 - Linux capabilities [0/8]
+- [ ] Q6 - Remove =cap_net_raw= from ping
+- [ ] Q7 - Make ping work with no capability and no sudo (video)
+- [ ] Q8 - Make passwd work without Set UID (video)
+- [ ] Q9 - Why passwd is Set UID and ping is not
+- [ ] Q10 - Explain ten more capabilities
+- [ ] Q11 - Buffer overflow vs disabled/deleted =cap_dac_override=
+- [ ] Q12 - Container capability sets (artifact: =target-12/=)
+- [ ] Q13 - ping under =--cap-drop all= and the fix
+** Part 3 - security evasion [0/4]
+- [ ] Q14 - Capabilities of the privileged container (artifact: =target-14/=)
+- [ ] Q15 - Host-compromise exploit + video (artifact: =target-15/=)
+- [ ] Q16 - Replicate a container escape (extra, video)
+- [ ] Q17 - Docker security good practices
+** Submission
+- [ ] =TARGETS/secrets.csv= filled with real values (currently placeholders)
+- [ ] =TARGETS/AI-DISCLOSURE.md= added
