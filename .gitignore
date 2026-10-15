@@ -14,3 +14,6 @@ threat modeling_v1.txt
 
 build/
 __pycache__/
+
+# large build/export artifacts
+*.tar
