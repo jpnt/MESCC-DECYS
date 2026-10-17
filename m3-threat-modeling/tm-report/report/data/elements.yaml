@@ -1,0 +1,53 @@
+# DFD elements that STRIDE per element is applied to, one list per scenario.
+# Keys are referenced from threats.yaml (field lv1). Names and flow numbers
+# follow the level 1 diagrams (build/lv1, build/lv1boot).
+# kind: entity | process | store | flow
+
+normal:
+  - {key: User, name: "Console User", kind: entity}
+  - {key: FS, name: "Windows Filesystem", kind: entity}
+  - {key: REG, name: "Windows Registry", kind: entity}
+  - {key: SCM, name: "Service Control Manager", kind: entity}
+  - {key: AC, name: "Admin Console", kind: process}
+  - {key: HC, name: "Host Component", kind: process}
+  - {key: BASE, name: "Baseline Data Store", kind: store}
+  - {key: CONF, name: "Stored Configs", kind: store}
+  - {key: F1, name: "(1) Commands and credentials", kind: flow}
+  - {key: F2, name: "(2) Comparison results and error messages", kind: flow}
+  - {key: F3, name: "(3) Resource request", kind: flow}
+  - {key: F4, name: "(4) Raw integrity data and error messages", kind: flow}
+  - {key: F5, name: "(5) File queries", kind: flow}
+  - {key: F6, name: "(6) File info and access decisions", kind: flow}
+  - {key: F7, name: "(7) Registry queries", kind: flow}
+  - {key: F8, name: "(8) Registry data and access decisions", kind: flow}
+  - {key: F9, name: "(9) Lifecycle control codes", kind: flow}
+  - {key: F10, name: "(10) Service registration and status", kind: flow}
+  - {key: F11, name: "(11) Past resource information", kind: flow}
+  - {key: F12, name: "(12) Updated baseline", kind: flow}
+  - {key: F13, name: "(13) Stored users, credentials and preferences", kind: flow}
+  - {key: F14, name: "(14) Updated configuration", kind: flow}
+
+boot:
+  - {key: "b:User", name: "Console User", kind: entity}
+  - {key: "b:FS", name: "Compromised Filesystem", kind: entity}
+  - {key: "b:REG", name: "Compromised Registry", kind: entity}
+  - {key: "b:AC", name: "Admin Console", kind: process}
+  - {key: "b:HC", name: "Host Component", kind: process}
+  - {key: "b:BASE", name: "Baseline Data Store", kind: store}
+  - {key: "b:CONF", name: "Stored Configs", kind: store}
+  - {key: "b:MEDIA", name: "Boot Media (CD/USB)", kind: store}
+  - {key: "b:RES", name: "Results Drive", kind: store}
+  - {key: "b:F1", name: "(1) Commands and credentials", kind: flow}
+  - {key: "b:F2", name: "(2) Comparison results and error messages", kind: flow}
+  - {key: "b:F3", name: "(3) Command line arguments", kind: flow}
+  - {key: "b:F4", name: "(4) Resource request", kind: flow}
+  - {key: "b:F5", name: "(5) Raw integrity data and error messages", kind: flow}
+  - {key: "b:F6", name: "(6) Direct file reads", kind: flow}
+  - {key: "b:F7", name: "(7) File data and NTFS structures", kind: flow}
+  - {key: "b:F8", name: "(8) Direct registry reads", kind: flow}
+  - {key: "b:F9", name: "(9) Registry hive data", kind: flow}
+  - {key: "b:F10", name: "(10) Last known resource information", kind: flow}
+  - {key: "b:F11", name: "(11) Stored users, credentials and preferences", kind: flow}
+  - {key: "b:F12", name: "(12) Admin console executable", kind: flow}
+  - {key: "b:F13", name: "(13) Host executable and read-only Windows image", kind: flow}
+  - {key: "b:F14", name: "(14) Findings and collected resource information", kind: flow}

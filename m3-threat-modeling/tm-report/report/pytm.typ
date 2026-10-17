@@ -1,46 +1,85 @@
-// Renders the output of tools/pytm/export.py for one DFD depth.
+// Tables built from the output of tools/pytm/export.py (build/<level>/pytm.json),
+// so the DFD figures and the tables describing them come from the same model.
 
-#let cells = (
-  align: (x, y) => if y == 0 { center + horizon } else { left + top },
+#let cells = (align: (x, y) => if y == 0 { center + horizon } else { left + top })
+#let small(body) = { set text(size: 9pt); set par(justify: false); body }
+#let head-fill = (x, y) => if y == 0 { luma(225) }
+#let load(level) = json("../build/" + level + "/pytm.json")
+
+#let level-names = (
+  lv0: "Level 0", lv1: "Level 1", lv2: "Level 2",
+  lv0boot: "Level 0 bootable", lv1boot: "Level 1 bootable", lv2boot: "Level 2 bootable",
 )
 
-// Compact summary used in the report appendix.
-#let pytm-summary(level) = {
-  let data = json("../build/" + level + "/pytm.json")
-  (
-    [#level],
-    [#data.findings],
-    [#data.threats.len()],
-    [#data.excluded],
+// The DFD drawn by pytm for one level. Wide diagrams (level 2) get a page
+// of their own in landscape so the labels stay readable.
+#let dfd(level, caption, width: 100%, landscape: false) = {
+  let path = "../build/" + level + "/pytm-dfd.png"
+  if landscape {
+    page(flipped: true, align(center + horizon, figure(
+      image(path, width: 100%, height: 88%, fit: "contain"),
+      caption: caption,
+    )))
+  } else {
+    figure(image(path, width: width), caption: caption)
+  }
+}
+
+// Elements of one DFD with their type and the boundaries around them.
+#let pytm-elements(level, caption) = {
+  let data = load(level)
+  figure(
+    small(table(
+      columns: (1.4fr, 1fr, 2fr),
+      ..cells, fill: head-fill,
+      table.header([*Element*], [*Type*], [*Inside boundary*]),
+      ..data.elements.map(e => ([#e.name], [#e.kind], [#if e.boundary == "" [none] else [#e.boundary]])).flatten(),
+    )),
+    caption: caption,
   )
 }
 
-// Threats pytm kept, one row per threat ID.
-#let pytm-threats(level) = {
-  let data = json("../build/" + level + "/pytm.json")
-  show figure: set block(breakable: true)
+// Flows of one DFD in diagram order, with the boundaries each one crosses.
+#let pytm-flows(level, caption) = {
+  let data = load(level)
   figure(
-    table(
-      columns: (auto, 1fr, auto, 1.4fr),
-      ..cells,
-      table.header([*ID*], [*Threat*], [*Severity*], [*Applies to*]),
-      ..data.threats.map(t => (t.id, t.name, t.severity, t.targets.join(", "))).flatten(),
-    ),
-    caption: [pytm findings, #level: #data.findings findings, #data.threats.len() distinct threats],
+    small(table(
+      columns: (auto, 1.4fr, 1.2fr, 1.2fr, 1.6fr),
+      ..cells, fill: head-fill,
+      table.header([*\#*], [*Data*], [*From*], [*To*], [*Crosses*]),
+      ..data.flows.map(f => (
+        [#f.order], [#f.name], [#f.source], [#f.sink],
+        [#if f.crosses.len() == 0 [none] else [#f.crosses.join(", ")]],
+      )).flatten(),
+    )),
+    caption: caption,
   )
 }
 
-// Threats pytm excluded, one row per assumption that excluded them.
-#let pytm-exclusions(level) = {
-  let data = json("../build/" + level + "/pytm.json")
-  show figure: set block(breakable: true)
+// One row per level: findings kept, distinct threat IDs, findings excluded.
+#let pytm-summary(caption) = figure(
+  small(table(
+    columns: (1.4fr, 1fr, 1fr, 1fr, 1fr, 1fr),
+    ..cells, fill: head-fill,
+    table.header([*DFD*], [*Elements*], [*Flows*], [*Findings kept*], [*Distinct threats*], [*Excluded by assumption*]),
+    ..level-names.keys().map(l => {
+      let d = load(l)
+      ([#level-names.at(l)], [#d.elements.len()], [#d.flows.len()], [#d.findings], [#d.threats.len()], [#d.excluded])
+    }).flatten(),
+  )),
+  caption: caption,
+)
+
+// The assumptions that excluded findings, with what they excluded.
+#let pytm-exclusions(level, caption) = {
+  let data = load(level)
   figure(
-    table(
-      columns: (1fr, 2fr, 1fr, 1fr),
-      ..cells,
-      table.header([*Assumption*], [*Reason*], [*Excluded*], [*Applies to*]),
-      ..data.assumptions.map(a => (a.name, a.description, a.threats.join(", "), a.targets.join(", "))).flatten(),
-    ),
-    caption: [pytm findings excluded by assumption, #level: #data.excluded findings],
+    small(table(
+      columns: (1fr, 2.4fr, 1.2fr),
+      ..cells, fill: head-fill,
+      table.header([*Assumption*], [*Reason*], [*Excluded threats*]),
+      ..data.assumptions.map(a => ([#a.name], [#a.description], [#a.threats.join(", ")])).flatten(),
+    )),
+    caption: caption,
   )
 }

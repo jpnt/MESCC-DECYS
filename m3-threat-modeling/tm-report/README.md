@@ -1,63 +1,64 @@
-# AppShield threat model (M3)
+# AppShield threat model report
 
-Follows the OWASP Threat Modeling Process (lecture 02), starting from Figure 2 of the brief.
+This directory holds everything needed to produce the threat model report of the AppShield integrity checking tool, written for Reliability and Cybersecurity (DECYS) following the OWASP threat modeling process. Nothing in the final PDF is pasted in by hand: the data flow diagrams are pytm models in `tools/pytm/`, the threats, DREAD scores and countermeasures are YAML files in `report/data/`, and the prose is one markdown file per section in `report/content/`. Typst puts the three together, so a diagram, a score or a sentence is changed in one place and every table that depends on it follows.
 
-## Layout
+`make report` runs the whole chain. It turns each pytm model into a diagram and a list of findings in `build/`, refuses to continue if any pytm finding has not been triaged, renders the attack tree, and compiles `report.pdf`. `build/` and `report.pdf` are generated, so they can always be deleted with `make clean` and rebuilt.
 
-- `analysis/` - the thinking. Markdown and images only.
-  - `brief/` - reading of the assignment brief.
-  - `lv0/`, `lv1/`, `lv1boot/` (bootable mode), ... - one folder per DFD depth, two steps in order:
-    - `1-decompose.md` - the DFD narrative and the OWASP phase 1 lists read off it (only rows new at this depth); the DFD image is generated from the pytm model into `build/`; copy it to `pytm-dfd.png` in the folder to show it in the report
-    - `2-stride.md` - STRIDE on this depth's elements
-  - `ranking.md`, `mitigations.md` - phases 2 and 3, once over all threats. DREAD scores in `ranking.md`, packages M1 to M10 and the threat profile in `mitigations.md`.
-- `tools/pytm/` - one pytm model per depth (`lv0.py`, `lv1.py`, `lv1boot.py`), mirroring `analysis/lvN/1-decompose.md`.
-- `report/` - the deliverable. `main.typ` renders the `analysis/` markdown directly (cmarker), plus the pytm output.
+```
+tools/pytm/            one pytm model per DFD: lv0, lv0boot, lv1, lv1boot, lv2, lv2boot
+  appshield_common.py  shared building blocks and assumptions used by every model
+  export.py            writes build/<level>/{pytm.json, dfd.dot, pytm-dfd.png}
+  coverage.py          fails if a pytm finding is missing from the triage
+  pyproject.toml       Python dependencies (pytm), read by uv
+report/
+  main.typ             chapter order; the only place the structure is defined
+  md.typ, pytm.typ, register.typ   turn markdown, pytm output and YAML into report content
+  content/             the prose, one markdown file per section
+  data/                threats, DFD elements, countermeasures and pytm triage (YAML)
+  figures/             Graphviz source of the attack tree
+  refs.bib             bibliography
+  logo_isep.png        cover logo
+```
 
-## Build
+## Requirements
 
-`make lv0`, `make lv1` and `make lv1boot` rebuild one model into `build/<level>/` (`pytm.json`, `dfd.dot`, `pytm-dfd.png`).
-`make models` builds every level.
-`make report` runs every `tools/pytm/lv*.py` into `build/` (not committed), checks that each pytm threat is triaged in the matching `analysis/lvN/2-stride.md`, then builds `report.pdf`.
-CI does the same on push and uploads the PDF.
-Needs `uv`, `dot` (graphviz) and `typst`.
+- [uv](https://docs.astral.sh/uv/), which installs Python and pytm for you
+- [Graphviz](https://graphviz.org/) (the `dot` command)
+- [Typst](https://typst.app/) (tested with 0.15)
 
-## How the steps fit
+After cloning, run `uv sync --project tools/pytm` once. It creates `tools/pytm/.venv` and installs pytm into it; `make` then uses that environment through `uv run`.
 
-The DFD is the backbone. The phase 1 lists are read off it:
+## Making each thing
 
-- external dependencies: what the processes run on
-- entry/exit points: arrows crossing a trust boundary inwards/outwards
-- assets: what is worth attacking
-- trust levels: who sits on each side of each boundary
+| Command | What it does |
+| --- | --- |
+| `make report` | Builds everything below and then `report.pdf`. |
+| `make models` | Builds every DFD: `build/<level>/pytm-dfd.png` and `pytm.json`. |
+| `make lv1` (or any level) | Rebuilds a single DFD, for example after editing `tools/pytm/lv1.py`. |
+| `make check` | Builds every DFD and checks that each pytm finding appears in `report/data/pytm-triage.yaml`. |
+| `make figures` | Renders the attack tree into `build/figures/`. |
+| `make clean` | Deletes `build/` and `report.pdf`. |
 
-Each depth repeats: decompose (DFD, then the lists), STRIDE on the new elements, pytm model.
-Ranking and mitigations are done once, over all threats.
+## Changing the content
 
-## Checklist
+- **A diagram:** edit `tools/pytm/<level>.py`, then `make <level>` to look at `build/<level>/pytm-dfd.png`. Flow numbers follow the order the flows are created in the file, so moving a line renumbers the flows after it.
+- **A threat, a score or a countermeasure:** edit `report/data/threats.yaml` or `mitigations.yaml`. The STRIDE matrices, registers, ranking and threat profiles are recomputed on the next build.
+- **New pytm findings:** after changing a model, `make check` names any finding not yet triaged. Add an entry for it in `report/data/pytm-triage.yaml`.
+- **Text:** edit the markdown in `report/content/`. Cite with `[@key]`, one key per bracket (`[@a] [@b]`, not `[@a; @b]`). Refer to a labelled table or figure with `[@tbl-...]` or `[@fig-...]`.
 
-Phase 1 and phase 2 threat analysis, per depth:
+## Troubleshooting
 
-- lv0 - scope
-  - [x] Decompose: DFD and phase 1 lists (`analysis/lv0/1-decompose.md`)
-  - [x] STRIDE per element (`analysis/lv0/2-stride.md`)
-  - [x] pytm model (`tools/pytm/lv0.py`), findings triaged in `2-stride.md`
-- lv1 - open the circles
-  - [x] Decompose (`analysis/lv1/1-decompose.md`)
-  - [x] STRIDE, lv0 threats attached to the smaller circles (`analysis/lv1/2-stride.md`)
-  - [x] pytm model `tools/pytm/lv1.py`
-  - [x] Bootable mode: own DFD, STRIDE and model (`analysis/lv1boot/`, `tools/pytm/lv1boot.py`)
-- lv2 - only if a lv1 process is still too coarse to find specific threats
+**`ModuleNotFoundError: No module named 'pytm'`**
+uv did not find `tools/pytm/pyproject.toml`, so it ran a plain Python without pytm. This happens when the folder is copied without that file. Check it exists, then run `uv sync --project tools/pytm`. There is no need to create or activate a virtual environment yourself: uv keeps its own in `tools/pytm/.venv`, and an activated one elsewhere only causes a harmless warning.
 
-Phase 2, once:
+**`No module named 'pytm'` even though the file is there**
+The environment is out of date or broken. Delete `tools/pytm/.venv` and run `uv sync --project tools/pytm` again.
 
-- [x] Rank every threat with one method: DREAD (slide 42) or Risk = Likelihood x Impact (slide 44)
+**`make: *** No rule to make target 'report´'`**
+A stray character was typed after the target name (here an accent key). Retype the command as `make report`.
 
-Phase 3, once:
+**`label ... does not exist in the document`**
+A citation key in the markdown is not in `report/refs.bib`, or two keys were grouped in one bracket. Use one key per bracket.
 
-- [x] Countermeasure per threat (slide 49)
-- [x] Threat profile: not, partially or fully mitigated (slide 50)
-
-Report:
-
-- [x] Assemble `report/main.typ` from `analysis/`
-- [x] Abstract and references (rubric: organization 15%, sources 10%)
+**`typst: command not found` or `dot: command not found`**
+Install Typst or Graphviz and make sure the command is on your `PATH`.

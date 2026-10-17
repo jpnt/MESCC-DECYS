@@ -1,0 +1,218 @@
+# Triage of every threat pytm kept, across all six models.
+# make check fails if a pytm threat ID found in build/<level>/pytm.json is
+# missing here (tools/pytm/coverage.py).
+#
+# decision  Kept     the finding matches one or more report threats as it stands
+#           Merged   folded into a broader report threat
+#           Rejected does not apply to AppShield; the note says why
+# threats   report threats the finding maps to
+
+- id: AA01
+  flagged: Processes
+  decision: Kept
+  threats: [T01, T07]
+  note: Authentication bypass is the fake console against the host and impersonation at the console login.
+
+- id: AA02
+  flagged: Processes
+  decision: Kept
+  threats: [T05, T07, T13]
+  note: Principal spoofing appears three ways in AppShield, as a fake console, a fake host and an unidentified sender of service control codes.
+
+- id: AC01
+  flagged: Processes, data stores
+  decision: Kept
+  threats: [T08, T14, T21, T25, T40, T43, T46, T48]
+  note: Privilege abuse covers anyone with write access to the programs or stores, and the missing operator and administrator roles.
+
+- id: AC05
+  flagged: Every flow
+  decision: Kept
+  threats: [T03, T21, T25, T30, T33, T41, T42, T46, T48, T52, T54]
+  note: Content spoofing kept on the flows that carry evidence or commands; rejected on flow 10 (service status), which carries nothing worth forging.
+
+- id: AC12
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T18, T40, T53]
+  note: Privilege escalation follows from the memory safety threats and from the missing roles.
+
+- id: AC13
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T18, T53]
+  note: Hijacking a privileged process is the consequence of a parsing bug in a privileged process.
+
+- id: AC14
+  flagged: Processes
+  decision: Merged
+  threats: [T18, T53]
+  note: Exceptions thrown from privileged code are one more way the C++ parsers can be abused.
+
+- id: AC15
+  flagged: Processes
+  decision: Rejected
+  threats: []
+  note: The brief describes no schema-based format. If the protocol ends up using one, the risk falls under T12 and T18.
+
+- id: CR03
+  flagged: Processes
+  decision: Kept
+  threats: [T01, T38]
+  note: Kept for the console login. Rejected for the host component, which has no password login.
+
+- id: CR05
+  flagged: Data stores
+  decision: Kept
+  threats: [T23, T26, T47, T49]
+  note: Brute forcing applies to the stored credentials and to any encryption added to the stores.
+
+- id: CR06
+  flagged: Network flows (3, 4)
+  decision: Kept
+  threats: [T30, T33]
+  note: Channel manipulation on the unprotected console to host traffic.
+
+- id: CR08
+  flagged: Network flows (3, 4)
+  decision: Kept
+  threats: [T30, T33, T34]
+  note: Protocol manipulation, including replay of an earlier response.
+
+- id: DE01
+  flagged: Network flows (3, 4)
+  decision: Kept
+  threats: [T31, T35]
+  note: Interception of requests and of integrity data.
+
+- id: DE02
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T18, T19]
+  note: Double encoding is one technique for slipping a path or field past validation.
+
+- id: DE03
+  flagged: Network flows (3, 4)
+  decision: Kept
+  threats: [T31, T35]
+  note: Same exposure as DE01, by passive sniffing.
+
+- id: DE04
+  flagged: Data stores
+  decision: Rejected
+  threats: [T02, T15, T55]
+  note: None of AppShield's stores is a log. The real problem is the reverse, that no audit log exists at all, which T02, T15 and T55 record.
+
+- id: DO01
+  flagged: Processes
+  decision: Kept
+  threats: [T11, T17, T56]
+  note: Flooding the console or loading the host with expensive requests.
+
+- id: DO02
+  flagged: Processes, data stores
+  decision: Kept
+  threats: [T11, T17, T24, T27, T45, T50, T56, T57]
+  note: Resource exhaustion in the processes, and loss of a store's contents.
+
+- id: DR01
+  flagged: Every flow
+  decision: Kept
+  threats: [T16, T23, T26, T28, T35, T47, T51]
+  note: Kept on flows that carry credentials or integrity data. Rejected on service control flows and on the boot media flows, whose content is not sensitive.
+
+- id: DS06
+  flagged: Every flow
+  decision: Kept
+  threats: [T10, T26, T28, T35, T36, T49, T51]
+  note: Same split as DR01. Rejected where the data never leaves the machine it describes.
+
+- id: INP02
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T18, T53]
+  note: Buffer overflows in the C++ host and in the console parser.
+
+- id: INP07
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T18, T53]
+  note: Same family as INP02.
+
+- id: INP08
+  flagged: Processes
+  decision: Merged
+  threats: [T18]
+  note: Format string bugs are a C and C++ risk in the host's logging and error paths.
+
+- id: INP12
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T53]
+  note: Overflow triggered by data from the other side, which is exactly the console reading host data and the host reading disk structures.
+
+- id: INP13
+  flagged: Processes
+  decision: Merged
+  threats: [T18]
+  note: Only relevant if the host ever passes paths to a shell, which the brief does not suggest.
+
+- id: INP14
+  flagged: Processes
+  decision: Kept
+  threats: [T12, T19]
+  note: Manipulated input fields, mainly paths sent to the collector.
+
+- id: INP23
+  flagged: Processes
+  decision: Kept
+  threats: [T12, T53]
+  note: File content injection is the core of T53, where the host parses structures an attacker wrote to the disk.
+
+- id: INP24
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T18, T53]
+  note: Same family as INP02.
+
+- id: INP25
+  flagged: Processes
+  decision: Kept
+  threats: [T19]
+  note: Resource injection is the confused deputy reading outside the requested scope.
+
+- id: INP26
+  flagged: Processes
+  decision: Merged
+  threats: [T18]
+  note: Code injection is the end result of a memory safety bug in the host.
+
+- id: INP31
+  flagged: Processes
+  decision: Merged
+  threats: [T18]
+  note: Same condition as INP13.
+
+- id: INP32
+  flagged: Processes
+  decision: Rejected
+  threats: []
+  note: The brief describes no XML. If the protocol uses it, the risk falls under T12 and T18.
+
+- id: INP33
+  flagged: Processes
+  decision: Rejected
+  threats: []
+  note: AppShield never loads code named in a request; the only code it loads comes from its own installation or the boot media (T43).
+
+- id: INP35
+  flagged: Processes
+  decision: Merged
+  threats: [T12, T19]
+  note: Alternate encodings of paths and names, handled by canonicalisation in M7.
+
+- id: INP41
+  flagged: Processes
+  decision: Merged
+  threats: [T18]
+  note: Argument injection into the host, including the command line of the standalone host in bootable mode.

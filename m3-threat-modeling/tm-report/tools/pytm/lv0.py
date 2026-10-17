@@ -1,93 +1,94 @@
 #!/usr/bin/env python3
-"""Level 0 DFD of AppShield, normal network mode.
+"""AppShield level 0 DFD, normal network mode.
 
-Mirrors analysis/lv0/1-decompose.md: same elements, same zones, flows declared in the
-same order so pytm numbers them 1-6 like the analysis does.
-Only controls stated by the brief, or by an assumption in 1-decompose.md, are set.
-Assumptions exclude pytm threats the brief rules out; everything else is kept
-and mapped to analysis/lv0/2-stride.md.
+Context diagram: AppShield is one process. The Host OS entity stands for every
+Windows subsystem the host component uses (filesystem, registry, Service
+Control Manager, the service account and the ACL subsystem); level 1 opens it.
+
+Boundaries are drawn as enclosures. A flow crosses a boundary when it enters
+or leaves the enclosure:
+  Console authentication boundary  encloses the Console User (flows 1, 2)
+  Host privilege boundary          encloses the Host OS      (flows 3, 4)
+  Console storage boundary         encloses both data stores (flows 5 to 8)
+
+Run: make lv0   (or: python export.py lv0 build/lv0)
 """
 
-from pytm import (
-    TM,
-    Actor,
-    Assumption,
-    Boundary,
-    Classification,
-    Data,
-    Dataflow,
-    ExternalEntity,
-    Process,
+from pytm import TM, Boundary
+
+from appshield_common import (
+    console_process,
+    console_user,
+    data_catalogue,
+    file_store,
+    flow,
+    standard_assumptions,
+    windows_entity,
 )
 
 tm = TM("AppShield level 0")
-tm.description = "Level 0 DFD of AppShield in normal network mode (analysis/lv0/1-decompose.md)"
+tm.description = (
+    "Level 0 context diagram of AppShield in normal network mode: one process, "
+    "the console user, the Windows host operating system and the console's two "
+    "local data stores."
+)
 tm.isOrdered = True
+tm.mergeResponses = False
+tm.assumptions = standard_assumptions()
 
-NETWORK_THREATS = ["DE01", "DE03", "CR06", "CR08"]
+D = data_catalogue()
 
-tm.assumptions = [
-    Assumption(
-        "Desktop console, no browser",
-        exclude=["INP20", "INP27", "INP28", "INP29", "INP30", "AC18", "AC20", "AC21"],
-        description="The brief describes a C++ Windows service and a console that also runs from a boot CD. "
-        "Nothing is rendered in a browser, so HTML, cookie and iFrame attacks do not apply.",
-    ),
-]
+# Boundaries
+b_auth = Boundary("Console authentication boundary")
+b_host = Boundary("Host privilege boundary")
+b_store = Boundary("Console storage boundary")
 
-console_zone = Boundary("Console zone")
-host_zone = Boundary("Host zone")
+# Elements
+user = console_user(b_auth)
 
-admin = Actor("Administrator")
-
-console = Process("AppShield Console")
-console.inBoundary = console_zone
-# 1-decompose.md assumption: the console has a login, since it stores "users, credentials".
-console.controls.authenticatesSource = True
-
-host = Process("AppShield Application (host component)")
-host.inBoundary = host_zone
-host.assumptions = [
-    Assumption(
-        "Host has no password login",
-        exclude=["CR03"],
-        description="The brief describes no users or passwords on the host. "
-        "Its missing authentication is kept as AA01/AA02.",
-    ),
-]
-
-monitored = ExternalEntity("Monitored filesystem and registry")
-
-credentials = Data("Credentials and scan request", classification=Classification.SECRET, isCredentials=True)
-requests = Data("Resource requests", classification=Classification.RESTRICTED)
-reads = Data("File and registry reads", classification=Classification.RESTRICTED)
-contents = Data("File and registry contents and metadata", classification=Classification.SECRET)
-raw = Data("Raw integrity data", classification=Classification.RESTRICTED)
-alterations = Data("Detected alterations", classification=Classification.RESTRICTED)
-
-local_console = Assumption(
-    "Local to the console machine",
-    exclude=NETWORK_THREATS,
-    description="The administrator uses the console on its own machine (lv0 assumption), so this flow does not cross the network.",
-)
-local_host = Assumption(
-    "Local to the monitored machine",
-    exclude=NETWORK_THREATS,
-    description="The host reads files and keys through Windows on the same machine, so this flow does not cross the network.",
+appshield = console_process(
+    "AppShield",
+    "Admin console and host component taken together as one system.",
+    None,
 )
 
-# Flows 1-6, in 1-decompose.md order. The brief specifies no encryption or
-# authentication for any of them, so no transport controls are set.
-f1 = Dataflow(admin, console, "Credentials and scan request", data=credentials)
-f1.assumptions = [local_console]
-f2 = Dataflow(console, host, "Resource requests", data=requests)
-f3 = Dataflow(host, monitored, "File and registry reads", data=reads)
-f3.assumptions = [local_host]
-f4 = Dataflow(monitored, host, "File and registry contents and metadata", data=contents)
-f4.assumptions = [local_host]
-f5 = Dataflow(host, console, "Raw integrity data", data=raw)
-f6 = Dataflow(console, admin, "Detected alterations", data=alterations)
-f6.assumptions = [local_console]
+host_os = windows_entity(
+    "Host OS",
+    "Windows on each monitored server: filesystem, registry, Service Control "
+    "Manager, the host service account and the ACL subsystem.",
+    b_host,
+)
+
+baseline = file_store(
+    "Baseline Data Store",
+    "Locally stored trusted data regarding past resource information.",
+    b_store,
+)
+
+configs = file_store(
+    "Stored Configs",
+    "Local files holding console users, credentials and preferences.",
+    b_store,
+)
+
+# Flows. pytm numbers them in creation order, so keep this order
+# in step with the flow table in analysis/<level>/1-decompose.md
+f1 = flow(user, appshield, "Commands and credentials",
+          {D["credentials"], D["commands"]})
+f2 = flow(appshield, user, "Comparison results and error messages",
+          {D["results"]}, response_to=f1)
+f3 = flow(appshield, host_os, "Resource queries and service registration",
+          {D["requests"], D["control"]}, protocol="Windows API")
+f4 = flow(host_os, appshield, "Resource data, access decisions and service control",
+          {D["resource"], D["control"]}, protocol="Windows API", response_to=f3)
+f5 = flow(baseline, appshield, "Past resource information",
+          {D["baseline"]}, protocol="File read")
+f6 = flow(appshield, baseline, "Updated baseline",
+          {D["baseline"]}, protocol="File write")
+f7 = flow(configs, appshield, "Stored users, credentials and preferences",
+          {D["config"]}, protocol="File read")
+f8 = flow(appshield, configs, "Updated configuration",
+          {D["config"]}, protocol="File write")
 
 if __name__ == "__main__":
     tm.process()

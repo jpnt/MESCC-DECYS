@@ -1,0 +1,42 @@
+// Attack tree for asset 4.1: make the console report no change for a host
+// that has been altered. Rendered by `make figures` into build/figures/.
+// Every leaf names the report threat and the countermeasure package against it.
+digraph attack_tree {
+    graph [rankdir=LR, fontname="Helvetica", nodesep=0.18, ranksep=0.5, bgcolor="white"];
+    node  [shape=box, style="rounded", fontname="Helvetica", fontsize=10, color=black];
+    edge  [color=black, arrowhead=none];
+
+    goal [label="Console reports no change\nfor an altered host\n(asset 4.1)", style="rounded,bold", fontsize=11];
+
+    source  [label="OR  Forge the evidence\nat the source"];
+    transit [label="OR  Alter the evidence\nin transit"];
+    ref     [label="OR  Corrupt the reference\nit is compared with"];
+    verdict [label="OR  Corrupt the code\nthat decides"];
+    scope   [label="OR  Keep the change\nout of the scan"];
+
+    goal -> {source transit ref verdict scope};
+
+    s1 [label="Rootkit answers with original data\nT03 (M9, M11)"];
+    s2 [label="Reset timestamps and use a hash collision\nT20 (M10)"];
+    s3 [label="Replace the host program\nT14 (M9, M11)"];
+    source -> {s1 s2 s3};
+
+    t1 [label="Replace hashes in the response\nT33 (M1, M2)"];
+    t2 [label="Replay an earlier clean response\nT34 (M2)"];
+    t3 [label="Answer in place of the real host\nT13 (M1)"];
+    transit -> {t1 t2 t3};
+
+    r1 [label="Edit the stored baseline\nT21 (M3)"];
+    r2 [label="Restore an older baseline\nT22 (M3, M4)"];
+    r3 [label="Get the change accepted as new baseline\nT39 (M4)"];
+    ref -> {r1 r2 r3};
+
+    v1 [label="Modify the console program\nT08 (M9)"];
+    v2 [label="Exploit the console parser from the host\nT12 (M7)"];
+    verdict -> {v1 v2};
+
+    c1 [label="Narrow the scan scope in the configuration\nT25 (M3)"];
+    c2 [label="Alter the request so the file is not asked for\nT30 (M1)"];
+    c3 [label="Change only what is not scanned, or between scans\nT36 (M9)"];
+    scope -> {c1 c2 c3};
+}

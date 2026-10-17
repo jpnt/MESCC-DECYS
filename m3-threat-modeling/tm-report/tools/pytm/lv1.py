@@ -1,139 +1,130 @@
 #!/usr/bin/env python3
-"""Level 1 DFD of AppShield, normal network mode.
+"""AppShield level 1 DFD, normal network mode.
 
-Mirrors analysis/lv1/1-decompose.md: same elements, same zones, flows declared in the
-same order so pytm numbers them 1-16 like the analysis does.
-Only controls stated by the brief, or by an assumption in 1-decompose.md, are set.
-Assumptions exclude pytm threats the brief rules out; everything else is kept
-and mapped to analysis/lv1/2-stride.md.
+Expands level 0:
+  AppShield -> Admin Console, Host Component
+  Host OS   -> Windows Filesystem, Windows Registry, Service Control Manager
+The service account and the ACL subsystem are not drawn as entities: the host
+component crosses the host privilege boundary as that account, and the access
+decisions come back on flows 6 and 8.
+
+Boundaries (enclosures; a flow crosses when it enters or leaves one):
+  Console authentication boundary  encloses the Console User            (1, 2)
+  Admin/host network boundary      encloses the Host Component          (3, 4)
+  Host privilege boundary          encloses the three Windows entities  (5 to 10)
+  Console storage boundary         encloses both data stores            (11 to 14)
+
+Run: make lv1   (or: python export.py lv1 build/lv1)
 """
 
-from pytm import (
-    TM,
-    Actor,
-    Assumption,
-    Boundary,
-    Classification,
-    Data,
-    Dataflow,
-    Datastore,
-    ExternalEntity,
-    Process,
+from pytm import TM, Boundary
+
+from appshield_common import (
+    console_process,
+    console_user,
+    cpp_process,
+    data_catalogue,
+    file_store,
+    flow,
+    standard_assumptions,
+    windows_entity,
 )
 
 tm = TM("AppShield level 1")
-tm.description = "Level 1 DFD of AppShield in normal network mode (analysis/lv1/1-decompose.md)"
+tm.description = (
+    "Level 1 DFD of AppShield in normal network mode: the admin console and the "
+    "host component as separate processes, the Windows subsystems the host uses, "
+    "and the console's local data stores."
+)
 tm.isOrdered = True
+tm.mergeResponses = False
+tm.assumptions = standard_assumptions()
 
-NETWORK_THREATS = ["DE01", "DE03", "CR06", "CR08"]
+D = data_catalogue()
 
-tm.assumptions = [
-    Assumption(
-        "Desktop console, no browser",
-        exclude=["INP20", "INP27", "INP28", "INP29", "INP30", "AC18", "AC20", "AC21"],
-        description="The brief describes a C++ Windows service and a console that also runs from a boot CD. "
-        "Nothing is rendered in a browser, so HTML, cookie and iFrame attacks do not apply.",
-    ),
-]
+# Boundaries
+b_auth = Boundary("Console authentication boundary")
+b_net_admin = Boundary("Admin network boundary")
+b_net_host = Boundary("Host network boundary")
+b_priv = Boundary("Host privilege boundary")
+b_store = Boundary("Console storage boundary")
 
-console_zone = Boundary("Console zone")
-console_storage = Boundary("Console storage")
-host_zone = Boundary("Host zone")
+# External entities
+user = console_user(b_auth)
 
-admin = Actor("Administrator")
-
-ui = Process("Console UI")
-ui.inBoundary = console_zone
-ui.controls.authenticatesSource = True
-
-engine = Process("Comparison engine")
-engine.inBoundary = console_zone
-engine.assumptions = [
-    Assumption(
-        "Engine has no login",
-        exclude=["CR03"],
-        description="The engine is reached only through the Console UI, which holds the login (flow 1).",
-    ),
-]
-
-baseline = Datastore("Baseline")
-baseline.inBoundary = console_storage
-
-config = Datastore("Configuration")
-config.inBoundary = console_storage
-
-handler = Process("Host request handler")
-handler.inBoundary = host_zone
-handler.assumptions = [
-    Assumption(
-        "Host has no password login",
-        exclude=["CR03"],
-        description="The brief describes no users or passwords on the host. "
-        "Its missing authentication is kept as AA01/AA02.",
-    ),
-]
-
-collector = Process("Host collector")
-collector.inBoundary = host_zone
-collector.assumptions = [
-    Assumption(
-        "Collector has no login",
-        exclude=["CR03"],
-        description="The collector is reached only through the Host request handler (flow 9).",
-    ),
-]
-
-windows = ExternalEntity("Monitored filesystem and registry")
-scm = ExternalEntity("Service Control Manager")
-
-credentials = Data("Credentials and scan request", classification=Classification.SECRET, isCredentials=True)
-findings = Data("Findings and error messages", classification=Classification.RESTRICTED)
-scan_request = Data("Scan request", classification=Classification.RESTRICTED)
-comparison = Data("Comparison results", classification=Classification.RESTRICTED)
-config_data = Data("Users, credentials and preferences", classification=Classification.SECRET, isCredentials=True)
-updated_config = Data("Updated configuration", classification=Classification.SECRET, isCredentials=True)
-requests = Data("Resource requests", classification=Classification.RESTRICTED)
-raw = Data("Raw integrity data and error messages", classification=Classification.RESTRICTED)
-collect = Data("Collection request", classification=Classification.RESTRICTED)
-reads = Data("File and registry reads", classification=Classification.RESTRICTED)
-contents = Data("File and registry contents, metadata and access decisions", classification=Classification.SECRET)
-past = Data("Past resource information", classification=Classification.RESTRICTED)
-updated_baseline = Data("Updated baseline", classification=Classification.RESTRICTED)
-lifecycle = Data("Lifecycle control codes", classification=Classification.RESTRICTED)
-status = Data("Service registration and status", classification=Classification.PUBLIC)
-
-local_console = Assumption(
-    "Local to the console machine",
-    exclude=NETWORK_THREATS,
-    description="The administrator, both console processes and the console storage are on one machine (lv0 assumption), so this flow does not cross the network.",
+fs = windows_entity(
+    "Windows Filesystem",
+    "NTFS and the filesystem API on the monitored server: names, sizes, "
+    "timestamps, contents for hashing and ACLs.",
+    b_priv,
 )
-local_host = Assumption(
-    "Local to the monitored machine",
-    exclude=NETWORK_THREATS,
-    description="Host processes, Windows and the Service Control Manager are on one machine, so this flow does not cross the network.",
+reg = windows_entity(
+    "Windows Registry",
+    "Registry API on the monitored server: keys, values, sizes and timestamps.",
+    b_priv,
+)
+scm = windows_entity(
+    "Service Control Manager",
+    "Windows component that starts, stops and controls the host service.",
+    b_priv,
 )
 
-flows = [
-    (Dataflow(admin, ui, "Credentials and scan request", data=credentials), local_console),
-    (Dataflow(ui, admin, "Findings and error messages", data=findings), local_console),
-    (Dataflow(ui, engine, "Scan request", data=scan_request), local_console),
-    (Dataflow(engine, ui, "Comparison results", data=comparison), local_console),
-    (Dataflow(config, ui, "Users, credentials and preferences", data=config_data), local_console),
-    (Dataflow(ui, config, "Updated configuration", data=updated_config), local_console),
-    (Dataflow(engine, handler, "Resource requests", data=requests), None),
-    (Dataflow(handler, engine, "Raw integrity data and error messages", data=raw), None),
-    (Dataflow(handler, collector, "Collection request", data=collect), local_host),
-    (Dataflow(collector, handler, "Raw integrity data", data=raw), local_host),
-    (Dataflow(collector, windows, "File and registry reads", data=reads), local_host),
-    (Dataflow(windows, collector, "File and registry contents, metadata and access decisions", data=contents), local_host),
-    (Dataflow(baseline, engine, "Past resource information", data=past), local_console),
-    (Dataflow(engine, baseline, "Updated baseline", data=updated_baseline), local_console),
-    (Dataflow(scm, handler, "Lifecycle control codes", data=lifecycle), local_host),
-    (Dataflow(handler, scm, "Service registration and status", data=status), local_host),
-]
-for flow, assumption in flows:
-    if assumption:
-        flow.assumptions = [assumption]
+# Processes
+console = console_process(
+    "Admin Console",
+    "Authenticates the operator, requests resource information from hosts, "
+    "compares it with the baseline and stores configuration.",
+    b_net_admin,
+)
+host = cpp_process(
+    "Host Component",
+    "C++ Windows service. Receives requests from the console, reads files and "
+    "registry keys as a privileged service account and returns raw integrity data.",
+    b_net_host,
+)
+
+# Data stores
+baseline = file_store(
+    "Baseline Data Store",
+    "Locally stored trusted data regarding past resource information.",
+    b_store,
+)
+configs = file_store(
+    "Stored Configs",
+    "Local files holding console users, credentials and preferences.",
+    b_store,
+)
+
+# Flows. pytm numbers them in creation order, so keep this order
+# in step with the flow table in analysis/<level>/1-decompose.md
+f1 = flow(user, console, "Commands and credentials",
+          {D["credentials"], D["commands"]})
+f2 = flow(console, user, "Comparison results and error messages",
+          {D["results"]}, response_to=f1)
+
+f3 = flow(console, host, "Resource request",
+          {D["requests"]}, protocol="Unspecified TCP", network=True)
+f4 = flow(host, console, "Raw integrity data and error messages",
+          {D["integrity"]}, protocol="Unspecified TCP", network=True, response_to=f3)
+
+f5 = flow(host, fs, "File queries", {D["requests"]}, protocol="Windows API")
+f6 = flow(fs, host, "File info and access decisions",
+          {D["resource"]}, protocol="Windows API", response_to=f5)
+f7 = flow(host, reg, "Registry queries", {D["requests"]}, protocol="Windows API")
+f8 = flow(reg, host, "Registry data and access decisions",
+          {D["resource"]}, protocol="Windows API", response_to=f7)
+f9 = flow(scm, host, "Lifecycle control codes", {D["control"]}, protocol="Windows API")
+f10 = flow(host, scm, "Service registration and status",
+           {D["control"]}, protocol="Windows API", response_to=f9)
+
+f11 = flow(baseline, console, "Past resource information",
+           {D["baseline"]}, protocol="File read")
+f12 = flow(console, baseline, "Updated baseline",
+           {D["baseline"]}, protocol="File write")
+f13 = flow(configs, console, "Stored users, credentials and preferences",
+           {D["config"]}, protocol="File read")
+f14 = flow(console, configs, "Updated configuration",
+           {D["config"]}, protocol="File write")
 
 if __name__ == "__main__":
     tm.process()

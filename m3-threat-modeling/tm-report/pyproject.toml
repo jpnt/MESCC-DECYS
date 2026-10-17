@@ -1,0 +1,11 @@
+# Python environment for the pytm models. `make setup` (or the first
+# `make report`) lets uv create tools/pytm/.venv from this file.
+[project]
+name = "appshield-pytm"
+version = "1.0.0"
+description = "pytm models of the AppShield data flow diagrams"
+requires-python = ">=3.11"
+dependencies = ["pytm==1.4.0"]
+
+[tool.uv]
+package = false
