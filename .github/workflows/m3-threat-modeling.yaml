@@ -22,7 +22,7 @@ jobs:
       contents: write
     defaults:
       run:
-        working-directory: m3-threat-modeling/tm-report
+        working-directory: m3-threat-modeling/
     steps:
       - uses: actions/checkout@v7
 
@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: appshield-threat-model-report
-          path: m3-threat-modeling/tm-report/report.pdf
+          path: m3-threat-modeling/report.pdf
 
       # Rolling release: always the report built from the latest push to main,
       # at releases/download/m3-threat-modeling/appshield-threat-model.pdf
@@ -52,9 +52,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          cp report.pdf appshield-threat-model.pdf
+          cp report.pdf threat_model-1210891-1221294-1250446-1240374.pdf
           gh release delete m3-threat-modeling --cleanup-tag --yes || true
-          gh release create m3-threat-modeling appshield-threat-model.pdf \
+          gh release create m3-threat-modeling threat_model-1210891-1221294-1250446-1240374.pdf \
             --target "$GITHUB_SHA" \
             --title "M3 - AppShield threat model report" \
             --notes "Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d)."
