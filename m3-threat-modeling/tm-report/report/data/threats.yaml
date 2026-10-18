@@ -1,0 +1,945 @@
+# Threat register. One entry per threat; every table in chapters 4 and 5 is
+# computed from this file by report/register.typ.
+#
+# stride   S, T, R, I, D or E
+# mode     normal | boot | both
+# lv1      DFD element keys from elements.yaml (first one is the primary element)
+# lv2      where the threat sits in the level 2 diagrams
+# assets   asset IDs from the decomposition chapter
+# refs     catalogue references shown in the register (ATT&CK, CWE)
+# cite     bibliography keys for those references
+# dread    [Damage, Reproducibility, Exploitability, Affected users, Discoverability], 1 to 10
+# mit      countermeasure packages from mitigations.yaml
+# profile  Fully | Partially | Not
+# residual what remains after the packages (empty when fully mitigated)
+
+- id: T01
+  name: Operator impersonation
+  stride: S
+  mode: both
+  lv1: [User, F1, "b:User", "b:F1"]
+  lv2: 1.1 Login Manager
+  desc: >-
+    Someone logs in to the console with stolen or guessed credentials. From
+    there they can scan, read results and accept baselines for every monitored
+    host.
+  assets: ["2.2", "4.4"]
+  refs: ATT&CK T1110, CWE-307
+  cite: [attack, cwe]
+  dread: [8, 7, 6, 10, 7]
+  mit: [M5]
+  profile: Partially
+  residual: Valid credentials together with a stolen second factor still work.
+
+- id: T02
+  name: Operator denies an action
+  stride: R
+  mode: both
+  lv1: [User, "b:User"]
+  lv2: 1.2 Console UI, 1.4 Comparison Engine
+  desc: >-
+    An operator accepts a baseline, changes the scan scope or ignores a finding
+    and later denies having done so. The brief describes no audit trail on the
+    console.
+  assets: ["4.6", "2.1"]
+  dread: [4, 8, 7, 6, 5]
+  mit: [M6]
+  profile: Fully
+  residual: ""
+
+- id: T03
+  name: Compromised operating system forges answers
+  stride: S
+  mode: normal
+  lv1: [FS, REG, F6, F8]
+  lv2: 2.2 Resource Collector, 2.3 Hash Calculator
+  desc: >-
+    On a compromised server a rootkit sits between the host component and the
+    disk and answers with the original contents and metadata of the files and
+    keys it has changed, so the hashes still match the baseline. The brief
+    admits this risk: it is the reason the bootable mode exists.
+  assets: ["1.1", "4.1"]
+  refs: ATT&CK T1014
+  cite: [attack]
+  dread: [10, 8, 3, 6, 4]
+  mit: [M9, M11]
+  profile: Partially
+  residual: Between bootable scans a rootkit can stay hidden.
+
+- id: T04
+  name: Changes cannot be attributed
+  stride: R
+  mode: both
+  lv1: [FS, REG, "b:FS", "b:REG"]
+  lv2: 2.2 Resource Collector, 2.2 Raw Disk Reader
+  desc: >-
+    AppShield records what changed (names, sizes, dates, hashes and ACLs) but
+    not who changed it. Whoever modified a file can deny it, and attribution
+    depends entirely on Windows auditing.
+  assets: ["1.1"]
+  dread: [3, 9, 6, 5, 6]
+  mit: [M6]
+  profile: Partially
+  residual: Windows auditing names an account, not necessarily the person behind it.
+
+- id: T05
+  name: Service control from any administrator
+  stride: S
+  mode: normal
+  lv1: [SCM, F9]
+  lv2: 2.4 Service Control Handler
+  desc: >-
+    The host service accepts stop and pause codes from the Service Control
+    Manager without knowing who asked. Anyone with service rights on the
+    server, including an attacker who has gained them, can silence the host
+    and it looks like an ordinary administrative action.
+  assets: ["4.2"]
+  refs: ATT&CK T1489
+  cite: [attack]
+  dread: [6, 8, 4, 4, 6]
+  mit: [M8]
+  profile: Partially
+  residual: Local administrators can still stop the service; the stop is now detected and alerted.
+
+- id: T06
+  name: Service stop not recorded by AppShield
+  stride: R
+  mode: normal
+  lv1: [SCM, F10]
+  lv2: 2.4 Service Control Handler
+  desc: >-
+    Who stopped or paused the host service is only known to the Windows event
+    log. The console simply sees a host that stopped answering.
+  assets: ["4.2"]
+  dread: [3, 9, 4, 4, 5]
+  mit: [M6, M8]
+  profile: Fully
+  residual: ""
+
+- id: T07
+  name: Fake console
+  stride: S
+  mode: normal
+  lv1: [AC, F3]
+  lv2: 2.1 Request Handler
+  desc: >-
+    Any machine that can reach the host port can send requests as if it were
+    the console. The brief describes no check of who is asking, so the host
+    answers anyone.
+  assets: ["1.3", "3.1"]
+  refs: CWE-306
+  cite: [cwe]
+  dread: [5, 9, 9, 10, 9]
+  mit: [M1]
+  profile: Fully
+  residual: ""
+
+- id: T08
+  name: Console program modified
+  stride: T
+  mode: normal
+  lv1: [AC, F1, F2]
+  lv2: 1.3 Host Connector, 1.4 Comparison Engine
+  desc: >-
+    Whoever controls the console machine can replace the console program,
+    change its comparison logic, or alter what the operator types and sees.
+    Every verdict produced after that is meaningless.
+  assets: ["4.6", "4.1"]
+  dread: [10, 6, 3, 10, 3]
+  mit: [M9]
+  profile: Partially
+  residual: A fully compromised console machine can still subvert the code that checks signatures.
+
+- id: T09
+  name: Results cannot be proven
+  stride: R
+  mode: normal
+  lv1: [AC, F4]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    Without host authentication the console cannot prove which host answered
+    or when, so a past result cannot be defended if it is questioned later.
+  assets: ["4.6"]
+  dread: [4, 8, 5, 10, 4]
+  mit: [M1, M2, M6]
+  profile: Fully
+  residual: ""
+
+- id: T10
+  name: Console exposes the whole estate
+  stride: I
+  mode: both
+  lv1: [AC, "b:AC"]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    One console serves every host, so it holds which files changed where,
+    together with ACLs and hashes. Reading it shows an attacker where each
+    machine is weak.
+  assets: ["1.3"]
+  dread: [6, 6, 3, 10, 5]
+  mit: [M3, M5]
+  profile: Partially
+  residual: Console administrators can still read everything.
+
+- id: T11
+  name: Single point of failure
+  stride: D
+  mode: normal
+  lv1: [AC]
+  lv2: 1.3 Host Connector, 1.4 Comparison Engine
+  desc: >-
+    If the one console crashes, is flooded, or receives an endless response
+    from a host, no host is checked at all.
+  assets: ["4.2"]
+  dread: [6, 7, 4, 10, 6]
+  mit: [M7, M8]
+  profile: Partially
+  residual: A standby console shortens the outage but does not remove it.
+
+- id: T12
+  name: Compromised host takes over the console
+  stride: E
+  mode: both
+  lv1: [AC, F4, "b:AC", "b:F5"]
+  lv2: 1.3 Host Connector
+  desc: >-
+    A compromised host returns crafted integrity data, such as very long names,
+    unusual encodings or malformed fields, that triggers a parsing bug in the
+    console. The attacker moves from one machine to the one that reaches every
+    host.
+  assets: ["4.4", "4.1"]
+  refs: CWE-787
+  cite: [cwe]
+  dread: [10, 4, 3, 10, 3]
+  mit: [M7]
+  profile: Partially
+  residual: A parser bug in a new input path is always possible.
+
+- id: T13
+  name: Fake host
+  stride: S
+  mode: normal
+  lv1: [HC, F4]
+  lv2: 2.1 Request Handler
+  desc: >-
+    An attacker who can redirect traffic, for example with DNS or ARP spoofing,
+    answers in place of the real host and returns clean data. The brief
+    describes no way for the console to authenticate the host.
+  assets: ["4.1", "3.2"]
+  refs: ATT&CK T1557
+  cite: [attack]
+  dread: [10, 8, 6, 5, 8]
+  mit: [M1]
+  profile: Fully
+  residual: ""
+
+- id: T14
+  name: Host program modified
+  stride: T
+  mode: normal
+  lv1: [HC]
+  lv2: 2.1 Request Handler, 2.2 Resource Collector
+  desc: >-
+    On a compromised server the attacker replaces the host program with one
+    that reports old values. This is exactly the machine the brief describes
+    as one that can no longer be deemed secure.
+  assets: ["4.1"]
+  dread: [9, 8, 4, 4, 5]
+  mit: [M9, M11]
+  profile: Partially
+  residual: Code signing does not stop an administrator who can turn the check off.
+
+- id: T15
+  name: No record of requests
+  stride: R
+  mode: normal
+  lv1: [HC]
+  lv2: 2.1 Request Handler
+  desc: >-
+    The host keeps no record of who asked for what, so reconnaissance through
+    a fake console leaves no trace.
+  assets: ["1.3"]
+  dread: [3, 9, 8, 5, 5]
+  mit: [M6]
+  profile: Fully
+  residual: ""
+
+- id: T16
+  name: Host answers anyone and leaks through errors
+  stride: I
+  mode: normal
+  lv1: [HC, F3, F4]
+  lv2: 2.1 Request Handler
+  desc: >-
+    With no request authentication anyone on the network can ask for
+    filenames, ACLs, registry data and the host version. Error messages such
+    as "access denied" or a full path also describe a machine the caller may
+    not otherwise see.
+  assets: ["1.3"]
+  dread: [5, 9, 9, 8, 9]
+  mit: [M1, M7]
+  profile: Fully
+  residual: ""
+
+- id: T17
+  name: Expensive or endless collection
+  stride: D
+  mode: normal
+  lv1: [HC, F5, F6, F7, F8]
+  lv2: 2.2 Resource Collector, 2.3 Hash Calculator
+  desc: >-
+    A recursive request over a large tree makes the host read and hash every
+    file, loading a production server. Locked files, very large files and
+    directory loops through junctions can stall or stop a scan.
+  assets: ["4.2"]
+  dread: [5, 8, 8, 4, 6]
+  mit: [M7]
+  profile: Partially
+  residual: A legitimate recursive scan of a large tree is still expensive.
+
+- id: T18
+  name: Host takeover through a crafted request
+  stride: E
+  mode: normal
+  lv1: [HC, F3]
+  lv2: 2.1 Request Handler
+  desc: >-
+    The host is written in C++ and runs with broad read rights. A memory
+    safety bug in request parsing gives the attacker code execution with those
+    rights on the server.
+  assets: ["4.3", "1.2"]
+  refs: CWE-787
+  cite: [cwe]
+  dread: [10, 4, 4, 6, 4]
+  mit: [M7]
+  profile: Partially
+  residual: A parser bug in a new input path is always possible.
+
+- id: T19
+  name: Collector reads outside the requested scope
+  stride: E
+  mode: normal
+  lv1: [HC, F5]
+  lv2: 2.2 Resource Collector
+  desc: >-
+    Relative paths or directory junctions make the privileged collector read
+    and return files the operator never asked for, such as other users'
+    profiles or the SAM hive. The host acts as a confused deputy for whoever
+    can send it a path.
+  assets: ["1.2", "1.3"]
+  refs: CWE-22, CWE-59
+  cite: [cwe]
+  dread: [7, 7, 8, 5, 5]
+  mit: [M7, M1]
+  profile: Fully
+  residual: ""
+
+- id: T20
+  name: Change disguised as unchanged
+  stride: T
+  mode: both
+  lv1: [HC, F6, "b:HC", "b:F7"]
+  lv2: 2.3 Hash Calculator, 2.4 Hash Calculator (bootable)
+  desc: >-
+    Size and timestamps are under the attacker's control: timestamps can be
+    reset after a change and the size kept. MD5 and SHA1 both have practical
+    collision attacks, so a prepared replacement file can also keep the
+    recorded hash. Together these defeat all four factors AppShield compares.
+  assets: ["1.1", "4.1"]
+  refs: ATT&CK T1070.006, CWE-328
+  cite: [attack, cwe, wang2005, stevens2017]
+  dread: [10, 6, 4, 6, 5]
+  mit: [M10]
+  profile: Fully
+  residual: ""
+
+- id: T21
+  name: Baseline edited
+  stride: T
+  mode: normal
+  lv1: [BASE, F11, F12]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    Anyone who can write the console's files changes the stored hashes so that
+    a modified file matches. Every later scan reports all clear.
+  assets: ["2.1", "4.1"]
+  dread: [10, 9, 4, 10, 6]
+  mit: [M3]
+  profile: Partially
+  residual: An attacker with full control of the console machine can reach the signing key.
+
+- id: T22
+  name: Baseline rolled back
+  stride: T
+  mode: normal
+  lv1: [BASE, F11]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    An older copy of the baseline is restored, for example from a backup, or
+    replaced with one an attacker prepared. The console has no way to tell.
+  assets: ["2.1", "4.1"]
+  dread: [8, 8, 4, 10, 5]
+  mit: [M3, M4]
+  profile: Partially
+  residual: A version counter kept on the same machine can be rolled back too.
+
+- id: T23
+  name: Baseline copied
+  stride: I
+  mode: normal
+  lv1: [BASE, F11, F12]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    Reading the baseline gives the name, size, date and hash of every checked
+    file on every host, which is a map of each monitored machine.
+  assets: ["2.1", "1.3"]
+  dread: [5, 9, 4, 10, 6]
+  mit: [M3]
+  profile: Partially
+  residual: Whoever holds the key can still read it.
+
+- id: T24
+  name: Baseline deleted or corrupted
+  stride: D
+  mode: normal
+  lv1: [BASE, F11, F12]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    Without the baseline no comparison is possible. A new baseline taken from
+    a machine that has already been changed silently accepts the change.
+  assets: ["2.1", "4.2"]
+  dread: [6, 8, 4, 10, 6]
+  mit: [M3, M4]
+  profile: Partially
+  residual: Backups restore it, but scans are blind until then.
+
+- id: T25
+  name: Configuration edited
+  stride: T
+  mode: normal
+  lv1: [CONF, F13, F14]
+  lv2: 1.1 Login Manager, 1.2 Console UI
+  desc: >-
+    An attacker adds an administrator account, replaces a stored password, or
+    narrows the scan scope so that the folder they are changing is never
+    checked.
+  assets: ["2.2", "2.3", "4.1"]
+  dread: [9, 8, 4, 10, 6]
+  mit: [M3]
+  profile: Partially
+  residual: An attacker with full control of the console machine can reach the signing key.
+
+- id: T26
+  name: Stored credentials read
+  stride: I
+  mode: normal
+  lv1: [CONF, F13, F14]
+  lv2: 1.1 Login Manager
+  desc: >-
+    The brief says credentials are kept in local files. If they are stored in
+    plain text or with a fast hash, anyone who can read the file can use them
+    or crack them offline.
+  assets: ["2.2"]
+  refs: CWE-916
+  cite: [cwe]
+  dread: [8, 8, 4, 10, 6]
+  mit: [M3, M5]
+  profile: Partially
+  residual: A weak password can still be cracked offline.
+
+- id: T27
+  name: Configuration deleted or locked
+  stride: D
+  mode: normal
+  lv1: [CONF, F13, F14]
+  lv2: 1.1 Login Manager
+  desc: >-
+    Without its configuration nobody can log in, so no scan can start.
+  assets: ["4.2"]
+  dread: [5, 9, 4, 10, 6]
+  mit: [M3]
+  profile: Partially
+  residual: Backups restore it; the gap until then remains.
+
+- id: T28
+  name: Credentials observed at the console
+  stride: I
+  mode: normal
+  lv1: [F1]
+  lv2: Flow 1 into 1.1 Login Manager
+  desc: >-
+    Someone watching the console machine's screen, or a keylogger installed on
+    it, captures the operator's credentials.
+  assets: ["2.2"]
+  dread: [8, 5, 3, 10, 3]
+  mit: [M5]
+  profile: Partially
+  residual: A second factor makes a captured password useless; a hijacked live session still works.
+
+- id: T29
+  name: Login errors reveal valid accounts
+  stride: I
+  mode: both
+  lv1: [F2, "b:F2"]
+  lv2: Flow 2 from 1.1 Login Manager
+  desc: >-
+    If the console answers "unknown user" and "wrong password" differently, an
+    attacker can list valid user names before guessing passwords.
+  assets: ["2.2"]
+  refs: CWE-204
+  cite: [cwe]
+  dread: [3, 9, 8, 6, 7]
+  mit: [M5]
+  profile: Fully
+  residual: ""
+
+- id: T30
+  name: Requests altered in transit
+  stride: T
+  mode: normal
+  lv1: [F3]
+  lv2: Flow 10
+  desc: >-
+    Someone on the network changes the requested paths, so a modified file is
+    simply never asked about.
+  assets: ["4.1"]
+  dread: [8, 8, 6, 10, 8]
+  mit: [M1]
+  profile: Fully
+  residual: ""
+
+- id: T31
+  name: Requests reveal what is monitored
+  stride: I
+  mode: normal
+  lv1: [F3]
+  lv2: Flow 10
+  desc: >-
+    The traffic shows which hosts and paths are checked, so an attacker learns
+    where changes would be noticed and where they would not.
+  assets: ["1.3"]
+  dread: [4, 9, 7, 10, 8]
+  mit: [M1]
+  profile: Partially
+  residual: Traffic volume and timing still hint at what is scanned.
+
+- id: T32
+  name: Traffic blocked
+  stride: D
+  mode: normal
+  lv1: [F3, F4]
+  lv2: Flows 10 and 11
+  desc: >-
+    Dropping the traffic between console and host stops the scans. Changes
+    made in the meantime go unnoticed until a scan succeeds again.
+  assets: ["4.2"]
+  dread: [6, 9, 7, 10, 9]
+  mit: [M8]
+  profile: Partially
+  residual: Packets can still be dropped; the missed scan now raises an alert.
+
+- id: T33
+  name: Results altered in transit
+  stride: T
+  mode: normal
+  lv1: [F4]
+  lv2: Flow 11
+  desc: >-
+    Someone on the network replaces the new hashes with the old ones, so the
+    console reports no change. This defeats the tool from the network alone.
+  assets: ["4.1", "4.6"]
+  refs: CWE-319
+  cite: [cwe]
+  dread: [10, 9, 6, 10, 8]
+  mit: [M1, M2]
+  profile: Fully
+  residual: ""
+
+- id: T34
+  name: Response replayed
+  stride: T
+  mode: normal
+  lv1: [F4]
+  lv2: Flow 11
+  desc: >-
+    Someone records a clean response and sends it again later. The brief
+    describes no nonce or timestamp, so the console accepts it, and signing the
+    content alone would not prevent this.
+  assets: ["4.1"]
+  refs: CWE-294
+  cite: [cwe]
+  dread: [9, 8, 6, 10, 6]
+  mit: [M2]
+  profile: Fully
+  residual: ""
+
+- id: T35
+  name: Integrity data readable on the network
+  stride: I
+  mode: normal
+  lv1: [F4]
+  lv2: Flow 11
+  desc: >-
+    Filenames, ACLs, registry data and hashes cross the network, and the brief
+    specifies no encryption.
+  assets: ["1.3"]
+  refs: CWE-319
+  cite: [cwe]
+  dread: [5, 10, 7, 10, 9]
+  mit: [M1]
+  profile: Fully
+  residual: ""
+
+- id: T36
+  name: Malware sees what is checked
+  stride: I
+  mode: normal
+  lv1: [F5, F6, F7, F8]
+  lv2: Flows 18 to 24
+  desc: >-
+    Malware on the monitored machine sees which files the host reads and when.
+    It can hide its changes only for those files, or only while a scan runs.
+  assets: ["1.1"]
+  dread: [7, 7, 4, 5, 4]
+  mit: [M9]
+  profile: Partially
+  residual: Random scan times make hiding harder, not impossible.
+
+- id: T37
+  name: Host service stopped
+  stride: D
+  mode: normal
+  lv1: [F9]
+  lv2: Flows 27 and 29, 2.4 Service Control Handler
+  desc: >-
+    An administrator of the monitored machine, or an attacker with those
+    rights, stops or pauses the host service. No scan of that host can run and
+    the console only sees a timeout.
+  assets: ["4.2"]
+  refs: ATT&CK T1489
+  cite: [attack]
+  dread: [6, 9, 4, 4, 6]
+  mit: [M8]
+  profile: Partially
+  residual: Scans are missed until someone reacts to the alert.
+
+- id: T38
+  name: Password guessing or lockout abuse
+  stride: D
+  mode: both
+  lv1: [AC, "b:AC"]
+  lv2: 1.1 Login Manager
+  desc: >-
+    With no limit on failed logins, passwords can be guessed without end. With
+    a hard lockout, an attacker can lock the real administrator out on
+    purpose. The brief says neither.
+  assets: ["2.2", "4.2"]
+  refs: CWE-307
+  cite: [cwe]
+  dread: [7, 8, 7, 8, 6]
+  mit: [M5]
+  profile: Partially
+  residual: Throttling slows guessing; it does not save a weak password.
+
+- id: T39
+  name: Blind baseline acceptance
+  stride: T
+  mode: normal
+  lv1: [BASE, F12]
+  lv2: 1.4 Comparison Engine, flow 15
+  desc: >-
+    After a comparison the operator can accept the current state as the new
+    baseline. A malicious change accepted once becomes the normal state and
+    never shows up again. The brief does not say who approves a new baseline.
+  assets: ["2.1", "4.1"]
+  dread: [8, 6, 5, 10, 5]
+  mit: [M4]
+  profile: Partially
+  residual: A reviewer can still approve a bad change.
+
+- id: T40
+  name: No separation between operator and administrator
+  stride: E
+  mode: both
+  lv1: [AC, "b:AC"]
+  lv2: 1.2 Console UI
+  desc: >-
+    The brief describes a single kind of console user. Without separate roles,
+    anyone who can run scans can also manage users, change the scan scope and
+    accept baselines.
+  assets: ["4.4", "2.3"]
+  dread: [7, 7, 6, 10, 5]
+  mit: [M5]
+  profile: Fully
+  residual: ""
+
+- id: T41
+  name: Hardware below the trusted environment lies
+  stride: S
+  mode: boot
+  lv1: ["b:FS", "b:REG", "b:F7", "b:F9"]
+  lv2: 2.2 Raw Disk Reader, 2.3 Registry Hive Parser
+  desc: >-
+    Booting from clean media removes the installed Windows from the picture,
+    but not the hardware. Disk firmware, a storage controller, a hypervisor or
+    firmware malware can return clean blocks for the ones the host asks about.
+  assets: ["1.1", "4.1"]
+  refs: ATT&CK T1542
+  cite: [attack]
+  dread: [10, 8, 2, 3, 3]
+  mit: []
+  profile: Not
+  residual: Needs hardware attestation, which is outside AppShield and not mentioned in the brief.
+
+- id: T42
+  name: Boot media swapped
+  stride: T
+  mode: boot
+  lv1: ["b:MEDIA", "b:F12", "b:F13"]
+  lv2: Flows 26 and 27
+  desc: >-
+    Someone with physical access replaces the boot media with a copy that
+    looks the same and always reports no changes.
+  assets: ["4.5", "4.1"]
+  dread: [9, 6, 4, 3, 4]
+  mit: [M11]
+  profile: Partially
+  residual: The check is only as good as the custody of the media and of the recorded hashes.
+
+- id: T43
+  name: Boot media modified
+  stride: T
+  mode: boot
+  lv1: ["b:MEDIA", "b:F12", "b:F13", "b:AC", "b:HC"]
+  lv2: Flows 26 and 27
+  desc: >-
+    A USB drive is writable unless it has a hardware write switch, so the code
+    or the Windows image can be changed before the scan. The brief calls the
+    environment read-only, not the media.
+  assets: ["4.5"]
+  dread: [9, 8, 4, 4, 5]
+  mit: [M11]
+  profile: Partially
+  residual: Compromised firmware can still load something else (T44).
+
+- id: T44
+  name: Compromised firmware loads the trusted image
+  stride: T
+  mode: boot
+  lv1: ["b:F12", "b:F13"]
+  lv2: Flows 26 and 27
+  desc: >-
+    Malware in the BIOS or UEFI sits below the boot media. A bootkit can load
+    the genuine image into an environment it already controls, so the trusted
+    environment is not trustworthy after all.
+  assets: ["4.5", "4.1"]
+  refs: ATT&CK T1542.003
+  cite: [attack, nist800147]
+  dread: [10, 6, 2, 3, 3]
+  mit: [M11]
+  profile: Partially
+  residual: Secure Boot and a firmware password raise the bar; an implant that survives them goes unnoticed.
+
+- id: T45
+  name: Scan cannot start
+  stride: D
+  mode: boot
+  lv1: ["b:MEDIA", "b:F12", "b:F13"]
+  lv2: Flows 26 and 27
+  desc: >-
+    A changed boot order, a Secure Boot policy that rejects the media, a
+    firmware password or damaged media stops the tool before it runs.
+  assets: ["4.2"]
+  dread: [5, 8, 5, 3, 6]
+  mit: [M11]
+  profile: Partially
+  residual: Firmware settings are outside AppShield's control.
+
+- id: T46
+  name: Wrong or altered data on the media
+  stride: T
+  mode: boot
+  lv1: ["b:BASE", "b:CONF", "b:F10", "b:F11"]
+  lv2: 1.1 Login Manager, 1.4 Comparison Engine
+  desc: >-
+    The baseline and configuration are prepared before the scan and travel
+    with the media. An old baseline, one from a different machine, or one
+    altered by an attacker makes the comparison prove nothing.
+  assets: ["2.1", "2.3", "4.1"]
+  dread: [10, 8, 4, 4, 5]
+  mit: [M11]
+  profile: Partially
+  residual: Signing detects edits; it cannot show that the signed baseline came from a clean machine.
+
+- id: T47
+  name: Media lost or stolen
+  stride: I
+  mode: boot
+  lv1: ["b:BASE", "b:CONF", "b:F10", "b:F11"]
+  lv2: 1.1 Login Manager, 1.4 Comparison Engine
+  desc: >-
+    The baseline and the console credentials travel together on a portable
+    device. Losing it hands over a map of the machine and the means to log in.
+  assets: ["2.1", "2.2"]
+  dread: [6, 6, 7, 5, 7]
+  mit: [M11]
+  profile: Partially
+  residual: Encryption protects the content; the device is still gone.
+
+- id: T48
+  name: Results edited on the drive
+  stride: T
+  mode: boot
+  lv1: ["b:RES", "b:F14"]
+  lv2: 1.4 Comparison Engine, flow 14
+  desc: >-
+    The results drive is plugged into the compromised machine and later
+    carried back. A finding such as "three files changed" can be edited to
+    "none" on the way.
+  assets: ["4.6"]
+  dread: [9, 8, 5, 4, 5]
+  mit: [M11]
+  profile: Fully
+  residual: ""
+
+- id: T49
+  name: Findings readable by whoever holds the drive
+  stride: I
+  mode: boot
+  lv1: ["b:RES", "b:F14"]
+  lv2: Flow 14
+  desc: >-
+    The findings show what was detected, so whoever holds the drive learns
+    what to hide next time.
+  assets: ["1.3"]
+  dread: [4, 9, 6, 4, 6]
+  mit: [M11]
+  profile: Fully
+  residual: ""
+
+- id: T50
+  name: Results lost
+  stride: D
+  mode: boot
+  lv1: ["b:RES", "b:F14"]
+  lv2: Flow 14
+  desc: >-
+    A full, write-protected or removed drive means the findings are lost and
+    the scan has to be repeated.
+  assets: ["4.6", "4.2"]
+  dread: [4, 6, 5, 3, 6]
+  mit: [M11]
+  profile: Fully
+  residual: ""
+
+- id: T51
+  name: Keyboard captured by the compromised machine
+  stride: I
+  mode: boot
+  lv1: ["b:F1", "b:F3"]
+  lv2: Flows 1, 5 and 15
+  desc: >-
+    The operator types on the compromised machine's own keyboard. A hardware
+    keylogger or malicious firmware can capture the console credentials.
+  assets: ["2.2"]
+  dread: [8, 5, 2, 4, 3]
+  mit: [M5, M11]
+  profile: Partially
+  residual: A second factor on a separate token resists capture; the password itself is still exposed.
+
+- id: T52
+  name: Input injected or display falsified
+  stride: T
+  mode: boot
+  lv1: ["b:F2", "b:F1", "b:F3"]
+  lv2: Flows 2, 5, 6 and 15
+  desc: >-
+    The keyboard and video path belong to the compromised machine. Injected
+    keystrokes can run other commands, and the screen can show "no changes"
+    whatever the console actually found.
+  assets: ["4.6"]
+  dread: [8, 6, 2, 3, 3]
+  mit: [M11]
+  profile: Partially
+  residual: Signed results checked later on the trusted console reveal a falsified screen, but only afterwards.
+
+- id: T53
+  name: Crafted disk structures run code in the host
+  stride: E
+  mode: boot
+  lv1: ["b:HC", "b:F7", "b:F9"]
+  lv2: 2.2 Raw Disk Reader, 2.3 Registry Hive Parser
+  desc: >-
+    In this mode the host parses NTFS and registry hive structures itself. A
+    crafted structure, such as a broken MFT record, a looping hive cell or a
+    huge run list, corrupts memory in C++ code running with full rights inside
+    the trusted environment.
+  assets: ["4.3", "4.6"]
+  refs: CWE-787
+  cite: [cwe]
+  dread: [10, 4, 4, 4, 3]
+  mit: [M7]
+  profile: Partially
+  residual: A parser bug in a new structure is always possible.
+
+- id: T54
+  name: Compromised host process lies to the console
+  stride: T
+  mode: boot
+  lv1: ["b:F5", "b:HC"]
+  lv2: Flow 10, 2.1 Request Handler to 1.3 Host Connector
+  desc: >-
+    Once the host process is compromised through T53, it can send the console
+    any integrity data it likes over the local channel. Both run inside the
+    trusted environment, so nothing questions it.
+  assets: ["4.1", "4.6"]
+  dread: [10, 4, 3, 4, 3]
+  mit: [M7]
+  profile: Partially
+  residual: Isolation limits the damage; a compromised parser can still report false data for the machine it reads.
+
+- id: T55
+  name: No signed record of an offline scan
+  stride: R
+  mode: boot
+  lv1: ["b:AC"]
+  lv2: 1.4 Comparison Engine
+  desc: >-
+    Offline findings are plain files. Nobody can later prove who ran the scan,
+    when, on which machine, or that the results were not edited.
+  assets: ["4.6"]
+  dread: [4, 9, 5, 4, 5]
+  mit: [M6, M11]
+  profile: Fully
+  residual: ""
+
+- id: T56
+  name: Disk the host cannot finish
+  stride: D
+  mode: boot
+  lv1: ["b:HC", "b:F7", "b:F9", "b:AC"]
+  lv2: 2.2 Raw Disk Reader
+  desc: >-
+    Huge volumes, bad sectors and directory loops, read from an environment
+    that runs in memory, can stall or stop the scan.
+  assets: ["4.2"]
+  dread: [4, 6, 5, 3, 5]
+  mit: [M7]
+  profile: Partially
+  residual: A very large disk still takes a long time.
+
+- id: T57
+  name: Data on the media missing or damaged
+  stride: D
+  mode: boot
+  lv1: ["b:BASE", "b:CONF", "b:F10", "b:F11"]
+  lv2: 1.1 Login Manager, 1.4 Comparison Engine
+  desc: >-
+    If the baseline is missing or damaged, every file looks changed and the
+    operator stops trusting the output. If the configuration is missing,
+    nobody can log in.
+  assets: ["2.1", "4.2"]
+  dread: [4, 7, 6, 3, 7]
+  mit: [M11]
+  profile: Fully
+  residual: ""

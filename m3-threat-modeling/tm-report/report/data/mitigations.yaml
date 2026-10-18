@@ -1,0 +1,112 @@
+# Countermeasure packages. The threats each package addresses are taken from
+# the mit field in threats.yaml, so they are not repeated here.
+#
+# kind      technical | administrative (per measure)
+# stride    mitigation techniques from the STRIDE mitigation table (OWASP, Shostack)
+# standards bibliography keys, rendered as citations
+
+- id: M1
+  name: Authenticated and encrypted channel
+  stride: Authentication, integrity, confidentiality
+  standards: [rfc8446, asvs]
+  measures:
+    - {kind: technical, text: "Mutual TLS 1.3 between the console and every host, with one certificate per host pinned by the console."}
+    - {kind: technical, text: "The host refuses any peer that does not present the console certificate, and the console refuses any host whose certificate does not match the one it expects."}
+    - {kind: administrative, text: "Certificates are issued and revoked through a documented procedure, so a retired host or a stolen console key can be cut off."}
+
+- id: M2
+  name: Fresh, signed responses
+  stride: Integrity, non-repudiation
+  standards: [iso27002]
+  measures:
+    - {kind: technical, text: "Each request carries a random nonce and a timestamp."}
+    - {kind: technical, text: "The host signs each response together with that nonce, and the console rejects anything stale or unmatched."}
+    - {kind: technical, text: "Signed responses are kept with the findings as evidence of what the host reported."}
+
+- id: M3
+  name: Protected console data at rest
+  stride: Integrity, confidentiality, availability
+  standards: [iso27002]
+  measures:
+    - {kind: technical, text: "The baseline and configuration are signed with a key kept outside the files (DPAPI or a TPM), and checked before every use."}
+    - {kind: technical, text: "A version counter is stored with the signature so that an older copy is recognised."}
+    - {kind: technical, text: "File permissions limited to the console service account; full disk encryption on the console machine."}
+    - {kind: administrative, text: "Encrypted, versioned backups kept off the console machine and tested regularly."}
+
+- id: M4
+  name: Controlled baseline lifecycle
+  stride: Authorization, audit
+  standards: [iso27002]
+  measures:
+    - {kind: technical, text: "A new baseline is presented as a list of differences before it can be accepted, and earlier baselines are kept."}
+    - {kind: administrative, text: "Accepting a new baseline needs a second person (four-eyes principle)."}
+    - {kind: administrative, text: "A lost baseline is rebuilt only from a machine known to be clean, preferably through a bootable scan."}
+
+- id: M5
+  name: Strong console authentication and roles
+  stride: Authentication, authorization, protection of secrets
+  standards: [nist80063b, rfc9106, asvs]
+  measures:
+    - {kind: technical, text: "Passwords stored with a slow, salted hash such as Argon2id."}
+    - {kind: technical, text: "Growing delays after failed logins instead of a hard lockout, and one generic error message for every failure."}
+    - {kind: technical, text: "Multi-factor authentication for every console account."}
+    - {kind: administrative, text: "Separate operator and administrator roles, with only administrators allowed to manage users and scan scope."}
+
+- id: M6
+  name: Audit trail
+  stride: Non-repudiation (audit trails, timestamps)
+  standards: [nist80092, iso27002]
+  measures:
+    - {kind: technical, text: "An append-only, signed log of logins, scans, configuration changes and baseline approvals on the console."}
+    - {kind: technical, text: "The host logs every request it serves and every start and stop of its service."}
+    - {kind: technical, text: "Logs forwarded off the machine (Windows Event Forwarding or a SIEM), so that a local administrator cannot quietly erase them."}
+    - {kind: administrative, text: "Windows object access auditing enabled on monitored paths, so a detected change can be traced to an account."}
+
+- id: M7
+  name: Defensive input handling and least privilege
+  stride: Elevation of privilege, availability
+  standards: [asvs, ms-privileges]
+  measures:
+    - {kind: technical, text: "Length, depth and size limits on every field, bounds-checked parsing and fuzz testing of every parser on both console and host."}
+    - {kind: technical, text: "Compiler and operating system hardening: stack protection, ASLR, DEP and Control Flow Guard."}
+    - {kind: technical, text: "Paths canonicalised and checked against an allow-list of roots; junctions and other reparse points are not followed."}
+    - {kind: technical, text: "Timeouts and size caps on host reads and on responses; generic error messages towards the caller."}
+    - {kind: technical, text: "The host runs with the backup privilege only, not as LocalSystem, and the parsers run in a separate low-privilege process."}
+
+- id: M8
+  name: Availability and service protection
+  stride: Availability (filtering, quality of service)
+  standards: [ms-service-security]
+  measures:
+    - {kind: technical, text: "The console raises an alert when a host misses a scheduled scan or stops answering."}
+    - {kind: technical, text: "The service's security descriptor limits who may stop, pause or reconfigure the host service."}
+    - {kind: administrative, text: "A standby console, with its own copy of the protected baseline, can take over."}
+
+- id: M9
+  name: Trusted reporting code
+  stride: Integrity (digital signatures)
+  standards: [iso27002]
+  measures:
+    - {kind: technical, text: "Console and host binaries are code-signed, and application control allows only signed code to run."}
+    - {kind: technical, text: "Scans start at random times rather than on a fixed schedule."}
+    - {kind: administrative, text: "Bootable scans are run regularly, not only after an incident, to catch what a rootkit hides from the normal mode."}
+
+- id: M10
+  name: Modern hashing
+  stride: Integrity (hashes)
+  standards: [fips1804, nist800131a, rfc6151]
+  measures:
+    - {kind: technical, text: "MD5 and SHA1 replaced with SHA-256."}
+    - {kind: technical, text: "The hash is the deciding factor; size and timestamps are treated as hints, never as proof that nothing changed."}
+
+- id: M11
+  name: Bootable mode controls
+  stride: Integrity, confidentiality, authentication
+  standards: [nist800147, iso27002]
+  measures:
+    - {kind: technical, text: "Boot media on CD, or on a USB drive with a hardware write switch; each image is signed and its hash recorded on the trusted console and checked before use."}
+    - {kind: technical, text: "Secure Boot enabled and a firmware password set on machines that may be scanned offline."}
+    - {kind: technical, text: "Each baseline is bound to a machine identifier and signed; the console checks both before comparing."}
+    - {kind: technical, text: "Media and results drive encrypted (for example BitLocker To Go); results signed with a key on a hardware token and checked on the trusted console."}
+    - {kind: technical, text: "Free space on the results drive checked before the scan starts."}
+    - {kind: administrative, text: "A written procedure with chain of custody for boot media and results drives, and spare media kept ready."}
