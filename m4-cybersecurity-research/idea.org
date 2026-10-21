@@ -1,0 +1,12 @@
+
+Do a research on vulnerabilities on Nuttx, replicate one of them.
+Have a chapter on philosophy shared bwtween linux.
+Xiaomi uses it, so vulnerabilities can impact real-world hardware.
+Use zephyr as best practive example and compare what they do agains NuttX.
+
+
+title:
+
+description:
+
+Project style: Security Analysis of Existing Systems
