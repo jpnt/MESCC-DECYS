@@ -1,0 +1,37 @@
+#+TITLE: Target 6 - OTP generator
+#+OPTIONS: toc:nil num:nil
+
+
+* Artifacts (under =TARGETS/target-6/=)
+- =otp-generator-capture.txt= - raw serial capture showing the repeat, the
+  recovered generator parameters, and a reproduction of the next expected value
+- =otp-serial-capture-full.txt= - the complete raw capture (2048 OTP prompts)
+- =scripts/main.py= - driver: guess a constant, harvest each revealed
+  "was expecting N", stop when a value repeats
+
+* Method
+Each OTP prompt prints the value it expected on a wrong guess, so submitting a
+constant ("42") dumps the raw generator output stream. Fitting
+=x_{n+1} = (A*x_n + C) mod M= to that stream recovers the generator.
+
+* Board answers (this boot)
+** Generator
+#+begin_example
+x_{n+1} = (3693 * x_n) mod 4096      (multiplicative / Lehmer, C = 0)
+#+end_example
+
+** Attempts until the generator repeated
+1024 distinct OTPs, then prompt 1025 reproduces the first value - period = 1024.
+
+** Value that repeated
+=3511= (this boot's seed).
+
+** Next OTP the generator will produce
+=(3693 * V) mod 4096= for the last observed =V=; after the seed 3511 the
+sequence continues 2283, 1551, 1635, 551, 3227, ...
+
+** Note on seeding
+The multiplier and modulus are fixed in firmware; the seed is randomised per
+boot (seed was 23 on an earlier boot, 3511 here). The period is always 1024 and
+the whole future sequence follows from any single observed value. This is what
+makes the OTP gate in [[../target-7][target 7]] defeatable.
