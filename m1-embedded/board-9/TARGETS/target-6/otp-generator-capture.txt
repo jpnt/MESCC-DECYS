@@ -1,0 +1,139 @@
+================================================================================
+ TARGET 6 - OTP generator recovery (vending machine #9, C&C OTP challenge)
+================================================================================
+
+Port   : /dev/cu.usbserial-10 @ 115200
+Driver : scripts/main.py  (guess "42" each prompt, harvest the revealed
+         "was expecting N" value, stop when a value repeats)
+Raw    : complete serial capture is saved beside this file as
+         otp-serial-capture-full.txt (6204 lines, 2048 OTP prompts).
+
+
+--------------------------------------------------------------------------------
+ BOARD ANSWERS (this boot)
+--------------------------------------------------------------------------------
+
+* Attempts until the generator repeated
+    1024. The board emits 1024 distinct OTPs, then the 1025th prompt reproduces
+    the first value - the sequence has a period of exactly 1024.
+
+* Value that repeated
+    3511  (this boot's seed - the value the very first OTP prompt expected).
+
+* Next OTP the generator will produce
+    The generator is x_{n+1} = (3693 * x_n) mod 4096, so the next OTP after any
+    observed value V is (3693 * V) mod 4096. After the seed 3511 the sequence
+    continues 2283, 1551, 1635, 551, 3227, ... and then restarts.
+
+NOTE ON SEEDING: the multiplier (3693) and modulus (4096) are fixed in firmware,
+but the SEED is randomised on every boot. The first run of this attack booted
+with seed 23; this capture booted with seed 3511. The period is always 1024 and
+the sequence is always predictable from any single observed value, because only
+the seed changes between boots - not the recurrence.
+
+
+--------------------------------------------------------------------------------
+ RECOVERED GENERATOR PARAMETERS
+--------------------------------------------------------------------------------
+
+Type     : multiplicative congruential generator (Lehmer / pure MCG, c = 0)
+Recurrence : x_{n+1} = (A * x_n) mod M
+    A (multiplier) = 3693
+    M (modulus)    = 4096        (OTPs are 12-bit; always odd)
+    seed (x_0)     = per boot    (3511 on this boot, 23 on the previous boot)
+Period   : 1024
+
+How recovered:
+  1. Submit a constant wrong guess ("42") at each OTP prompt. The firmware
+     helpfully prints the value it expected: "Incorrect OTP, got 42, was
+     expecting N". Each prompt advances the generator once, so N_1, N_2, N_3...
+     is the raw generator output stream.
+  2. Fit x_{n+1} = (A*x_n + C) mod M to the observed stream. Searching A over
+     0..4095 and solving C from one transition yields a family of equivalent
+     (A,C) pairs that all produce the identical orbit; the canonical member is
+     C = 0, A = 3693 (a pure Lehmer generator).
+  3. The fitted recurrence reproduced every observed sample exactly (995 live
+     samples on the first boot, 2047 on this boot), confirming the parameters.
+
+
+--------------------------------------------------------------------------------
+ REPRODUCTION OF THE NEXT EXPECTED VALUE
+--------------------------------------------------------------------------------
+
+Formula:   next = (3693 * current) mod 4096
+
+Verified against consecutive samples taken directly from the raw capture
+(first six OTP prompts of this boot):
+
+    current ->  (3693 * current) mod 4096  == next observed ?
+      3511  ->  2283                         2283   OK
+      2283  ->  1551                         1551   OK
+      1551  ->  1635                         1635   OK
+      1635  ->   551                          551   OK
+       551  ->  3227                         3227   OK
+
+Repeat / period check (seed recurs after one full period):
+    orbit[0]    = 3511      (OTP prompt #1 expected this)
+    orbit[1024] = 3511      (OTP prompt #1025 expects it again)  => period 1024
+
+This same prediction is what breaks the OTP gate in target 7: given the board's
+first revealed value 3424, the next OTP is (3693 * 3424) mod 4096 = 480, which
+the board accepted.
+
+
+--------------------------------------------------------------------------------
+ RAW SERIAL CAPTURE - excerpts showing the repeat
+--------------------------------------------------------------------------------
+
+(Full login banner / EULA elided; see otp-serial-capture-full.txt for all 2048
+ prompts. "OTP:" is the board's prompt, the bare number on the next line is our
+ submitted guess, then the board's response.)
+
+--- first OTP prompts: the stream of generator outputs begins at the seed ------
+OTP:
+42
+Incorrect OTP, got 42, was expecting 3511      <- prompt #1  (seed = 3511)
+OTP:
+42
+Incorrect OTP, got 42, was expecting 2283      <- prompt #2
+OTP:
+42
+Incorrect OTP, got 42, was expecting 1551      <- prompt #3
+OTP:
+42
+Incorrect OTP, got 42, was expecting 1635      <- prompt #4
+OTP:
+42
+Incorrect OTP, got 42, was expecting 551       <- prompt #5
+OTP:
+42
+Incorrect OTP, got 42, was expecting 3227      <- prompt #6
+
+--- the repeat: after 1024 distinct values the seed 3511 recurs --------------
+(prompt #1025 expected 3511 again; the driver detects the repeat and from here
+ locks its guess onto 3511. The two adjacent guess lines below - "42" then
+ "3511" with no response between - are that lock-on moment.)
+Incorrect OTP, got 42, was expecting 1587
+OTP:
+42
+3511
+Incorrect OTP, got 3511, was expecting 2283
+OTP:
+3511
+
+--- cycle closes: exactly 1024 prompts later the board expects 3511 again -----
+--- and accepts our locked guess, revealing the final secret ------------------
+OTP:
+3511
+Incorrect OTP, got 3511, was expecting 1587
+OTP:
+3511
+CONGRATULATIONS! You have successfully connected to the C&C
+Here is the final secret: honeyglovechalkgrass
+TODO: Replace this with actual connection to C&C
+Signed-By: Dan
+
+================================================================================
+ The 1024-prompt gap between locking onto 3511 and its acceptance is the live
+ proof that the generator's period is 1024.
+================================================================================

@@ -1,0 +1,10 @@
+# target-5 openssl decrypt transcript
+
+## 1. signature.pem is PEM-wrapped base64; pkeyutl -in needs raw bytes
+$ sed '1d;$d' scripts/signature.pem | base64 -d > scripts/signature.raw   # -> 256 bytes (matches 2048-bit modulus)
+
+## 2. decrypt with default PKCS#1 padding; openssl strips the padding and returns the payload
+$ openssl pkeyutl -decrypt -inkey scripts/rsa_private_key.pem -in scripts/signature.raw
+{"hash": "37190c6e8cf5b3fbe5eb96f631d4ca85"}
+
+## payload is JSON carrying the recovered MD5 hash
