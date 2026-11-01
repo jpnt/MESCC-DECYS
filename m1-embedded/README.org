@@ -1,0 +1,17 @@
+#+title: M1 - Embedded Project
+
+
+* Boards
+
+2 Arduino boards were assigned to the group:
+- =board-9/= is for vending machine 9
+
+
+* Group Elements
+
+| Name           |  Number | Email               |
+|----------------+---------+---------------------|
+| João Pinto     | 1221294 | 1221294@isep.ipp.pt |
+| Sérgio Cardoso | 1210891 | 1210891@isep.ipp.pt |
+| Shijo George   | 1240374 | 1240374@isep.ipp.pt |
+| Vítor Santos   | 1250446 | 1250446@isep.ipp.pt |

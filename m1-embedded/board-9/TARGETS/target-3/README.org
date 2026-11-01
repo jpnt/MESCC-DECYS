@@ -4,7 +4,7 @@
 #+begin_src sh
   for f in PROGMEM.bin SRAM.bin EEPROM.bin; do
       echo "===== strings of $f ====="
-      strings "$f"
+      strings -a -n 4 "$f"
   done > STRINGS.txt
 #+end_src
 

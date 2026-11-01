@@ -1,5 +1,16 @@
 #+title: Target 2 - The dumped firmware in a binary file
 
+* How the dump was obtained
+=scripts/main.py= drives the dev console over serial: it logs in with Dan's
+password, sends the "list" command to read the advertised memory regions, then
+issues the "dump" command for each one. The listed =(start, end)= bounds give
+the exact byte count to read, and each region is saved as =<name>.bin= with a
+=<name>_SHA256= sidecar. This produced PROGMEM.bin, SRAM.bin and EEPROM.bin.
+
+#+begin_src sh
+  cd scripts && ./main.py      # board connected on /dev/cu.usbserial-10
+#+end_src
+
 * Q: What is the SHA256 of your PROGMEM dump?
 Digest: *5c41d08e46cbfe952fb0e2b0d6b52264226b8de188cebe7309ed5dba37e63438*
 
