@@ -1,0 +1,32 @@
+#+TITLE: Target 5 - C&C Password
+#+OPTIONS: toc:nil num:nil
+
+* Target 5: C&C password
+
+** Artifacts (under =TARGETS/target-5/=)
+- =decrypted-hash.bin= - stripped JSON payload from the decrypted signature
+- =openssl-decrypt-transcript.txt= - openssl decrypt transcript
+- =rainbow-lookup-result.txt= - rainbow-table lookup result
+- =scripts/run.sh= - PEM-unwrap + raw RSA decrypt
+
+
+** Board answers
+
+*** MD5 hash recovered from the decrypted signature
+#+begin_example
+37190c6e8cf5b3fbe5eb96f631d4ca85
+#+end_example
+
+*** Recovered C&C password
+#+begin_example
+cncgijucsnrdyfwsatpqxiodhlnqrfxutzzygjtmnkmofphuhzzaj
+#+end_example
+The left-hand column of the matching =rainbow-table.txt= line.
+
+*** Why a short rainbow table is enough here
+MD5 is deterministic: the same input always maps to the same
+digest, so a precomputed hash table reverses any digest by lookup
+instead of brute force. The table only has to be "short" because the password
+keyspace is snamll, not arbitrary. Every one of the ~100000
+entries is a fixed 53 char string with the known =cnc= prefix.
+The attacker only had to hash that small, predictable set once.

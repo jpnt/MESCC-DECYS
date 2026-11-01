@@ -1,0 +1,109 @@
+#+title: Target 4 - Identify cryptographic assets
+
+* Goal
+Two base64 blobs were located in the firmware strings during Target 3 (PROGMEM
+offsets =0xB98= and =0x11F3=). This target confirms /what/ they are: decode
+them, read the structural bytes, and show that the region stands out on an
+entropy scan. The two blobs turn out to be an *RSA-2048 private key* (PKCS#1)
+and its *256-byte signature*.
+
+* Artifacts in this folder
+| File                   | What it is                                               |
+|------------------------+----------------------------------------------------------|
+| =rsa_private_key.pem=  | Blob #1 re-wrapped as a PEM =RSA PRIVATE KEY= (base64)    |
+| =signature.pem=        | Blob #2 re-wrapped as base64 (256 raw bytes)             |
+| =asn1parse.txt=        | =openssl asn1parse= of the key (DER structure)           |
+| =rsa-text.txt=         | =openssl rsa -text= of the key (decoded parameters)      |
+| =progmem-entropy.png=  | =binwalk -E= Shannon-entropy scan of the firmware        |
+| =scripts/blobs.py=     | Extracts both blobs from =PROGMEM.bin= -> the two PEMs    |
+| =scripts/openssl.sh=   | Regenerates =asn1parse.txt= and =rsa-text.txt=           |
+| =scripts/entropy.sh=   | Regenerates =progmem-entropy.png=                        |
+
+* Procedure
+
+** 1. Extract the blobs
+=scripts/blobs.py= finds each blob by its leading bytes (=MIIEpAIBAAKCAQEA= /
+=b+gJJKG56gAz=), reads to the closing quote, and re-wraps the base64 into PEM:
+
+#+begin_src sh
+  cd scripts && ./blobs.py        # writes ../rsa_private_key.pem, ../signature.pem
+#+end_src
+
+** 2. Spot the structure from the encoding
+The first blob base64-decodes to a DER header that announces itself - the
+ASN.1 tag/length bytes are the giveaway:
+
+#+begin_src sh
+  > python3 -I -c 'import base64;print(base64.b64decode("MIIEpAIBAAKCAQEA").hex(" "))'
+  30 82 04 a4 02 01 00 02 82 01 01 00
+#+end_src
+
+Reading those bytes:
+- =30= - *SEQUENCE* tag: this is DER-structured data, not an opaque ciphertext.
+- =82 04 a4= - long-form length = =0x04A4= = *1188* bytes (matches the SEQUENCE
+  length in =asn1parse.txt=).
+- =02 01 00= - INTEGER, length 1, value =0= - the PKCS#1 *version field*
+  (=0= = two-prime RSA key). An =RSAPrivateKey= always opens this way.
+- =02 82 01 01 00= - INTEGER, long-form length =0x0101= = *257* bytes, first
+  byte =00= - i.e. a 256-byte (2048-bit) *modulus* with a leading sign byte.
+
+The second blob decodes to high-entropy bytes with *no* ASN.1 tag:
+
+#+begin_src sh
+  > python3 -I -c 'import base64;print(base64.b64decode("b+gJJKG56gAz").hex(" "))'
+  6f e8 09 24 a1 b9 ea 00 33
+#+end_src
+
+No =30= / =02= structure - it is an opaque block, exactly what a raw RSA
+signature looks like, and it is *256* bytes = the modulus size. So blob #1 is
+the private key and blob #2 is a signature made under it.
+
+** 3. Confirm with openssl
+#+begin_src sh
+  cd scripts && ./openssl.sh      # writes ../asn1parse.txt, ../rsa-text.txt
+#+end_src
+
+=asn1parse.txt= walks the full PKCS#1 structure - the top-level =SEQUENCE
+(l=1188)=, the =INTEGER :00= version, the 257-byte modulus, =INTEGER :010001=
+(=publicExponent= 65537), the 256-byte =privateExponent=, and the =prime1=,
+=prime2=, exponents and coefficient. =rsa-text.txt= decodes the same and prints
+the header:
+
+#+begin_src text
+  Private-Key: (2048 bit, 2 primes)
+  publicExponent: 65537 (0x10001)
+#+end_src
+
+** 4. Entropy scan
+=scripts/entropy.sh= runs =binwalk -E PROGMEM.bin= (see =progmem-entropy.png=).
+The base64 key/signature span is a tall plateau against the surrounding
+firmware. Numerically, over the raw PROGMEM bytes:
+
+| Region                         | Shannon entropy (bits/byte) |
+|--------------------------------+-----------------------------|
+| Base64 key blob (as stored)    | 5.98                        |
+| Decoded key bytes              | 7.83                        |
+| Decoded signature bytes        | 7.16                        |
+| Code region =0x000..0x200=     | 4.77                        |
+| Code region =0x100..0x2BC=     | 4.55                        |
+
+* Answers (from the board)
+
+- *Key size:* RSA *2048-bit*, two primes, =publicExponent= 65537 (=0x10001=).
+
+- *Which structural (ASN.1/DER) bytes told you what it was:* the decoded header
+  =30 82 04 a4  02 01 00  02 82 01 01 00= - the =30= SEQUENCE tag marks it as
+  DER (not ciphertext); =02 01 00= is the PKCS#1 =version= INTEGER (=0= =
+  two-prime), which only an =RSAPrivateKey= carries; and =02 82 01 01= followed
+  by a =00= sign byte is a 257-byte modulus INTEGER = a 2048-bit modulus. The
+  publicExponent =02 03 01 00 01= (=65537=) confirms RSA.
+
+- *How many bytes is the encrypted signature:* *256 bytes* (2048 bits), matching
+  the modulus size. The 344 base64 chars of blob #2 decode to 256 raw bytes,
+  with no ASN.1 wrapper - a bare RSA signature block.
+
+- *Key region entropy vs a code region:* the key/signature region is markedly
+  higher. The base64 blob reads *~5.98* bits/byte and its decoded bytes *~7.83*
+  (signature *~7.16*), versus only *~4.5-4.8* bits/byte for the AVR code near
+  the start of PROGMEM - near-random key material against structured,
+  low-entropy machine code.
