@@ -1,39 +1,38 @@
-#+TITLE: Target 7 - Final secret
-#+OPTIONS: toc:nil num:nil
+#+title: Target 7 - Final secret
 
-* Artifacts (under =TARGETS/target-7/=)
-- =cc-connection-transcript.txt= - full serial transcript of the successful
-  C&C connection, showing OTP acceptance and the final-secret line
-- =scripts/connect.py= - logs in, then answers the OTP challenge with the
+* Artifacts
+- cc-connection-transcript.txt - full serial transcript of the successful C&C
+  connection, showing OTP acceptance and the final-secret line
+- scripts/connect.py - logs in, then answers the OTP challenge with the
   predicted value from the target-6 generator
-- =scripts/otp-params.conf= - the recovered generator parameters (A, M), read
-  by =connect.py= so it can be re-run or retargeted without editing the script
+- scripts/otp-params.conf - recovered generator parameters (A, M), read by
+  connect.py
 
-* Board answer
+* Q: What is the final secret?
+Final secret: *honeyglovechalkgrass*
 
-** Final secret
-#+begin_example
-honeyglovechalkgrass
-#+end_example
+#+begin_src sh
+  OTP guess: 42
+  Incorrect OTP, got 42, was expecting 3424
+  OTP guess: 480
+  CONGRATULATIONS! You have successfully connected to the C&C
+  Here is the final secret: honeyglovechalkgrass
+#+end_src
 
-** How targets 5 and 6 combined to let me connect
-The C&C login is two-factor: a static password AND a rotating one-time password.
+* Q: How did targets 5 and 6 combine to let you connect?
+The C&C login is two-factor: a static password AND a rotating OTP.
 
-- [[../target-5][Target 5]] recovered the static *C&C password*
-  (=cncgij...hzzaj=, by RSA-decrypting the signature to an MD5 hash and
-  reversing it with a rainbow table). This gets past the password prompt but
-  stalls at the OTP challenge.
-- [[../target-6][Target 6]] recovered the *OTP generator*
-  (=x_{n+1} = (3693 * x_n) mod 4096=), so every "one-time" password is
-  predictable from a single observed value.
+- [[../target-5][Target 5]] recovered the static C&C password (gets past the password prompt,
+  stalls at the OTP challenge).
+- [[../target-6][Target 6]] recovered the OTP generator (x_{n+1} = (3693 * x_n) mod 4096), so
+  every "one-time" password is predictable from a single observed value.
 
-Combined: authenticate with the target-5 password to reach the OTP prompt, send
-one guess to learn the board's current expected value, then submit the
-generator's next output. In the transcript the guess =1= revealed the board was
-expecting =3424=, so the next OTP is =(3693 * 3424) mod 4096 = 480=; submitting
-=480= was accepted and the board returned the final secret.
+Combined: authenticate with the target-5 password, send one guess to learn the
+board's current expected value, then submit the generator's next output. The
+guess 1 revealed 3424, so the next OTP is (3693 * 3424) mod 4096 = 480; that was
+accepted and the board returned the final secret.
 
-** Note on per-boot seeding
+* Note on per-boot seeding
 The OTP seed is randomised each boot, so the first expected value cannot be
-known in advance. =connect.py= therefore probes once and resyncs off the
-revealed value; the fixed multiplier/modulus make every subsequent OTP correct.
+known in advance. connect.py probes once and resyncs off the revealed value; the
+fixed multiplier/modulus make every subsequent OTP correct.

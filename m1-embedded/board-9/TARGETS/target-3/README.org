@@ -1,61 +1,48 @@
-#+title: Target 3
+#+title: Target 3 - Confidential Strings
 
 * Strings
 #+begin_src sh
   for f in PROGMEM.bin SRAM.bin EEPROM.bin; do
       echo "===== strings of $f ====="
-      strings -a -n 4 "$f"
+      strings "$f"
   done > STRINGS.txt
 #+end_src
 
-Notes on each dump:
-- *PROGMEM.bin* holds Dan/Alan chat, the EULA, the menu strings, the credential table and the two base64 crypto blobs.
-- *SRAM.bin* a runtime image; the PROGMEM string block is mirrored.
-- *EEPROM.bin* all padding ; ~strings~ yields void.
+PROGMEM.bin holds the credential table and the two base64 crypto blobs;
+SRAM.bin mirrors that string block; EEPROM.bin is all padding.
 
-* Annotated list of assets
-All offsets are into PROGMEM.bin.
-
-| Offset (hex) |  Dec | Len | Asset                            | Notes                                                  |
-|--------------+------+-----+----------------------------------+--------------------------------------------------------|
-| 0x2BC        |  700 |  13 | danrgwygtrkvk                    | *Developer password* (Dan); canonical copy, see T2     |
-| 0xB98        | 2968 | 1592| MIIEpAIBAAKCAQEA...==            | *base64 blob #1* - RSA-2048 private key (PKCS#1)       |
-| 0x11F3       | 4595 |  344| b+gJJKG56gAz...==                | *base64 blob #2* - 2048-bit signature                  |
-| 0x443E       |17470 |  53 | paptvwhpfaeqlsjfngcdkvbquyadeskhgmmltwgzaxzbscuhummnw | *Maintenance password #1* |
-| 0x4474       |17524 |  20 | ffnetxynupribytlrabu             | *Maintenance password #2*                              |
-| 0x448D..     |17549 |   - | Current memory locations ...     | Dev-menu / prompt string block                         |
-| 0x471E       |18206 |  13 | "Developer Dan"                  | Account-table label                                    |
-| 0x472C       |18220 |  13 | danrgwygtrkvk                    | Developer password (in-table copy under "Developer Dan")|
-| 0x473A       |18234 |  10 | "Admin Alan"                     | Account-table label                                    |
-| 0x4745       |18245 |  54 | alanzvnswtxmjxjcikzpmemegrjqaugjmidnmxiynjghxmdnlffbmw | *Admin password* (Alan)  |
+* Annotated assets (offsets into PROGMEM.bin)
+| Offset (hex) |  Dec |  Len | Asset                                                  |
+|--------------+------+------+--------------------------------------------------------|
+| 0x2BC        |  700 |   13 | danrgwygtrkvk - developer password (Dan), see T2       |
+| 0xB98        | 2968 | 1592 | base64 blob #1 - RSA-2048 private key (PKCS#1)         |
+| 0x11F3       | 4595 |  344 | base64 blob #2 - 2048-bit signature                    |
+| 0x443E       |17470 |   53 | maintenance password #1                                |
+| 0x4474       |17524 |   20 | maintenance password #2                                |
+| 0x472C       |18220 |   13 | developer password, in-table copy under "Developer Dan"|
+| 0x4745       |18245 |   54 | admin password (Alan)                                  |
 
 * Q: What is the second maintenance password?
 Second maintenance password: *ffnetxynupribytlrabu*
 
-The two unlabeled credential blobs stored together just before the dev-menu
-string block are the maintenance passwords. In flash order the first is
-~paptvwhpfaeqlsjfngcdkvbquyadeskhgmmltwgzaxzbscuhummnw~ (0x443E) and the second
-is ~ffnetxynupribytlrabu~ (0x4474).
-
 #+begin_src sh
   > xxd -s 0x4474 -l 20 PROGMEM.bin
-  00004474: 6666 6e65 7478 796e 7570 7269 6279 746c  ffnetxynupri bytl
+  00004474: 6666 6e65 7478 796e 7570 7269 6279 746c  ffnetxynupribytl
   00004484: 7261 6275                                rabu
 #+end_src
 
 * Q: At what byte offset does it sit relative to the developer password?
-The second maintenance password is at *0x4474 (17524)*; the developer password
-~danrgwygtrkvk~ is at *0x2BC (700)*.
+Relative offset: *0x4474 - 0x2BC = 0x41B8 = 16824* bytes after the developer password.
 
-Relative offset: *0x4474 - 0x2BC = 0x41B8 = 16824* bytes after the developer
-password.
-
+#+begin_src sh
+  0x4474 (17524)  second maintenance password
+  0x2BC  (700)    developer password (danrgwygtrkvk)
+  0x4474 - 0x2BC = 0x41B8 = 16824
+#+end_src
 
 * Q: How long are the base64 blobs?
-Two base64 blobs are hardcoded in the chat comments:
-
-- *RSA private key* (~MIIEpA...~): *1592* base64 chars -> 1192 raw bytes.
-- *Signature* (starts ~b+gJJK...~): *344* base64 chars -> 256 raw bytes.
+RSA private key blob: *1592* base64 chars -> 1192 raw bytes.
+Signature blob: *344* base64 chars -> 256 raw bytes.
 
 #+begin_src sh
   > python3 -I -c '

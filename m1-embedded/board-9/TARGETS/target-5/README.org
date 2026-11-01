@@ -1,32 +1,32 @@
-#+TITLE: Target 5 - C&C Password
-#+OPTIONS: toc:nil num:nil
+#+title: Target 5 - C&C Password
 
-* Target 5: C&C password
+* Artifacts
+- decrypted-hash.bin - stripped JSON payload from the decrypted signature
+- openssl-decrypt-transcript.txt - openssl decrypt transcript
+- rainbow-lookup-result.txt - rainbow-table lookup result
+- scripts/run.sh - PEM-unwrap + raw RSA decrypt
 
-** Artifacts (under =TARGETS/target-5/=)
-- =decrypted-hash.bin= - stripped JSON payload from the decrypted signature
-- =openssl-decrypt-transcript.txt= - openssl decrypt transcript
-- =rainbow-lookup-result.txt= - rainbow-table lookup result
-- =scripts/run.sh= - PEM-unwrap + raw RSA decrypt
+* Q: What MD5 hash was recovered from the decrypted signature?
+MD5 hash: *37190c6e8cf5b3fbe5eb96f631d4ca85*
 
+#+begin_src sh
+  > sed '1d;$d' scripts/signature.pem | base64 -d > scripts/signature.raw   # 256 bytes
+  > openssl pkeyutl -decrypt -inkey scripts/rsa_private_key.pem -in scripts/signature.raw
+  {"hash": "37190c6e8cf5b3fbe5eb96f631d4ca85"}
+#+end_src
 
-** Board answers
+* Q: What is the recovered C&C password?
+C&C password: *cncgijucsnrdyfwsatpqxiodhlnqrfxutzzygjtmnkmofphuhzzaj*
 
-*** MD5 hash recovered from the decrypted signature
-#+begin_example
-37190c6e8cf5b3fbe5eb96f631d4ca85
-#+end_example
+The left-hand column of the matching rainbow-table.txt line.
 
-*** Recovered C&C password
-#+begin_example
-cncgijucsnrdyfwsatpqxiodhlnqrfxutzzygjtmnkmofphuhzzaj
-#+end_example
-The left-hand column of the matching =rainbow-table.txt= line.
+#+begin_src sh
+  > grep 37190c6e8cf5b3fbe5eb96f631d4ca85 rainbow-table.txt
+  cncgijucsnrdyfwsatpqxiodhlnqrfxutzzygjtmnkmofphuhzzaj 37190c6e8cf5b3fbe5eb96f631d4ca85
+#+end_src
 
-*** Why a short rainbow table is enough here
-MD5 is deterministic: the same input always maps to the same
-digest, so a precomputed hash table reverses any digest by lookup
-instead of brute force. The table only has to be "short" because the password
-keyspace is snamll, not arbitrary. Every one of the ~100000
-entries is a fixed 53 char string with the known =cnc= prefix.
-The attacker only had to hash that small, predictable set once.
+* Q: Why is a short rainbow table enough here?
+MD5 is deterministic, so a precomputed table reverses any digest by lookup
+instead of brute force. The table is small only because the keyspace is: every
+entry is a fixed 53-char string with the known =cnc= prefix, ~100000 in all, so
+the attacker hashed that predictable set once.

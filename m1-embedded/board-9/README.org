@@ -129,23 +129,38 @@ Answers (see the inner README for evidence):
   known =cnc= prefix), so one small precompute covers it.
 
 ** Target 6 - Crack the OTP generator
-Status: *in progress.* Folder: [[file:TARGETS/target-6/][=TARGETS/target-6/=]].
+Status: *complete.* Writeup: [[file:TARGETS/target-6/README.org][=TARGETS/target-6/README.org=]].
 
-Artifact present: [[file:TARGETS/target-6/src/find-otp.py][=src/find-otp.py=]] - logs in as Alan, submits the c&c
-password, then repeatedly probes the OTP prompt, tracking each expected value so
-it can detect when the generator repeats and replay the duplicated value.
+Artifacts under [[file:TARGETS/target-6/][=TARGETS/target-6/=]]:
+- [[file:TARGETS/target-6/otp-generator-capture.txt][=otp-generator-capture.txt=]] - capture showing the repeat, the recovered
+  parameters, and a reproduction of the next expected value.
+- [[file:TARGETS/target-6/otp-serial-capture-full.txt][=otp-serial-capture-full.txt=]] - the complete raw capture (2048 OTP prompts).
+- [[file:TARGETS/target-6/scripts/main.py][=scripts/main.py=]] - submits a constant guess, harvests each revealed "was
+  expecting N", and stops when a value repeats.
 
-Invocation (from =target-6/src/=, board connected):
+Invocation (from =target-6/scripts/=, board connected):
 #+begin_src sh
-  ./find-otp.py
+  ./main.py
 #+end_src
 
-The raw serial capture (=.txt=) showing the repeat, the recovered generator
-parameters, and the reproduced next value are not yet saved under =target-6/=.
+Answers (see the inner README for evidence):
+- Generator: =x_{n+1} = (3693 * x_n) mod 4096= (multiplicative / Lehmer, C = 0).
+- Attempts until repeat: =1024= (period 1024).
+- Repeated value: =3511= (this boot's seed).
+- Next OTP: =(3693 * V) mod 4096= for the last observed =V=.
 
 ** Target 7 - Final secret
-Status: *pending.* Folder: [[file:TARGETS/target-7/][=TARGETS/target-7/=]].
+Status: *complete.* Writeup: [[file:TARGETS/target-7/README.org][=TARGETS/target-7/README.org=]].
 
-The final secret recovered from the C&C connection is =honeyglovechalkgrass=
-(recorded in =secrets.csv=). The full successful-connection serial transcript
-required as this target's artifact is not yet in place.
+Artifacts under [[file:TARGETS/target-7/][=TARGETS/target-7/=]]:
+- [[file:TARGETS/target-7/cc-connection-transcript.txt][=cc-connection-transcript.txt=]] - serial transcript of the successful C&C
+  connection, showing OTP acceptance and the final-secret line.
+- [[file:TARGETS/target-7/scripts/connect.py][=scripts/connect.py=]] - logs in, then answers the OTP challenge with the
+  predicted value from the Target 6 generator.
+- [[file:TARGETS/target-7/scripts/otp-params.conf][=scripts/otp-params.conf=]] - recovered generator parameters (A, M).
+
+Answers (see the inner README for evidence):
+- Final secret: =honeyglovechalkgrass= (also recorded in =secrets.csv=).
+- T5 + T6 combined: authenticate with the Target 5 c&c password to reach the OTP
+  prompt, send one guess to learn the board's current expected value, then
+  submit the Target 6 generator's next output.

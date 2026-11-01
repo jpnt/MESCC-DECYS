@@ -1,11 +1,11 @@
-#+title: Target 2
+#+title: Target 2 - The dumped firmware in a binary file
 
 * Q: What is the SHA256 of your PROGMEM dump?
 Digest: *5c41d08e46cbfe952fb0e2b0d6b52264226b8de188cebe7309ed5dba37e63438*
 
 #+begin_src sh
-shasum -a 256 PROGMEM.bin
-5c41d08e46cbfe952fb0e2b0d6b52264226b8de188cebe7309ed5dba37e63438  PROGMEM.bin
+  > shasum -a 256 PROGMEM.bin
+  5c41d08e46cbfe952fb0e2b0d6b52264226b8de188cebe7309ed5dba37e63438  PROGMEM.bin
 #+end_src
 
 * Q: What is byte length of your PROGMEM dump?
