@@ -1,0 +1,26 @@
+#+title: Target 2
+
+* Q: What is the SHA256 of your PROGMEM dump?
+Digest: *5c41d08e46cbfe952fb0e2b0d6b52264226b8de188cebe7309ed5dba37e63438*
+
+#+begin_src sh
+shasum -a 256 PROGMEM.bin
+5c41d08e46cbfe952fb0e2b0d6b52264226b8de188cebe7309ed5dba37e63438  PROGMEM.bin
+#+end_src
+
+* Q: What is byte length of your PROGMEM dump?
+Byte length: *32768* bytes long
+
+#+begin_src sh
+  > ls -l PROGMEM.bin
+  -rw-r--r--  1 v  staff  32768 Nov  1 15:52 PROGMEM.bin
+#+end_src
+
+
+* Q: What offset does your developer password appear?
+Offset: *0x2BC* or 700
+
+#+begin_src sh
+  > xxd -s 700 -l 13 PROGMEM.bin
+  000002bc: 6461 6e72 6777 7967 7472 6b76 6b         danrgwygtrkvk
+#+end_src
