@@ -7,6 +7,18 @@
 - =board-9/= is for vending machine 9
 
 
+* Repository structure
+
+- =README.org= - this file: group elements and an overview of the layout.
+- =embedded-lab-part-01.md=, =embedded-lab-part-02.md= - the assignment descriptions.
+- =requirements.txt= - Python dependencies used by the scripts.
+- =board-9/= - the submission for Arduino board 9:
+  - =README.org= - board index: Arduino ID, overview, and the recovered secrets.
+  - =TARGETS/= - one =target-<n>/= sub-folder per target, each with its own
+    =README.org= (procedure + answers) and the supporting data/scripts; plus
+    =secrets.csv= (the required one-line summary) and =AI-DISCLOSURE.md=.
+
+
 * Group Elements
 
 | Name           |  Number | Email               |
