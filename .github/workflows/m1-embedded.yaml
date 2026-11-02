@@ -1,0 +1,54 @@
+name: m1-embedded
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - m1-embedded/**
+      - .github/workflows/m1-embedded.yaml
+  pull_request:
+    paths:
+      - m1-embedded/**
+      - .github/workflows/m1-embedded.yaml
+  workflow_dispatch:
+
+concurrency:
+  group: m1-embedded-${{ github.ref }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      # Submission archive name: <student_id_1>_<student_id_2>..<student_id_n>.zip
+      ZIP_NAME: 1210891_1221294_1240374_1250446.zip
+    steps:
+      - uses: actions/checkout@v7
+
+      # Build the archive from git-tracked files only, so the local .venv/
+      # and editor temp/lock files are excluded by construction.
+      - name: Build submission ZIP
+        run: |
+          git archive --format=zip --prefix=m1-embedded/ \
+            -o "$ZIP_NAME" HEAD:m1-embedded
+
+      - name: Upload submission artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: m1-embedded-submission
+          path: ${{ env.ZIP_NAME }}
+
+      # Rolling release: always the submission built from the latest push to
+      # main, at releases/download/m1-embedded/<student ids>.zip
+      - name: Publish submission release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release delete m1-embedded --cleanup-tag --yes || true
+          gh release create m1-embedded "$ZIP_NAME" \
+            --target "$GITHUB_SHA" \
+            --title "M1 - Embedded project submission (board 9)" \
+            --notes "Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d)."
