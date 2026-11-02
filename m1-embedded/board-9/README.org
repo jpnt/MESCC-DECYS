@@ -124,8 +124,7 @@ Answers (see the inner README for evidence):
   an =RSAPrivateKey= carries it), and =02 82 01 01= + =00= is the 257-byte
   (2048-bit) modulus.
 - Signature size: *256 bytes* (2048 bits), no ASN.1 wrapper - a bare RSA block.
-- Entropy: key/signature region ~5.98 bits/byte base64 (~7.83 decoded) vs
-  ~4.5-4.8 for the AVR code region.
+- Entropy: key/signature region vs other code regions.
 
 ** Target 5 - c&c password
 Status: *complete.* Writeup: [[file:TARGETS/target-5/README.org][=TARGETS/target-5/README.org=]].
