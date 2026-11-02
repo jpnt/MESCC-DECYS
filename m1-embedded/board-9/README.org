@@ -48,7 +48,28 @@ The firmware-analysis steps rely on standard CLI tools: =shasum=, =xxd=,
 * Targets
 
 ** Target 1 - Developer password (timing attack)
-Status: *pending.* Folder: [[file:TARGETS/target-1/][=TARGETS/target-1/=]].
+Status: *complete.* Writeup: [[file:TARGETS/target-1/README.org][=TARGETS/target-1/README.org=]].
+
+Artifacts under [[file:TARGETS/target-1/][=TARGETS/target-1/=]]:
+- Raw timing data: =timing-length.csv= (length probes) and =timing-chars.csv=.
+- Figures: =length.png=, =position-1.png=, =position-2.png=...
+- Scripts: [[file:TARGETS/target-1/scripts/main.py][=scripts/main.py=]] runs the timing attack and writes the CSVs;
+   [[file:TARGETS/target-1/scripts/plot.py][=scripts/plot.py=]] redraws the figures from them.
+
+Invocation (from =target-1/scripts/=, board connected):
+#+begin_src sh
+  ./main.py && ./plot.py
+#+end_src
+
+Answers (see the inner README for evidence):
+- Inferred length: =13= (the only length that rises ~1 ms above its neighbours).
+- Per-position winning-char margins: ~1.0 ms each (staircase of ~1 ms delay
+  steps); position 1 is =+2.00= ms (filler =a= matches the real 2nd char).
+- Smallest margin: all are ~1 ms (one delay step - the floor), spanning only
+  +0.974 .. +1.012 ms; which position is numerically smallest is measurement
+  noise and shifts from run to run. Position 13's ~1 ms is a login-branch cost, not
+  an added delay step, so the last character is confirmed by the login banner.
+- Recovered developer password: =danrgwygtrkvk=.
 
 
 ** Target 2 - Firmware dump
