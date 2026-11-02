@@ -12,8 +12,8 @@
 Final secret: *honeyglovechalkgrass*
 
 #+begin_src sh
-  OTP guess: 42
-  Incorrect OTP, got 42, was expecting 3424
+  OTP guess: 1
+  Incorrect OTP, got 1, was expecting 3424
   OTP guess: 480
   CONGRATULATIONS! You have successfully connected to the C&C
   Here is the final secret: honeyglovechalkgrass
