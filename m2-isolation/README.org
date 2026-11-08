@@ -43,5 +43,5 @@ their =outputs/=) and =screenshots/= (evidence).
 - [ ] Q16 - Replicate a container escape (extra, video)
 - [ ] Q17 - Docker security good practices
 ** Submission
-- [ ] =TARGETS/secrets.csv= filled with real values (currently placeholders)
+- [X] =TARGETS/secrets.csv= filled with real values (currently placeholders)
 - [ ] =TARGETS/AI-DISCLOSURE.md= added
