@@ -13,7 +13,8 @@ question plus the shared files:
 - =secrets.csv= - single line: =team,api_key_01,user_01,api_key_02,user_02,layer_sha256=
 - =target-2/= - recovered =.env= + =docker run ... cat .env= transcript (Q2)
 - =target-4/= - extracted layer =app/.env= and the =sha256= of its layer (Q4)
-- =target-12/= - =capsh --print= and =grep Cap /proc/1/status= (Q12)
+- =target-12/= - =capsh --print= and =grep Cap /proc/1/status= (Q12) + ping
+  under =--cap-drop all= and the fix (Q13)
 - =target-14/= - privileged-container =capsh --print= / =proc= Cap dump (Q14)
 - =target-15/= - host =fdisk -l=/=lsblk= + =mount= transcript and exploit video (Q15)
 
@@ -27,15 +28,15 @@ their =outputs/=) and =screenshots/= (evidence).
 - [X] Q3 - What of Tom's fix?
 - [X] Q4 - Recover the new key (artifact: =target-4/=)
 - [X] Q5 - How would you do Scott's job?
-** Part 2 - Linux capabilities [0/8]
-- [ ] Q6 - Remove =cap_net_raw= from ping
-- [ ] Q7 - Make ping work with no capability and no sudo (video)
-- [ ] Q8 - Make passwd work without Set UID (video)
-- [ ] Q9 - Why passwd is Set UID and ping is not
-- [ ] Q10 - Explain ten more capabilities
-- [ ] Q11 - Buffer overflow vs disabled/deleted =cap_dac_override=
-- [ ] Q12 - Container capability sets (artifact: =target-12/=)
-- [ ] Q13 - ping under =--cap-drop all= and the fix
+** Part 2 - Linux capabilities [8/8]
+- [X] Q6 - Remove =cap_net_raw= from ping (artifact: =target-6/=)
+- [X] Q7 - Make ping work with no capability and no sudo
+- [X] Q8 - Make passwd work without Set UID
+- [X] Q9 - Why passwd is Set UID and ping is not
+- [X] Q10 - Explain ten more capabilities
+- [X] Q11 - Buffer overflow vs disabled/deleted =cap_dac_override=
+- [X] Q12 - Container capability sets (artifact: =target-12/=)
+- [X] Q13 - ping under =--cap-drop all= and the fix (=target-12/=)
 ** Part 3 - security evasion [0/4]
 - [ ] Q14 - Capabilities of the privileged container (artifact: =target-14/=)
 - [ ] Q15 - Host-compromise exploit + video (artifact: =target-15/=)
