@@ -15,6 +15,8 @@ mkdir $TMP_DIR; tar -xf "$SAVE_NAME" -C $TMP_DIR
 for b in "$TMP_DIR"/blobs/sha256/*; do
     if tar tf "$b" 2>/dev/null | grep -q 'app/\.env$'; then
         echo "found in: $b"
+	touch layer_sha256.txt
+	basename $b > layer_sha256.txt
         tar -xf "$b" "$TARGET"
         echo "extracted: $TARGET"
 	cat $TARGET
