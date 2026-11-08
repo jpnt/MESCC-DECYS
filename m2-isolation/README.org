@@ -11,15 +11,13 @@ Team tag: =team10=.
 Per the submission spec, =TARGETS/= holds one directory per artifact-bearing
 question plus the shared files:
 - =secrets.csv= - single line: =team,api_key_01,user_01,api_key_02,user_02,layer_sha256=
-- =target-2/= - recovered =.env= + =docker run ... cat .env= transcript (Q2)
-- =target-4/= - extracted layer =app/.env= and the =sha256= of its layer (Q4)
-- =target-12/= - =capsh --print= and =grep Cap /proc/1/status= (Q12) + ping
-  under =--cap-drop all= and the fix (Q13)
-- =target-14/= - privileged-container =capsh --print= / =proc= Cap dump (Q14)
-- =target-15/= - host =fdisk -l=/=lsblk= + =mount= transcript and exploit video (Q15)
+- =target-2/= - recovered =.env=
+- =target-4/= - extracted layer =app/.env= and the =sha256= of its layer
+- =target-12/= - =capsh --print=  =grep Cap /proc/1/status=
+- =target-14/=
+- =target-15/=
 
-Each =target-N/= keeps its =README.org= (answers), =scripts/= (helpers and
-their =outputs/=) and =screenshots/= (evidence).
+=part-N= holds the answers in a =README.org= to each question along with =screenshots/=.
 
 * Checklist
 ** Part 1 - secrets out of images [5/5]
