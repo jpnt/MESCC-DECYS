@@ -23,15 +23,46 @@ jobs:
     env:
       # Submission archive name: <student_id_1>_<student_id_2>..<student_id_n>.zip
       ZIP_NAME: 1210891_1221294_1240374_1250446.zip
+      PDF_NAME: 1210891_1221294_1240374_1250446.pdf
     steps:
       - uses: actions/checkout@v7
 
-      # Build the archive from git-tracked files only, so local temp/lock
-      # files are excluded by construction.
+      # Compile report.md -> report.pdf. report.pdf is gitignored (*.pdf), so it
+      # is absent from `git archive`; it is built here and injected into the ZIP
+      # below. Liberation Sans/Mono are metric-compatible with the Arial/Menlo
+      # used locally and ship in fonts-liberation, so no Microsoft fonts needed.
+      - name: Install pandoc and XeLaTeX
+        run: |
+          sudo apt-get update
+          # No --no-install-recommends: the texlive packages pull support files
+          # (e.g. lmodern) that pandoc's default LaTeX template loads. lmodern
+          # and fonts-liberation are listed explicitly so the build cannot fail
+          # on a missing font package.
+          sudo apt-get install -y \
+            pandoc texlive-xetex texlive-latex-recommended \
+            texlive-latex-extra texlive-fonts-recommended \
+            lmodern fonts-liberation
+
+      - name: Build report PDF
+        run: |
+          pandoc m2-isolation/report.md -o m2-isolation/report.pdf \
+            --pdf-engine=xelatex \
+            -V geometry:margin=2.54cm \
+            -V mainfont="Liberation Sans" \
+            -V monofont="Liberation Mono" \
+            -V fontsize=11pt \
+            -V colorlinks=true -V linkcolor=blue -V urlcolor=blue \
+            --no-highlight
+
+      # Build the archive from git-tracked files only (so local temp/lock files
+      # are excluded by construction), drop the Markdown source, and add the
+      # freshly built report.pdf so the ZIP ships the compiled report only.
       - name: Build submission ZIP
         run: |
           git archive --format=zip --prefix=m2-isolation/ \
             -o "$ZIP_NAME" HEAD:m2-isolation
+          zip -d "$ZIP_NAME" m2-isolation/report.md
+          zip "$ZIP_NAME" m2-isolation/report.pdf
 
       - name: Upload submission artifact
         uses: actions/upload-artifact@v7
@@ -39,16 +70,25 @@ jobs:
           name: m2-isolation-submission
           path: ${{ env.ZIP_NAME }}
 
+      # The compiled report on its own, so it can be grabbed without the ZIP.
+      - name: Upload report PDF artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: m2-isolation-report
+          path: m2-isolation/report.pdf
+
       # Rolling release: always the submission built from the latest push to
-      # main, at releases/download/m2-isolation/<student ids>.zip
+      # main, at releases/download/m2-isolation/. The ZIP and the standalone
+      # report PDF are both attached as release assets.
       - name: Publish submission release
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
+          cp m2-isolation/report.pdf "$PDF_NAME"
           gh release delete m2-isolation --cleanup-tag --yes || true
-          gh release create m2-isolation "$ZIP_NAME" \
+          gh release create m2-isolation "$ZIP_NAME" "$PDF_NAME" \
             --target "$GITHUB_SHA" \
             --title "M2 - Isolation project submission" \
             --notes "Built from ${GITHUB_SHA::7} on $(date -u +%Y-%m-%d)."
