@@ -14,8 +14,9 @@ question plus the shared files:
 - =target-2/= - recovered =.env=
 - =target-4/= - extracted layer =app/.env= and the =sha256= of its layer
 - =target-12/= - =capsh --print=  =grep Cap /proc/1/status=
-- =target-14/=
-- =target-15/=
+- =target-14/= - privileged-container capability evidence (=capsh --print=,
+  =/proc/1/status=, decoded version)
+- =target-15/= - the fdisk / lsblk + mount transcript and the exploit video
 
 =part-N= holds the answers in a =README.org= to each question along with =screenshots/=.
 
@@ -35,11 +36,11 @@ question plus the shared files:
 - [X] Q11 - Buffer overflow vs disabled/deleted =cap_dac_override=
 - [X] Q12 - Container capability sets (artifact: =target-12/=)
 - [X] Q13 - ping under =--cap-drop all= and the fix (=target-12/=)
-** Part 3 - security evasion [0/4]
-- [ ] Q14 - Capabilities of the privileged container (artifact: =target-14/=)
-- [ ] Q15 - Host-compromise exploit + video (artifact: =target-15/=)
-- [ ] Q16 - Replicate a container escape (extra, video)
-- [ ] Q17 - Docker security good practices
+** Part 3 - security evasion [4/4]
+- [X] Q14 - Capabilities of the privileged container (artifact: =target-14/=)
+- [X] Q15 - Host-compromise exploit + video (artifact: =target-15/=)
+- [X] Q16 - Replicate a container escape (extra, video)
+- [X] Q17 - Docker security good practices
 ** Submission
 - [X] =TARGETS/secrets.csv= filled with real values (currently placeholders)
-- [ ] =TARGETS/AI-DISCLOSURE.md= added
+- [X] =TARGETS/AI-DISCLOSURE.md= added
