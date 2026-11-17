@@ -45,7 +45,7 @@ WARNING: H4 packet is too long
 [test] rxwork returned
 ```
 
-The event-frame path behaves the same on the vulnerable build: an `H4_EVT` frame declaring `hdr.len = 255` overflows the 79-byte buffer with a 255-byte write (`WRITE of size 255`), while the 12.9 build carries `data[2048]` and the guard, so the same frame is accepted into a stack buffer it actually fits. The full transcripts are in Appendix A.
+The event-frame path behaves the same on the vulnerable build: an `H4_EVT` frame declaring `hdr.len = 255` overflows the 79-byte buffer with a 255-byte write (`WRITE of size 255`). The 12.9 build sizes the buffer at `CONFIG_BLUETOOTH_UART_RXBUFSIZE` (2048) and guards only ACL frames, so the same event frame is accepted there without overflow -- accepted, note, not *validated*: the EVT branch of the fixed code still trusts `hdr->evt.len` up to 255, an echo of the same trust-the-length habit one release later. The full transcripts are in Appendix A.
 
 ### What the trace does and does not prove
 
