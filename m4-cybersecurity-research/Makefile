@@ -27,7 +27,7 @@ sources-esp:
 	python3 tools/esp_evidence.py
 
 figures:
-	for f in report/figures/*.dot; do dot -Tpng -Gdpi=180 $$f -o $${f%.dot}.png; done
+	for f in report/figures/*.dot; do dot -Tpng -Gdpi=180 "$$f" -o "$${f%.dot}.png"; done
 
 snippets:
 	python3 report/snippets/extract_wpa_upstream.py

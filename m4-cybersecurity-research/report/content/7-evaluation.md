@@ -53,9 +53,8 @@ cryptographic properties hold; what breaks is the
 implementation-layer handoff -- key installation and counter state,
 the branch our KRACK model walks. The distinction this chapter
 keeps making (protocol sound, state machine unsafe) is a theorem-level
-statement, not a rhetorical one. Their public Tamarin model is the
-plan's optional stretch: reproducing the vulnerable-vs-patched
-property separation formally.
+statement, not a rhetorical one. Their public Tamarin model is the plan's optional
+stretch.
 
 ## Lessons learned (ours, not the industry's)
 

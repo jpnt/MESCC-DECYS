@@ -12,8 +12,9 @@ guard-presence greps and the 2021 reinstall-commit record (regenerate
 with `make sources-esp`); `tools/` holds `sae_pwe_stats.py` (seeded
 leak measurement), `curve_check.py` (curve point count) and
 `esp_evidence.py`. The fetched hostap files are checked in verbatim
-under `report/snippets/upstream/` so a reader can diff the models
-against the release files named in their headers.
+under `report/snippets/upstream/` (byte slices of the pinned w1.fi
+releases in `lab/`, or of the current upstream tree) so a reader can
+diff the models against the release files named in their headers.
 
 | Artifact | Content |
 |---|---|

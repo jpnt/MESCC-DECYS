@@ -50,6 +50,9 @@ recurs across every stack in this report: an implementation trusting an
 input field (`Install` bit) that a correct-by-construction peer would
 never set twice, with no validation layer behind it.
 
+<!--raw-typst #figure(image("/figures/state-machine.png", width: 92%), caption: [The supplicant's RSNA pairwise state machine. The vulnerable path (red) re-enters PTK-NEGOTIATING/PTK-DONE on a retransmitted Message 3 and installs again; the patched path (blue dashed) keeps the reply but skips installation. This is Figure 3 of the original paper [@krack], reproduced from the same state descriptions.]) <fig-fsm> -->
+
+
 ## WPA3 SAE/Dragonblood: the mechanism, in code
 
 SAE (the WPA3 handshake, "Dragonfly") failed in the ways of its 2019 advisory family

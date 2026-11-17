@@ -1,0 +1,15 @@
+digraph fsm {
+  rankdir=LR; nodesep=0.5; ranksep=0.8;
+  graph [fontname="Helvetica"]; node [fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9];
+  S0 [label="PTK-START", shape=circle, style=filled, fillcolor="#dfe7f3"];
+  S1 [label="PTK-NEGOTIATING", shape=circle, style=filled, fillcolor="#dfe7f3"];
+  S2 [label="PTK-DONE", shape=doublecircle, style=filled, fillcolor="#e7f3e2"];
+  S1b [label="PTK-NEGOTIATING\n(received again)", shape=circle, style=filled, fillcolor="#fde8e8"];
+  S2b [label="PTK-DONE\nreinstall: PN reset", shape=doublecircle, style=filled, color="#c0392b", penwidth=1.4, fillcolor="#fbd9d3"];
+  B [label="boolean installed:\nsecond pass skips\nthe install", shape=box, style="rounded,filled", fillcolor="#fff3d6"];
+  S0 -> S1 [label="1/4"]; S1 -> S2 [label="3/4 derive PTK,\ninstall, reply 4/4"];
+  S2 -> S1b [label="retransmitted 3/4"]; S1b -> S2b [label="same PTK,\ninstall again"];
+  S2b -> S2 [label="2.6+: skip install,\nstill reply 4/4", style=dashed, color="#1a4f8b"];
+  B -> S2b [style=dotted, arrowhead=none];
+}
