@@ -6,13 +6,13 @@ Zephyr is the right comparison for NuttX: same problem domain (constrained MCUs)
 
 | Aspect | NuttX | Zephyr |
 |---|---|---|
-| Route | `security@apache.org`, Apache Security Team policy; ASF CNA assigns CVEs [@nuttx-security] | dedicated security page, `sectech@lists...` report intake, embargoed advisories via GitHub, CVEs through Linux Foundation CNA [@zephyr-sec] |
+| Route | `security@nuttx.apache.org` (auto-copied to `security@apache.org`); ASF Security Team as CNA assigns the CVEs; fix commits may not reference the security nature until the announcement [@nuttx-security] | preferred intake is a draft GitHub security advisory (private until publication), coordinated via GHSA advisories with the Linux Foundation as CNA [@zephyr-sec] |
 | Handling team | no standing NuttX security team; fixes are written by whoever reviews the PR | Security Triage Team + Technical Security Committee with named members, documented rotation, weekly meetings [@zephyr-sec] |
 | Advisories | CVE list on one docs page, release notes; no embargo mechanism of its own | GHSA advisories with fixed publication dates, affected-version matrices, exploitability notes |
 | Observed cadence | 11 CVEs in ~7 years; the 2025 cluster arrived within months of one another [@nuttx-security] | a steady, published advisory flow (GitHub security advisories for the zephyr repo) [@zephyr-sec] |
 | Response artifacts | fix PR plus CVE; testing lines list a board name (e.g. "esp32c6-xiao:usbnsh") | fix + advisory + CVSS + credits; where found by fuzzing, a reproducer is attached |
 
-The structural difference is *institutional memory*: Zephyr's security team reads every bug report looking for the security-shaped ones. NuttX relies on the Apache CNA pipeline, which numbers and publishes what it is handed but does not look for bugs. In our case studies that showed: CVE-2025-48769's fix comment says "Patch provided by @richyliu" — the project accepted and shipped an external patch, credited him, and never had a team that would have gone looking for sibling bugs in the same loop before the reporter did.
+The structural difference is *institutional memory*: Zephyr's security team reads every bug report looking for the security-shaped ones. NuttX's route is the Apache CNA pipeline, which numbers and publishes what it is handed but does not go looking for bugs. In our case studies that showed: CVE-2025-48769's fix comment says "Patch provided by @richyliu" — the project accepted and shipped an external patch, credited him, and never had a team that would have gone looking for sibling bugs in the same loop before the reporter did.
 
 ## Testing and fuzzing
 

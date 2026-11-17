@@ -6,7 +6,7 @@ The second line is empirical triage studies of an RTOS's own issue tracker and c
 
 ## Prior work on NuttX specifically
 
-We found no equivalent public systematic assessment of NuttX. What exists is: the individual CVE disclosures and their fix PRs, conference-material mentions of NuttX inside drone-security research (the PX4 line, of which CVE-2021-34125 is an instance), and project-ideas pages listing periodic security/GSoC topics (MAC, fuzzing) without any shipped result in-tree. For an OS of NuttX's deployment scale this research gap is itself a finding: the bugs we reproduce in Sections 4 and 5 were each found by one person reading code, not by any tool watching continuously.
+We found no equivalent public systematic assessment of NuttX. What exists is: the individual CVE disclosures and their fix PRs, conference-material mentions of NuttX inside drone-security research (the PX4 line, of which CVE-2021-34125 is an instance), and project-ideas pages listing periodic security/GSoC topics (MAC, fuzzing) without any shipped result in-tree. For an OS of NuttX's deployment scale this research gap is itself a finding: the bugs we reproduce in Sections 4 and 5 were each found by a reader, not by any tool watching continuously, and both filesystem CVEs trace to a single outside finder [@nuttx-security].
 
 ## The deployment literature
 
