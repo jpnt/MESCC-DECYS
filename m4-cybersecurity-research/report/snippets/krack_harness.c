@@ -209,11 +209,12 @@ int main(int argc, char **argv)
   printf("== normal handshake: AP -> Msg3 (Install|Secure)\n");
   process_3_of_4(&sm, 1, 1);
 
-  uint8_t pt1[32], pt2[32], ct1[32], ct2[32];
+  uint8_t pt1[48], pt2[48], ct1[48], ct2[48];
   memset(pt1, 0, sizeof pt1); memset(pt2, 0, sizeof pt2);
   memcpy(pt1, "ARP who-has 10.0.0.1 tell 10.0.0.42", 30);
   memcpy(pt2, "SECRET-SESSION-TOKEN-ABCD1234567890", 32);
-  uint16_t pn1 = tx_frame(&sm, pt1, 32, ct1);
+  memcpy(pt2 + 32, "END", 3);
+  uint16_t pn1 = tx_frame(&sm, pt1, 48, ct1);
   printf("[wifi] TX frame1 (known ARP + zero padding) at PN=%d\n", pn1);
 
   /* The AP retransmits Msg3 (802.11 data acks are lossy; supplicant
@@ -222,7 +223,7 @@ int main(int argc, char **argv)
   printf("== AP retransmits Msg3 (Install|Secure): the replay\n");
   process_3_of_4(&sm, 1, 1);
 
-  uint16_t pn2 = tx_frame(&sm, pt2, 32, ct2);
+  uint16_t pn2 = tx_frame(&sm, pt2, 48, ct2);
   printf("[wifi] TX frame2 (secret) at PN=%d\n", pn2);
 
   if (strcmp(mode, "vulnerable") == 0)
@@ -239,11 +240,11 @@ int main(int argc, char **argv)
        * frame2's first blocks via the ks obtained from frame1:
        * ks = pt1 ^ ct1 (both 2 blocks, block1 of pt1 is zero-fill
        * padding beyond the string, known too: 30-byte ARP + 2 pad). */
-      uint8_t ks[32], recovered[33];
-      for (int i = 0; i < 32; i++) ks[i] = pt1[i] ^ ct1[i];
-      for (int i = 0; i < 32; i++) recovered[i] = ct2[i] ^ ks[i];
-      recovered[32] = '\0';
-      assert(memcmp(recovered, pt2, 32) == 0);
+      uint8_t ks[48]; uint8_t recovered[49];
+      for (int i = 0; i < 40; i++) ks[i] = pt1[i] ^ ct1[i];
+      for (int i = 0; i < 40; i++) recovered[i] = ct2[i] ^ ks[i];
+      recovered[40] = '\0';
+      assert(memcmp(recovered, pt2, 40) == 0);
       printf("[ATTACK] key reinstalled: PN reused, recovered: %s\n",
              recovered);
     }

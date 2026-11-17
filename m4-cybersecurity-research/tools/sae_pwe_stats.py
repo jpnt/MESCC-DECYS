@@ -11,7 +11,7 @@ required"; this script shows the padding does not hide it: a large
 share of runs stop AFTER the pad, with a geometric tail determined by
 the password, i.e. runtime carries password-dependent signal
 (CVE-2019-9495/9496, Dragonblood)."""
-import hashlib, hmac, secrets, collections
+import hashlib, hmac, random, collections
 
 p = 0xffffffff00000001000000000000000000000000ffffffffffffffffffffffff
 a = p - 3
@@ -52,10 +52,13 @@ def iterations(password, k=4, cap=200):
     return cap + 1
 
 if __name__ == "__main__":
+    # Seeded for reproducibility (goldfish round 1): 1500 pseudo-passwords.
+    random.seed(20261117)
     N = 1500
-    h = collections.Counter(iterations(secrets.token_bytes(8))
-                            for _ in range(N))
+    h = collections.Counter(
+        iterations(bytes(random.randrange(256) for _ in range(8)))
+        for _ in range(N))
     tail = sum(v for c, v in h.items() if c > 4) / N
-    for c in sorted(h):
-        print("real-stops-at-%d: %.3f" % (c, h[c] / N))
+    for c in range(4, 8):
+        print("real-stops-at-%d: %.3f" % (c, h.get(c, 0) / N))
     print("P(work beyond the k=4 pad) = %.3f" % tail)

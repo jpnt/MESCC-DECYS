@@ -1,4 +1,4 @@
-.PHONY: all run fixed clean
+.PHONY: all run fixed krack sae clean
 
 CC      ?= clang
 SANFLAGS = -fsanitize=address,undefined -g -O1
@@ -28,7 +28,7 @@ fixed: bt_uart_harness_fixed
 	./bt_uart_harness_fixed acl
 
 clean:
-	rm -f bt_uart_harness bt_uart_harness_fixed
+	rm -f bt_uart_harness bt_uart_harness_fixed inode_unlink_harness krack_vulnerable krack_fixed sae_vulnerable sae_fixed
 
 # ---- KRACK (CVE-2017-13077..87) ----
 krack_vulnerable: krack_harness.c

@@ -6,7 +6,7 @@ Gregory Nutt started NuttX in the mid-1990s with an explicit goal: a kernel smal
 
 **Unified kernel/libc namespace.** On Linux, user code cannot call kernel functions directly; it crosses a boundary via syscalls. NuttX discards the boundary: "user space" code calls `nxsem_wait()` or `fs_heap_malloc()` as ordinary C. The project describes this as why the same source tree is both kernel and library. Linux-ABI compatibility is preserved at the *source* level (a POSIX program recompiles), not at the *binary/isolation* level.
 
-**Everything is a file, drivers as inodes.** The NuttX inode tree (Section 3's second case study's scene of the crime) is the direct ancestor: device nodes, mount points and pseudo-directories in one tree, with driver operations as a function table per inode. The 2025 filesystem CVEs are bugs in exactly this inheritance.
+**Everything is a file, drivers as inodes.** The NuttX inode tree (the scene of Chapter 3's Case Study 2) is the direct ancestor: device nodes, mount points and pseudo-directories in one tree, with driver operations as a function table per inode. The 2025 filesystem CVEs are bugs in exactly this inheritance.
 
 **Process/thread model with shared address space semantics.** NuttX "tasks" are scheduler-visible threads over one address space (flat mode), or per-process spaces if the MMU build is configured. The default is the former, and it is the one consumer builds use.
 

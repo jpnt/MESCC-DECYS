@@ -11,7 +11,7 @@ and nothing needs to.
 | Inode root removal (CVE-2025-48768) | ASan `SEGV`, write at 0x10 | verbatim `inode_unlink()`, 12.9.0 |
 | KRACK key reinstallation | PN reset → keystream reuse → recovered plaintext | wpa.c 2.3 control structure vs current guard string |
 | SAE reflection DoS | 5/5 livelock vs guard-drop round 1 | sae.c 2.3 state flow; real group law (p=1009) |
-| SAE hunt-loop leak | P(work beyond pad) = 0.067 | verbatim `sae_derive_pwe_ecc` + P-256 QR oracle |
+| SAE hunt-loop leak | P(work beyond pad) = 0.066 (seeded, N=1500) | faithful loop-control replica + real P-256 QR oracle |
 
 ## Packet analysis: the frames, without the air
 
@@ -42,10 +42,11 @@ Three limits, stated as the rubric's honesty criteria demand:
    audit.
 3. **Vendor blobs remain untestable.** For gs2200m-style and Espressif
    blob paths, no public test interface exists. That is the finding of
-   Section 4, not a failure of Section 3.
+   Chapter 4, not a failure of Chapter 3.
 
 The positive reading: every number in the report is machine-checked or
 source-verified, every artifact is deterministic (`make krack`, `make
-sae`, `make run`), and the patched-vs-vulnerable comparisons are the
+sae`, `make run`) — with the single exception of the seeded PWE
+statistics script, whose seed is pinned so its quoted block re-runs, and the patched-vs-vulnerable comparisons are the
 same pairs the upstream commits define. What a full over-the-air demo
 adds is fidelity of the *channel*; it changes none of the conclusions.

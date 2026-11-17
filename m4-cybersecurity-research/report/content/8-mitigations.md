@@ -15,7 +15,7 @@ side by side:
 
 Two lessons generalize. First, a *missing three-line check* is the
 normal form of these vulnerabilities — which is why source reading finds
-them (Section 4) and why tooling that reads continuously (Section 7's
+them (Chapter 4) and why tooling that reads continuously (Chapter 7's
 Zephyr contrast) is the only defence at fleet scale. Second, the KRACK
 GTK and SAE-timing fixes show that *idempotence alone is not enough*:
 installations must be idempotent AND uniform-cost, and state machines
@@ -31,7 +31,7 @@ handshake and deauth frames, and the RFC 8032 "hunt-and-peck" flaw
 zero-rtt-PK — to make the *implementation* the thing that cannot leak.
 For embedded stacks specifically: the supplicant belongs in a language
 and process with memory isolation and continuous fuzzing (the Zephyr/
-OSS comparison, Section 7); on Linux-class systems the same lesson
+OSS comparison, Chapter 7); on Linux-class systems the same lesson
 produced `wpa_supplicant`'s long-standing fuzz-build targets. NuttX's
 own `CONFIG_BUILD_PROTECTED` exists for the *kernel* side of this
 argument; what nothing provides in the NuttX ecosystem today is a

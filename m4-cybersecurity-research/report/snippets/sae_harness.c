@@ -32,13 +32,16 @@
  * Part 2 (timing) is not model arithmetic but a measurement: see
  * tools/sae_pwe_stats.py for the iteration-count distribution of the
  * vulnerable hunt loop against a real P-256 quadratic-residue oracle
- * (k=4 padding does not hide it: ~50% of runs stop beyond the pad).
+ * (k=4 padding does not hide it: ~6-7% of runs do extra work beyond
+ * the pad; see tools/sae_pwe_stats.py).
  *
- * Crypto notes for reviewers: the curve is small (p=1009, order 1024)
- * so everything is exact integer math, fast, and readable. Group
- * structure follows SAE exactly: blind = (v + m) mod n, commit =
- * v*G - PWE, key = blind * (PWE + h*commit), where the attacker echoes
- * the victim's public (blind, commit) and knows neither v nor m.
+ * Crypto notes for reviewers: the curve is small (field prime p=1009,
+ * group order 987 = 3*7*47) so everything is exact integer math, fast,
+ * and readable. Group structure follows SAE exactly: blind = (v + m)
+ * mod n, commit = v*G - PWE, key = blind * (PWE + h*commit), where the
+ * attacker echoes the victim's public (blind, commit) and knows neither
+ * v nor m. (The tiny group is a vehicle for the state machine; the
+ * commit work it re-does is NOT a real-curve cost estimate.)
  *
  * Build:  make sae_vulnerable sae_fixed
  * Run:    ./sae_vulnerable
@@ -52,8 +55,8 @@
 
 #define P   1009            /* prime field                     */
 #define A   (P - 3)         /* a = -3                          */
-#define B   540             /* b; curve has order 1024         */
-#define ORD 1024            /* group order, cofactor 1         */
+#define B   749             /* b; curve has order 987 = 3*7*47   */
+#define ORD 987             /* group order                     */
 
 struct pt { int x, y; int inf; };
 struct side {
@@ -183,13 +186,20 @@ int main(void)
           return 0;                /* fixed build: guard fired */
         }
 
-      /* The handshake cannot authenticate the real network: the AP side
-       * never contributed a secret, so confirmations never lead to data
-       * flow; the STA is stuck re-running the exchange: DoS. We model
-       * the stuck condition as the STA deriving a key against a peer
-       * that carries no independent secret (blind/commit identical to
-       * its own). */
-      int stuck = (sta.blind == reflect.blind &&
+      /* F-R1-07, executed: the reflector's "key" is key_tag() of OUR
+       * public values -- the same expression we evaluate, so its
+       * confirm equals ours ONLY by echoing: it has no blind of its
+       * own (echoed ours), no secret commitment (echoed ours). A real
+       * peer always differs in blind and commit; here they cannot.
+       * key_match below is therefore the self-reference signature:
+       * it proves the exchange authenticated nobody, which is the
+       * DoS. (A genuine 4-way after SAE would key off this K; the
+       * data never flows because no independent secret exists.) */
+      int ours  = key_tag(&sta, &reflect);
+      int theirs = key_tag(&reflect, &sta);   /* reflector has only our public */
+      int key_match = (ours == theirs);       /* trivially true BY ECHO */
+      int stuck = key_match &&
+                  (sta.blind == reflect.blind &&
                    sta.commit.x == reflect.commit.x &&
                    sta.commit.y == reflect.commit.y);
       if (stuck)
