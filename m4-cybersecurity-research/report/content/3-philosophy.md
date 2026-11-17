@@ -10,7 +10,7 @@ Gregory Nutt started NuttX in the mid-1990s with an explicit goal: a kernel smal
 
 **Process/thread model with shared address space semantics.** NuttX "tasks" are scheduler-visible threads over one address space (flat mode), or per-process spaces if the MMU build is configured. The default is the former, and it is the one consumer builds use.
 
-**A shell and a network server farm in the base image.** `nsh`, telnetd, ftpd and friends ship in-tree; the same Linux distribution instinct ("the tools are part of the system") that made 1990s Linux boxes attackable is why NuttX's advisory text keeps pointing at "FTP exposed over the network".
+**A shell and network-facing tools, with filesystem daemons one repo away.** `nsh` ships in-tree; the FTP/TFTP daemons that both 2025 filesystem advisories name as the realistic attacker path live in the companion `nuttx-apps` tree (`netutils/ftpd`), compiled into consumer images together with the kernel. The same Linux distribution instinct ("the tools are part of the system") is why the advisories keep pointing at "FTP exposed over the network".
 
 ## What was deliberately *not* inherited
 

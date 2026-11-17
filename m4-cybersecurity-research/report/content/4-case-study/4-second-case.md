@@ -12,7 +12,7 @@ The second case is small enough to state completely. `fs/inode/fs_inoderemove.c`
 
 `DEBUGASSERT` compiles away unless `CONFIG_DEBUG_ASSERTS` is on, which it is not in release builds. So on the default configuration the line becomes an unconditional write through a NULL pointer: `*(uintptr_t *)offsetof(struct inode, i_child) = ...`.
 
-The fix (PR apache/nuttx#16437, "fs/inode: Fix inoderemove when removing an inode without parent", by Alberto Garcia, patch authored by Richard Liu) replaces the assumption with a check and an error path: if `desc.parent == NULL`, the unlink fails and returns no inode, so the caller's `inode_remove()` reports `ENOENT` and nothing is freed [@pr-16437]. The advisory (CVSS 6.5 DoS) names the same attacker we discussed: users of filesystem services with write access exposed over the network, i.e. the in-tree FTP daemon [@cve-2025-48768].
+The fix (PR apache/nuttx#16437, "fs/inode: Fix inoderemove when removing an inode without parent", opened by Alberto Garcia, patch authored by Richard Liu) replaces the assumption with a check and an error path: if `desc.parent == NULL`, the unlink fails and returns no inode, so the caller's `inode_remove()` reports `ENOENT` and nothing is freed [@pr-16437]. The oss-security announcement came from Tomasz Cedro, the same NuttX committer who reported the 2025 Bluetooth and rename CVEs. The advisory (CVSS 6.5 DoS) names the same attacker we discussed: users of filesystem services with write access exposed over the network, i.e. the companion-tree FTP daemon (apps/netutils/ftpd) [@cve-2025-48768].
 
 ### Reproduction
 
