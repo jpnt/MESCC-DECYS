@@ -22,7 +22,7 @@
 #align(center)[
   #text(size: 16pt, weight: "bold", fill: accent)[
     A Security Analysis of Apache NuttX RTOS:\
-    Vulnerability Reproduction, the WPA2/WPA3 Handshake Attacks, and a Zephyr Comparison (Group 10)
+    Key Reinstallation Attacks against WPA2, with Embedded Reproduction and a Zephyr Comparison (Group 10)
   ]
 ]
 #v(0.6cm)
@@ -126,7 +126,7 @@ recording.1. *CVE and disclosure review.* Enumerate every published NuttX CVE vi
    publish a harness whose fidelity we cannot defend.
 5. Linux-vs-NuttX design-philosophy chapter drafted; Zephyr comparison
    drafted (security team, disclosure, fuzzing posture, NCC Group 2020 assessment,
-   Rtkaller/RTCON academic fuzzing literature).
+   Rtkaller/RTCON academic fuzzing literature, and the plan's formal-analysis anchor, Cremers et al. USENIX Sec'20).
 
 
 = Open Issues
