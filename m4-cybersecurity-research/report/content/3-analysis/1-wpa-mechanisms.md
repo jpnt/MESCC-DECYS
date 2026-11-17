@@ -1,6 +1,6 @@
 ## WPA2 KRACK: the mechanism, in code
 
-KRACK (CVE-2017-13077 and the family 13078–13087 [@nvd-krack]) is not a
+KRACK (CVE-2017-13077 and the family 13078 to 13087 [@nvd-krack]) is not a
 Wi-Fi bug and not a cryptography bug: it is a state-machine bug in the
 client's 4-way handshake receiver, the supplicant, in 802.11i terms
 and the whole attack reduces to one missing `if` [@krack] [@krack-site].
@@ -112,7 +112,7 @@ real-stops-at-7: 0.009
 P(work beyond the k=4 pad) = 0.066
 ```
 
-About 6–7% of passwords hunt past the pad (binomial 95% CI ±1.2pp at
+About 6 to 7% of passwords hunt past the pad (binomial 95% CI ±1.2pp at
 N=1500), runtime is password-correlated,
 which is the signal the Dragonblood cache/retry attacks extract to
 verify a guessed password offline at near-local speed (their

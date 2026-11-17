@@ -181,14 +181,19 @@
 #slide[
  #text(size: 24pt, weight: "bold")[Critical evaluation: one category error]
  #v(0.6em)
- #set text(size: 17pt)
- | Input trusted | System | Consequence |
- | --- | --- | --- |
- | Install bit (again) | supplicant 4-way | PN reset, keystream reuse |
- | peer Commit == mine | SAE (2.6, no check) | auth with self: DoS |
- | hunt-loop work | SAE timing | password oracle |
- | Install bit (again) | RTOS SDK ports | uncheckable patch state |
- | blob-only Wi-Fi stack | RTOS products | no provenance at all |
+  #set text(size: 16pt)
+  #table(
+    columns: 3,
+    inset: 6pt,
+    align: left,
+    stroke: 0.5pt + luma(180),
+    table.header([*Input trusted*], [*System*], [*Consequence*]),
+    [Install bit (again)], [supplicant 4-way], [PN reset, keystream reuse],
+    [peer Commit == mine], [SAE (2.6, no check)], [auth with self: DoS],
+    [hunt-loop work], [SAE timing], [password oracle],
+    [Install bit, once more], [RTOS SDK ports], [uncheckable patch state],
+    [blob-only Wi-Fi stack], [embedded devices], [no provenance at all],
+  )
  #v(0.6em)
  - Five fixes, all a few lines; none of them a broken cipher.
  - Formally confirmed: WPA2's crypto *proves* sound; the handoff breaks
