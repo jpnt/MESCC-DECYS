@@ -29,14 +29,14 @@ against the release files named in their headers.
 
 ```text
 # from the module root (m4-cybersecurity-research/):
-make krack        # vulnerable receiver -> keystream reuse + recovery;
-                  # fixed model -> guard refuses the reinstall
-make sae          # vulnerable receiver -> 5/5 reflection livelock;
-                  # fixed model -> guard drops the echo
-make report       # typst compile
-make slides       # presentation deck
-python3 tools/sae_pwe_stats.py   # the hunt-loop leak measurement
-python3 tools/curve_check.py     # point-count of the harness curve
+make krack # vulnerable receiver -> keystream reuse + recovery;
+ # fixed model -> guard refuses the reinstall
+make sae # vulnerable receiver -> 5/5 reflection livelock;
+ # fixed model -> guard drops the echo
+make report # typst compile
+make slides # presentation deck
+python3 tools/sae_pwe_stats.py # the hunt-loop leak measurement
+python3 tools/curve_check.py # point-count of the harness curve
 ```
 
 Toolchain used: Apple clang with ASan/UBSan (macOS, arm64). The WPA

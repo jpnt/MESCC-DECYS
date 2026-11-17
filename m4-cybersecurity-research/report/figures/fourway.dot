@@ -1,0 +1,20 @@
+digraph fourway {
+  rankdir=TB; nodesep=0.35; ranksep=0.55;
+  graph [fontname="Helvetica", ranksep=0.5]; node [fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9];
+  AN [label="1/4  ANonce", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+  SN [label="2/4  SNonce", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+  PT [label="PTK = f(ANonce, SNonce)", shape=box, style="rounded,filled", fillcolor="#fff3d6"];
+  M3 [label="3/4  Install | GTK | RSC", shape=box, style="rounded,filled", fillcolor="#fde8e8"];
+  IN [label="install PTK\nTX PN := 0", shape=box, style="rounded,filled", fillcolor="#e7f3e2"];
+  M4 [label="4/4  (can be lost)", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+  R3 [label="retransmitted 3/4", shape=box, style="rounded,filled", fillcolor="#fde8e8"];
+  RE [label="re-install: PN reset\ntwo frames, one keystream", shape=box, style="rounded,filled", color="#c0392b", penwidth=1.4, fillcolor="#fbd9d3"];
+  AK [label="known ARP xor ->\nplaintext", shape=box, style="rounded,dashed", color="#c0392b"];
+  { rank=same; AN SN }
+  { rank=same; PT }
+  { rank=same; M3 IN }
+  { rank=same; M4 R3 }
+  AN -> SN -> PT -> M3 -> IN -> M4;
+  M4 -> R3 [label="ack lost"]; R3 -> RE -> AK;
+}

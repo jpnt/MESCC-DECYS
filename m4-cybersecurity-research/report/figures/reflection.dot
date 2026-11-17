@@ -1,0 +1,15 @@
+digraph reflection {
+  rankdir=TB;  nodesep=0.7; ranksep=0.7;
+  graph [fontname="Helvetica"]; node [fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9];
+
+  A [label="client: Commit s = v+m, C = vG - PWE", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+  E [label="attacker: echoes the same Commit\n(no secrets of its own)", shape=box, style="rounded,filled", color="#c0392b"];
+  G [label="no reflection check (wpa 2.3): accepted", shape=box, style="rounded,filled", fillcolor="#fde8e8"];
+  S [label="both sides compute the SAME key\nfrom the client's own public values\n(self-authentication)", shape=box, style="rounded,filled", fillcolor="#fff3d6"];
+  L [label="confirmations match only by echo;\nno independent peer exists;\nretries forever: DoS", shape=box, style="rounded,filled", penwidth=1.6, color="#c0392b"];
+  P [label="current sae.c: compares peer commit\nagainst own sent values; drops", shape=box, style="rounded,filled", fillcolor="#e7f3e2"];
+
+  A -> E -> G -> S -> L;
+  G -> P [label="patched", style=dashed];
+}

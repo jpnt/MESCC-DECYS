@@ -1,0 +1,18 @@
+digraph pipeline {
+  rankdir=LR; nodesep=0.5; ranksep=0.6;
+  graph [fontname="Helvetica", ranksep=0.5]; node [fontname="Helvetica", fontsize=9];
+  edge [arrowhead=none, color="#555555"];
+  { rank=same;
+    S [label="password +\nMACs + nonces", shape=ellipse];
+    K [label="KDF seed\n(counter i)", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+    X [label="x candidate", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+    R [label="quadratic\nresidue test", shape=diamond, fillcolor="#fff3d6", style=filled];
+    F [label="PWE found\nstop at i", shape=box, style="rounded,filled", fillcolor="#e7f3e2"];
+    T [label="runtime\nleaks i", shape=box, style="rounded,filled", penwidth=1.4, color="#c0392b", fillcolor="#fbd9d3"];
+  }
+  S -> K -> X -> R;
+  R -> K [label="no", constraint=false];
+  R -> F [label="yes"];
+  F -> T;
+  T -> K [label="pad k=4\n(only hides i<4)", style=dashed];
+}

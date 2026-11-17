@@ -1,10 +1,10 @@
-.PHONY: help sources snippets report krack sae progress slides clean
+.PHONY: help sources snippets figures report krack sae progress slides clean
 
 help:
 	@printf '%s\n' \
 		'make snippets   rebuild + run the WPA model harnesses' \
 		'make krack sae  run one model pair' \
-		'make report     build report.pdf' \
+		'make report     build report.pdf (renders figures/*.dot first)' \
 		'make slides     build slides.pdf (presentation)' \
 		'make progress   build progress_report.pdf' \
 		'make sources-esp refetch the ESP-IDF/lab evidence (needs network)'
@@ -26,6 +26,9 @@ sources-esp:
 	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/commits?sha=v4.4&path=components/wpa_supplicant&per_page=100" -o lab/v44_commits.json
 	python3 tools/esp_evidence.py
 
+figures:
+	for f in report/figures/*.dot; do dot -Tpng -Gdpi=180 $$f -o $${f%.dot}.png; done
+
 snippets:
 	python3 report/snippets/extract_wpa_upstream.py
 	$(MAKE) -C report/snippets krack
@@ -37,7 +40,7 @@ krack:
 sae:
 	$(MAKE) -C report/snippets sae
 
-report:
+report: figures
 	typst compile --root . report/main.typ report.pdf
 
 slides: slides.typ

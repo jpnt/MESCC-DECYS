@@ -11,21 +11,21 @@ supply-chain audit (ESP-IDF supplicant port provenance, vendor-blob Wi-Fi
 stacks). No real network is attacked.
 
 ```
-make krack        # KRACK receiver model: vulnerable + patched control
-make sae          # SAE reflection model + the leak measurement
-make snippets     # both of the above, from checked-in upstream slices
-make report       # report.pdf (~30 pp.)
-make slides       # slides.pdf (13 slides)
-make progress     # progress_report.pdf
-make sources-esp  # refetch the lab/ ESP-IDF evidence (network)
+make krack # KRACK receiver model: vulnerable + patched control
+make sae # SAE reflection model + the leak measurement
+make snippets # both of the above, from checked-in upstream slices
+make report # report.pdf (~30 pp.)
+make slides # slides.pdf (13 slides)
+make progress # progress_report.pdf
+make sources-esp # refetch the lab/ ESP-IDF evidence (network)
 ```
 
 ```
-report/content/      one markdown file per section (plan's 7 chapters)
-report/snippets/     models, verbatim upstream slices, frozen traces
-report/main.typ      structure (typst + cmarker, as in m3)
-tools/               curve_check.py, sae_pwe_stats.py, esp_evidence.py
-lab/                 ESP-IDF + w1.fi release evidence for Chapter 3
-goldfish_review_report.md  review ledgers (rounds 1-2)
-KRACK WPA2 Project Description and Work Plan.pdf  team plan (in repo root)
+report/content/ one markdown file per section (plan's 7 chapters)
+report/snippets/ models, verbatim upstream slices, frozen traces
+report/main.typ structure (typst + cmarker, as in m3)
+tools/ curve_check.py, sae_pwe_stats.py, esp_evidence.py
+lab/ ESP-IDF + w1.fi release evidence for Chapter 3
+goldfish_review_report.md review ledgers (rounds 1-2)
+KRACK WPA2 Project Description and Work Plan.pdf team plan (in repo root)
 ```

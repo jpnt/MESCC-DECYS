@@ -1,0 +1,16 @@
+digraph supplychain {
+  rankdir=LR; nodesep=0.5; ranksep=0.8;
+  graph [fontname="Helvetica"]; node [fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9];
+  A [label="hostap upstream\n(versioned releases,\nsha256 tarballs)", shape=box, style="rounded,filled", fillcolor="#dfe7f3"];
+  B [label="RTOS SDK port\n(ESP-IDF wpa_supplicant)", shape=box, style="rounded,filled", fillcolor="#fff3d6"];
+  C [label="closed Wi-Fi blobs\n(libnet80211, libpp)", shape=box, style="rounded,filled", fillcolor="#fde8e8"];
+  D [label="device", shape=box, style=""];
+  M1 [label="README: no base commit\nversion string stripped", shape=note, fontsize=9, style="rounded,filled"];
+  M2 [label="no CVE mapping\nno auditable source", shape=note, fontsize=9, style="rounded,filled"];
+  A -> B [label="manual port,\nbackports only"];
+  A -> C [label="hand-written\ncrypto, opaque"];
+  B -> D; C -> D;
+  B -> M1 [style=dotted, arrowhead=none];
+  C -> M2 [style=dotted, arrowhead=none];
+}

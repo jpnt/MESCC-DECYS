@@ -55,7 +55,7 @@
     scope: (
       snippet: snippet,
       image: (source, ..args) => image(
-        if source.starts-with("/") { source } else { "content/" + source },
+        if source.starts-with("/") { source.slice(1,) } else { "content/" + source },
         ..args,
       ),
     ),
