@@ -49,3 +49,46 @@ re-check traces (Appendix A already freezes them). Accepted as-is.
 **F-R1-18 [🟢 Nit] L56-59** Add clause: small curve is a state-machine vehicle, not a real-curve cost estimate. [zoomout#8]
 
 **F-R1-19 [🟡 Major, cross-file] zoomout#5/#6** Supply-chain evidence duplicated (here + 6-implications.md L40-55); offline-password consequence asserted but undemonstrated in this section; honest-limits re-argued 3× elsewhere. → de-duplicate implications; add one sentence quantifying the offline gain (paper's figure, cited); cut limits to a pointer.
+
+## Round 2
+
+Reviewers: egm-zoom-out (completed), egm-comprehension (completed on retry),
+egm-implementation-readiness (completed). Round judged NOT clean before
+fixes (blockers raised).
+
+### Fixed (applied)
+
+- R2-01 [blocker] curve order: B=749 gave #E=1025, not 987 (point-counted
+  both; 745 verified #E=987=3*7*47; generator filter now 3/7/47-correct;
+  tools/curve_check.py added and cited)
+- R2-02 [blocker] KRACK blocks were not verbatim: full traces (incl.
+  PN=0 phase header + fixed run) pasted, matching evidence files
+- R2-03 [major] "Full run" + fixed-build PN claim: second verbatim block
+- R2-04 [major] key_tag "assert" overclaim -> "computes ... identical by
+  echo"
+- R2-05 [major] CVE-2019-9497/98/99 named+scoped out; lineage note:
+  reflection guard landed with KRACK-era batch (2.6), timing = 9495/96
+  (2.10 rewrite)
+- R2-06 [major] ESP-IDF greps/claims: evidence CHECKED IN under lab/,
+  refetchable via make sources-esp + tools/esp_evidence.py
+- R2-07 [major] upstream files replaced with OFFICIAL w1.fi releases
+  (2.3 wpa.c sha256 eaaa5bf3..., 2.6 sae.c sha256 01526b90...); Debian
+  2.3-1+deb8u5 was KRACK-backported -> caught; version claims in section
+  + appendix now hash-cited
+- R2-08 [major] appendix paths report/snippets/upstream; runnable
+  commands from module root; python3 tools/... cwd-neutral
+- R2-09 [major] implications supply-chain de-duplicated to pointer+meaning
+- R2-10 [major] experiment table: order 987 point-counted, per-password
+  unit; sources-esp Makefile extended to derive all evidence
+- R2-11 [major] null rule for checked-in .inc prereqs; top-level make
+  krack/sae
+- nits: "session slot" gloss; ±1.2pp binomial CI; per-password sample
+  unit; heading/phrase tidy; krack2018 cited (group-key refinements per
+  plan refs); committed binaries removed; Section->Chapter sweep
+
+### Recorded
+
+- wpasrc cite w1.fi + Debian note kept (prose now names w1.fi releases;
+  Debian role is mirroring).
+- Makefile output-grep hardening: left as-is; exit codes + Appendix A
+  frozen traces cover it.
