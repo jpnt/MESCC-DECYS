@@ -1,6 +1,6 @@
 ## What NuttX is
 
-Apache NuttX is a real-time operating system with an emphasis on standards conformance and small footprint. The project describes it as scalable "from 8-bit to 64-bit microcontroller environments", governed primarily by POSIX and ANSI standards, with additional Unix and VxWorks-flavoured APIs where the standards do not reach or are not appropriate for deeply embedded use (notably `fork()`) [@nuttx-readme].
+Developed under the assignment brief of Reliability and Cybersecurity (DECYS) [@brief], Apache NuttX is a real-time operating system with an emphasis on standards conformance and small footprint. The project describes it as scalable "from 8-bit to 64-bit microcontroller environments", governed primarily by POSIX and ANSI standards, with additional Unix and VxWorks-flavoured APIs where the standards do not reach or are not appropriate for deeply embedded use (notably `fork()`) [@nuttx-readme].
 
 For a security analysis, three structural facts about the codebase matter:
 
@@ -28,7 +28,7 @@ Table 1 lists every CVE on the project's own security page, cross-checked agains
 | CVE-2025-48768 [@cve-2025-48768] | 2025-12-31 | `fs/inode` (`inode_unlink`) | missing NULL parent check → root inode removal, DoS | network-exposed FS service (FTP) | 12.10.0 |
 | CVE-2025-48769 [@cve-2025-48769] | 2025-12-31 | `fs/vfs` (`mountptrename`) | use-after-free via recursive rename | network-exposed FS service (FTP) | 12.11.0 |
 
-Dates follow the oss-security/CVE-record announcements (NVD shows 2026-01-01 for the last two, a known NVD lag). Reading the table across the whole history, the shape of NuttX's exposure is: the network and the filesystem are the two remotely reachable attack surfaces, the Bluetooth driver added a third in 2025, and the allocator bug of 2021 shows what happens when the platform primitive itself is wrong. Several of the 2025 entries were fixed within one release cycle of each other, which we take up again in Section 6.
+Dates follow the oss-security/CVE-record announcements (NVD shows 2026-01-01 for the last two, a known NVD lag). Reading the table across the whole history, the shape of NuttX's exposure is: the network and the filesystem are the two remotely reachable attack surfaces, the Bluetooth driver added a third in 2025, and the allocator bug of 2021 shows what happens when the platform primitive itself is wrong. Several of the 2025 entries were fixed within one release cycle of each other, which we take up again in Sections 4 and 7.
 
 ## How NuttX describes its own security posture
 
@@ -36,4 +36,4 @@ The project maintains a security page with an explicit "Not security vulnerabili
 
 > "Function parameters and incoming data validation rests on the custom application/firmware developer."
 
-It then lists what developers should be careful with: syscalls, pointers (NULL them before and after use), zero-initialising structures, user-controllable data, network data, dynamically allocated buffers. Issues with that stance are the subject of Section 3 and the conclusion; here we note only that the page also documents the coordinated-disclosure route: reports go to `security@nuttx.apache.org` (auto-copied to `security@apache.org`), the Apache Security Team acts as CNA, fixes ship in the normal release cycle, and, unusually, fix commits must not reference their security nature until the announcement [@nuttx-security].
+It then lists what developers should be careful with: syscalls, pointers (NULL them before and after use), zero-initialising structures, user-controllable data, network data, dynamically allocated buffers. Issues with that stance are the subject of Sections 3 and 7; here we note only that the page also documents the coordinated-disclosure route: reports go to `security@nuttx.apache.org` (auto-copied to `security@apache.org`), the Apache Security Team acts as CNA, fixes ship in the normal release cycle, and, unusually, fix commits must not reference their security nature until the announcement [@nuttx-security].

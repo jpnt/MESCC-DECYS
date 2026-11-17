@@ -29,3 +29,23 @@ fixed: bt_uart_harness_fixed
 
 clean:
 	rm -f bt_uart_harness bt_uart_harness_fixed
+
+# ---- KRACK (CVE-2017-13077..87) ----
+krack_vulnerable: krack_harness.c
+	$(CC) -DVULNERABLE $(SANFLAGS) krack_harness.c -o $@
+krack_fixed: krack_harness.c
+	$(CC) $(SANFLAGS) krack_harness.c -o $@
+
+krack: krack_vulnerable krack_fixed
+	./krack_vulnerable vulnerable
+	./krack_fixed fixed
+
+# ---- SAE / Dragonblood (CVE-2019-9494..97) ----
+sae_vulnerable: sae_harness.c
+	$(CC) -DVULNERABLE $(SANFLAGS) sae_harness.c -o $@
+sae_fixed: sae_harness.c
+	$(CC) $(SANFLAGS) sae_harness.c -o $@
+
+sae: sae_vulnerable sae_fixed
+	./sae_vulnerable
+	./sae_fixed

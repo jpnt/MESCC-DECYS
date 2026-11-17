@@ -22,7 +22,7 @@
 #align(center)[
   #text(size: 16pt, weight: "bold", fill: accent)[
     A Security Analysis of Apache NuttX RTOS:\
-    Vulnerability Reproduction and a Zephyr Comparison (Group 10)
+    Vulnerability Reproduction, the WPA2/WPA3 Handshake Attacks, and a Zephyr Comparison (Group 10)
   ]
 ]
 #v(0.6cm)
@@ -35,7 +35,8 @@
   #block(width: 85%, inset: 10pt, stroke: 0.5pt + accent)[
     #set text(size: 9.5pt)
     This project conducts a security analysis of the Apache NuttX RTOS, the
-    kernel behind Xiaomi's openvela consumer platform. We catalogue and
+    kernel behind Xiaomi's openvela consumer platform, and of the WPA2/WPA3
+    handshake code that secures NuttX-based Wi-Fi products. We catalogue and
     classify NuttX's publicly disclosed CVEs, reproduce two of them at the
     source level with sanitizer-backed host harnesses, situate the design
     decisions that produce its bug profile against the Linux tradition, and
@@ -73,13 +74,15 @@ input validation on the application developer. The research questions are:
 1. *CVE and disclosure review.* Enumerate every published NuttX CVE via NVD
    and the project security page; classify by subsystem, bug class and attack
    interface; read the fix PRs.
-2. *Source-level replication.* For selected CVEs, compile the verbatim
+2. *Source-level replication.* For selected CVEs and both handshake attacks, compile or model the
    upstream functions in host harnesses under AddressSanitizer/UBSan, with
    only the NuttX-specific glue stubbed; the patched release serves as the
    control build.
 3. *Design-philosophy analysis.* Trace each reproduced failure mode back to
    the Linux-lineage design choices (flat memory, kernel-as-library, no MMU
-   requirement) and to the project's stated security doctrine.
+   requirement) and to the project's stated security doctrine — under the
+   unifying thesis that all five bugs are one category error: a component
+   trusting an input the protocol should have constrained.
 4. *Practice comparison.* Systematic comparison with Zephyr: disclosure
    handling, fuzzing and CI, hardening defaults, academic attention.
 
@@ -111,11 +114,11 @@ input validation on the application developer. The research questions are:
 
 *Remaining (weeks 9-11):*
 
-1. QEMU/xtensa end-to-end demonstration on the ESP32-C3 `ble` board config,
-   feeding the same H4 frame over an emulated UART (stretch; the host
-   harness already proves the code path).
-2. Fleet-impact section: openvela device class, PX4 lineage.
-3. Final report editing, presentation slides, rehearsal of questions.
+1. Slides + Q&A rehearsal; measured cost of the missing guards (flash/RAM).
+2. Stretch: QEMU end-to-end on the RISC-V `netnsh64` target for the fs CVEs;
+   xtensa/ESP32 BLE target for the Bluetooth CVE.
+3. Optional: with injection-capable Wi-Fi hardware, upgrade the Section 5
+   mechanism proofs to over-the-air demonstrations.
 
 = Schedule (Table 1)
 
@@ -126,7 +129,7 @@ input validation on the application developer. The research questions are:
     table.header([*Task*], [*Description*], [*Start*], [*Finish*], [*Responsible*]),
     [1], [CVE/disclosure review and taxonomy], [28/10/2026], [5/11/2026], [João Pinto],
     [2], [Design-philosophy analysis (Linux lineage, flat memory)], [3/11/2026], [12/11/2026], [Sérgio Cardoso],
-    [3], [Replication harnesses (CVE-2025-35003, CVE-2025-48768)], [7/11/2026], [17/11/2026], [Vitor Santos],
+    [3], [Replication harnesses: CVE-2025-35003, CVE-2025-48768, KRACK/SAE mechanism models], [7/11/2026], [19/11/2026], [Vitor Santos],
     [4], [Zephyr practice comparison + final report and presentation], [14/11/2026], [25/11/2026], [Shijo George],
   ),
   caption: [Major tasks, owners and dates.],

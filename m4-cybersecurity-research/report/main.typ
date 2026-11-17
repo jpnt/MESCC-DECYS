@@ -1,12 +1,16 @@
 // DECYS cybersecurity research project report (group #10).
 // Prose lives in report/content/*.md, reproduction code in report/snippets/.
 // Build with `make report` from m4-cybersecurity-research/.
+// Section order follows the agreed WPA2-focused research structure:
+// 1 intro / 2 background / 3 protocol analysis / 4 implications /
+// 5 experiments / 6 mitigations / 7 evaluation / 8 conclusion, with the
+// NuttX memory-safety case studies as the platform spine.
 
 #import "@preview/red-agora:0.2.0": project
 #import "md.typ": md
 
 #show: project.with(
-  title: "A Security Analysis of Apache NuttX RTOS: Vulnerability Reproduction and a Zephyr Comparison",
+  title: "Key Reinstallation Without Broken Crypto: A Security Analysis of WPA2/WPA3 Handshake Implementations on Apache NuttX Products",
   subtitle: "Reliability and Cybersecurity - DECYS",
   school-logo: image("logo_isep.png"),
   authors: (
@@ -35,30 +39,36 @@
 = Introduction
 #md("1-introduction.md")
 
-= Background and Related Work
+= Technical Background
+#md("2-background/0-ieee80211-wpa2.md")
 #md("2-background/1-nuttx.md")
 #md("2-background/2-cve-taxonomy.md")
 #md("2-background/3-related-work.md")
 
-= Kernel Design Philosophy: NuttX, Linux and Isolation
+= Vulnerability Analysis: Protocol and Implementation
 #md("3-philosophy.md")
+#md("5-analysis/1-wpa-mechanisms.md")
+#md("5-analysis/2-nuttx-cve1.md")
+#md("5-analysis/3-nuttx-cve1-model.md")
+#md("5-analysis/4-nuttx-cve1-results.md")
+#md("5-analysis/5-nuttx-cve2.md")
 
-= Case Study 1: Bluetooth HCI UART Stack Overflow (CVE-2025-35003)
-#md("4-case-study/1-disclosure.md")
-#md("4-case-study/2-anatomy.md")
-#md("4-case-study/3-replication.md")
+= Security Implications
+#md("6-implications.md")
 
-= Case Study 2: Inode Tree Root Removal (CVE-2025-48768) and the fs_rename UAF
-#md("4-case-study/4-second-case.md")
+= Practical Experiment and Reproduction
+#md("7-experiment.md")
 
-= NuttX Engineering Practice: Zephyr as Counterfactual
-#md("5-zephyr.md")
+= Mitigations
+#md("8-mitigations.md")
 
-= Discussion and Lessons for Critical Systems
-#md("6-discussion.md")
+= Critical Evaluation: What Went Wrong
+#md("6-zephyr.md")
+#md("7-discussion.md")
+#md("9-evaluation.md")
 
 = Conclusion
-#md("7-conclusion.md")
+#md("8-conclusion.md")
 
 #pagebreak()
 #bibliography("refs.bib", title: "References", style: "ieee")

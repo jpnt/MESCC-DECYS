@@ -1,0 +1,24 @@
+$ ./krack_vulnerable vulnerable    # wpa.c 2.3 control structure, CVE-2017-13077..
+== normal handshake: AP -> Msg3 (Install|Secure)
+[supplicant] installing PTK to the driver
+[driver] set_key(PTK): TX packet number reset, key slot armed
+[supplicant] port authorized, protection enabled (RX)
+[wifi] TX frame1 (known ARP + zero padding) at PN=0
+== AP retransmits Msg3 (Install|Secure): the replay
+[supplicant] installing PTK to the driver
+[driver] set_key(PTK): TX packet number reset, key slot armed
+[supplicant] port authorized, protection enabled (RX)
+[wifi] TX frame2 (secret) at PN=0
+[ATTACK] key reinstalled: PN reused, recovered: SECRET-SESSION-TOKEN-ABCD1234567890
+
+$ ./krack_fixed fixed              # current wpa.c guard (Do not re-install)
+== normal handshake: AP -> Msg3 (Install|Secure)
+[supplicant] installing PTK to the driver
+[driver] set_key(PTK): TX packet number reset, key slot armed
+[supplicant] port authorized, protection enabled (RX)
+[wifi] TX frame1 (known ARP + zero padding) at PN=0
+== AP retransmits Msg3 (Install|Secure): the replay
+[supplicant] WPA: Do not re-install same PTK to the driver
+[supplicant] port authorized, protection enabled (RX)
+[wifi] TX frame2 (secret) at PN=2
+[fixed] second Msg3 did not re-install; PN monotonic; no reuse, no recovery possible

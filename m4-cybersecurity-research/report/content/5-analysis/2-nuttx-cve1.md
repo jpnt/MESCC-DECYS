@@ -1,4 +1,4 @@
-### The disclosure
+## The disclosure
 
 CVE-2025-35003 was assigned to two missing bounds checks in the NuttX Bluetooth UART receive path, published to oss-security on 26 May 2025 [@oss-sec-35003]. NVD rates it CVSS 3.1 9.8 (AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H) — network, low complexity, no privileges, full impact [@cve-2025-35003]. The description names "maliciously crafted packets" on the HCI/UART interface and lists the consequence set as crash, denial of service, or arbitrary code execution. The affected range is 7.25 before 12.9.0: the driver was broken for roughly the whole period the project maintained a Bluetooth stack. The security page lists the finders as Chongqing Lei and Zhen Ling (Southeast University), with Lei also writing the remediation; the CVE coordinators were Arnout Engelen and NuttX committer Tomek Cedro [@nuttx-security]. The fix shipped in the next release after disclosure, as the standard cycle prescribes.
 

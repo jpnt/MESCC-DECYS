@@ -14,14 +14,24 @@ diff them against the upstream tags named in each file header.
 | `nuttx_net_bluetooth_sizes.h` | the real `BLUETOOTH_MAX_FRAMELEN` constants |
 | `inode_unlink_harness.c` | host harness for the inode removal path |
 | `inode_unlink_under_test.inc` | `inode_unlink()`, verbatim from tag `nuttx-12.9.0` |
+| `krack_harness.c` | supplicant 4-way receiver model (vulnerable = wpa.c 2.3; fixed = current guard) |
+| `sae_harness.c` | SAE reflection DoS model (vulnerable = sae.c 2.3; fixed = reflection guard) |
+| `sae_derive_pwe_pre_dragonblood.inc` | the real SAE hunt loop, verbatim from wpa 2.3 sae.c |
+| `../tools/sae_pwe_stats.py` | P-256 quadratic-residue oracle: the loop's iteration-count leak |
+| `evidence_krack.txt`, `evidence_sae.txt` | the WPA traces cited in Sections 3 and 5 |
 | `Makefile` | builds both harnesses with `-fsanitize=address,undefined` |
 
 ### Build and run
 
 ```text
-make            # builds the four harness binaries
+make            # builds the harness binaries
 make run        # vulnerable ACL frame -> ASan stack-buffer-overflow
 make fixed      # same frame, patched code -> "WARNING: H4 packet is too long"
+make krack      # vulnerable 4-way receiver -> keystream reuse + recovery;
+                # fixed model -> guard refuses the reinstall
+make sae        # vulnerable receiver -> 5/5 reflection livelock;
+                # fixed model -> guard drops the echo
+python3 ../tools/sae_pwe_stats.py   # the hunt-loop leak measurement
 ```
 
 Toolchain used: Apple clang with ASan/UBSan (macOS, arm64). The upstream
@@ -91,7 +101,7 @@ next comment block. Reviewers can verify byte-for-byte equality against
 
 ### Attempted and not reproduced
 
-The `fs_rename` case (CVE-2025-48769) is documented in Section 5 (Case Study 2); the
+The `fs_rename` case (CVE-2025-48769) is documented in Section 3 (Case Study 2); the
 harness produced ASan use-after-free reports, but only inside a model of
 the FAT readdir lifetime we wrote ourselves, which we judged too weak to
 publish as a reproduction. The negative result stands.

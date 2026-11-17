@@ -1,0 +1,20 @@
+$ ./sae_vulnerable                 # wpa 2.3 sae.c: no reflection check
+== wpa_supplicant 2.3 sae.c (pre-Dragonblood)
+[sta] round 0: handshake against reflected copy -> no usable key -> re-Commit
+[sta] round 1: handshake against reflected copy -> confirm/PTK never usable -> re-Commit
+[sta] round 2: handshake against reflected copy -> confirm/PTK never usable -> re-Commit
+[sta] round 3: handshake against reflected copy -> confirm/PTK never usable -> re-Commit
+[sta] round 4: handshake against reflected copy -> confirm/PTK never usable -> re-Commit
+[ATTACK] reflection DoS: 5/5 rounds livelocked (vulnerable receiver never notices the echo)
+
+$ ./sae_fixed                      # current sae.c reflection guard
+== current sae.c (reflection guard)
+[guard] peer commit == own commit: reflection attack evidence -> drop
+[sta] round 0: reflection dropped; no livelock
+
+$ python3 ../tools/sae_pwe_stats.py   # P-256 QR oracle, faithful loop control
+real-stops-at-4: 0.933
+real-stops-at-5: 0.039
+real-stops-at-6: 0.017
+real-stops-at-7: 0.005
+P(work beyond the k=4 pad) = 0.067
