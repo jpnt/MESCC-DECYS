@@ -31,7 +31,7 @@ runtime error: member access within null pointer of type 'struct inode'
     #1 in inode_remove inode_unlink_harness.c
 ```
 
-Address `0x10` is exactly `offsetof(struct inode, i_child)` in the real header order (`i_parent`, `i_peer`, `i_child`): the store is where the kernel meant to write the parent's child link, aimed at the zero page. On a target with a data MPU or an MMU this is a clean crash — denial of service, matching the advisory's rating. On a flat, no-MMU build, which Section 3 argued is the common configuration, writes to `0x10` do not fault: they scribble on the interrupt vector table area of flash-RAM aliasing on some architectures, or on low RAM globals on others. The advisory hedges exactly this: the NULL dereference is "handled differently depending on the target architecture".
+Address `0x10` is exactly `offsetof(struct inode, i_child)` in the real header order (`i_parent`, `i_peer`, `i_child`): the store is where the kernel meant to write the parent's child link, aimed at the zero page. On a target with a data MPU or an MMU this is a clean crash — denial of service, matching the advisory's rating. On a flat, no-MMU build, which Chapter 3 argued is the common configuration, writes to `0x10` do not fault: they scribble on the interrupt vector table area of flash-RAM aliasing on some architectures, or on low RAM globals on others. The advisory hedges exactly this: the NULL dereference is "handled differently depending on the target architecture".
 
 ## Why this bug and the first one rhyme
 

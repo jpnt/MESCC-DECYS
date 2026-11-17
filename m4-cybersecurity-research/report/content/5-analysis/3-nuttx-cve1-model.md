@@ -16,4 +16,4 @@ Three facts make the window:
 
 On a NuttX product, "who can send this frame" has an unusually short answer list: (a) the Bluetooth controller itself — compromised, reprogrammed, or spoofed onto the UART; (b) anyone who can poke the UART physically (the driver has no authentication and the framing is trivially emulated by a $3 dev board glued to the TX line); (c) software already inside the device — which is where it overlaps with fleet attacks, because the same byte stream is what a malicious firmware image to the controller module produces. The important asymmetry: the *host* parses bytes from a component the host trusts less than its own stack, with zero negotiation before parsing begins. No pairing, no encryption, no handshake state: a single frame arriving before any of those exist reaches the vulnerable code.
 
-This is also where the flat-memory philosophy (Section 3) turns a "driver bug" into a "firmware bug": the overflow lands in the only address space the system has.
+This is also where the flat-memory philosophy (Chapter 3) turns a "driver bug" into a "firmware bug": the overflow lands in the only address space the system has.

@@ -25,6 +25,22 @@ candidates remotely at near-local speed. That is the integrity of WPA3's
 password model being degraded to "WPA2-quality" — the paper's own
 summary — not an extraction of the key.
 
+**The severe cases live elsewhere in the cipher family.** Against
+AES-CCMP, KRACK's harvest is keystream reuse — decryption of new frames
+given known plaintext, and replay of broadcast/multicast frames via the
+group-key variant (CVE-2017-13080) — *not* recovery of the pairwise key
+or the passphrase [@krack2018]. The paper's dramatic results belong to different
+targets: TKIP's Michael-MICAR interaction yields plaintext recovery and
+frame forging, and on certain Linux and Android builds (`wpa_supplicant`
+2.4 with the GTK bug, 2.6 with the TPTK construction) the installation
+logic accepts a zeroed key — the all-zero-KCK variant gives a
+man-in-the-middle trivially replaying, decrypting and forging
+traffic. Both edges are *implementation* properties again: our KRACK
+model reproduces the CCMP-counter reset exactly; the all-zero path is
+the 2.6 TPTK trap that upstream's own capture
+(`krackattacks-scripts` ships `example-tptk-attack.pcapng`) documents it [@krack]
+[@krack-site].
+
 **The practical limitations of both attacks are also implementation
 limitations.** They need the attacker *in radio range* of a target
 network, and they need the target to *authenticate* (KRACK needs the

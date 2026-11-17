@@ -1,16 +1,17 @@
 // DECYS cybersecurity research project report (group #10).
-// Prose lives in report/content/*.md, reproduction code in report/snippets/.
-// Build with `make report` from m4-cybersecurity-research/.
-// Section order follows the agreed WPA2-focused research structure:
-// 1 intro / 2 background / 3 protocol analysis / 4 implications /
-// 5 experiments / 6 mitigations / 7 evaluation / 8 conclusion, with the
-// NuttX memory-safety case studies as the platform spine.
+// KRACK WPA2 — Security Analysis of Existing Systems, per the team plan
+// ("KRACK WPA2 — Project Description and Work Plan", 17 Nov 2026):
+// 1 Introduction / 2 Technical background / 3 The vulnerability /
+// 4 Security implications / 5 Experimental reproduction /
+// 6 Mitigations and evolution / 7 Critical evaluation and conclusion.
+// Prose in report/content/*.md, evidence in report/snippets/ + lab/.
+// Build: `make report` from m4-cybersecurity-research/.
 
 #import "@preview/red-agora:0.2.0": project
 #import "md.typ": md
 
 #show: project.with(
-  title: "Key Reinstallation Without Broken Crypto: A Security Analysis of WPA2/WPA3 Handshake Implementations on Apache NuttX Products",
+  title: "Key Reinstallation Attacks against WPA2: How a Handshake State Machine Undermined Encryption Without Breaking the Cipher",
   subtitle: "Reliability and Cybersecurity - DECYS",
   school-logo: image("logo_isep.png"),
   authors: (
@@ -45,9 +46,9 @@
 #md("2-background/2-cve-taxonomy.md")
 #md("2-background/3-related-work.md")
 
-= Vulnerability Analysis: Protocol and Implementation
-#md("3-philosophy.md")
+= The Vulnerability: Key Reinstallation
 #md("5-analysis/1-wpa-mechanisms.md")
+#md("3-philosophy.md")
 #md("5-analysis/2-nuttx-cve1.md")
 #md("5-analysis/3-nuttx-cve1-model.md")
 #md("5-analysis/4-nuttx-cve1-results.md")
@@ -56,18 +57,16 @@
 = Security Implications
 #md("6-implications.md")
 
-= Practical Experiment and Reproduction
-#md("7-experiment.md")
+= Experimental Reproduction
+#md("5-experiment.md")
 
-= Mitigations
-#md("8-mitigations.md")
+= Mitigations and Evolution
+#md("6-mitigations.md")
 
-= Critical Evaluation: What Went Wrong
+= Critical Evaluation and Conclusion
 #md("6-zephyr.md")
 #md("7-discussion.md")
-#md("9-evaluation.md")
-
-= Conclusion
+#md("7-evaluation.md")
 #md("8-conclusion.md")
 
 #pagebreak()

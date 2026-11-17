@@ -17,11 +17,13 @@ report/snippets/upstream:
 	@echo "checked in under report/snippets/upstream/ (no fetch needed)"
 
 sources-esp:
-	mkdir -p work
-	curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/v4.4/components/wpa_supplicant/README.md -o work/esp_v44_wpa_readme.md
-	curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/v5.2/components/wpa_supplicant/README.md -o work/esp_v52_wpa_readme.md
-	@echo "tree-level claims (dpp/dragonfly/sae_pk presence) were verified via GitHub browse at these tags;"
-	@echo "the two READMEs above are the anchor documents; see Chapter 3 for the dating argument."
+	mkdir -p lab
+	curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/v4.4/components/wpa_supplicant/README.md -o lab/wpa_readme_v44.md
+	curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/v5.2/components/wpa_supplicant/README.md -o lab/wpa_readme_v52.md
+	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/git/trees/v4.4?recursive=1" -o lab/v44_src.json
+	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/git/trees/v5.2?recursive=1" -o lab/v52_src.json
+	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/commits?sha=v4.4&path=components/wpa_supplicant&per_page=100" -o lab/v44_commits.json
+	python3 tools/esp_evidence.py
 
 work/nuttx:
 	git clone --quiet --depth 1 --branch nuttx-12.9.0 \

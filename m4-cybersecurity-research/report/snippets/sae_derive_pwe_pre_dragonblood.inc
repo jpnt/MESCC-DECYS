@@ -72,3 +72,5 @@ static int sae_derive_pwe_ecc(struct sae_data *sae, const u8 *addr1,
 
 	return found ? 0 : -1;
 }
+
+

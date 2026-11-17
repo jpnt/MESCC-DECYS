@@ -71,20 +71,36 @@ input validation on the application developer. The research questions are:
 
 = Approach
 
-1. *CVE and disclosure review.* Enumerate every published NuttX CVE via NVD
+1. *Protocol and theory.* IEEE 802.11i, WPA2, CCMP, PTK/GTK derivation,
+   the four-way and group-key handshakes; the algorithm-versus-implementation
+   argument answering the research question. (M1)
+2. *Lab and reproduction.* Isolated virtual lab per the team plan
+   (mac80211_hwsim + wifi-framework + krackattacks-scripts); the
+   receiver-side reproduction actually executed on this machine:
+   faithful vulnerable-vs-patched models of the supplicant's 4-way
+   receiver (official wpa_supplicant 2.3 vs current, w1.fi releases,
+   sha256 recorded) and of SAE reflection (2.3 vs 2.6+ guard), with a
+   seeded statistical measurement of the SAE hunt-loop timing leak. (M2)
+3. *Attack analysis.* Root-cause discussion (why key installation was not
+   idempotent), packet-level evidence, the NuttX platform spine: eleven-CVE
+   taxonomy and two sanitizer-verified kernel CVE reproductions
+   (CVE-2025-35003, CVE-2025-48768). (M3)
+4. *Integration and delivery.* Mitigations and evolution (idempotent
+   installation, WPA3/SAE with honest scope incl. Dragonblood), report
+   assembly, references, slide deck; a source-verified supply-chain
+   finding: in NuttX products the WPA layer is either a vendor blob or
+   an ESP-IDF port of no stated base revision. (M4)
+
+*Remaining:* run the attack-side hwsim lab on any x86 host with Kali
+procedure documented in Chapter 5, capture and annotate Wireshark
+evidence, produce the before/after traces; slide deck and backup demo
+recording.1. *CVE and disclosure review.* Enumerate every published NuttX CVE via NVD
    and the project security page; classify by subsystem, bug class and attack
    interface; read the fix PRs.
 2. *Source-level replication.* For selected CVEs and both handshake attacks, compile or model the
    upstream functions in host harnesses under AddressSanitizer/UBSan, with
    only the NuttX-specific glue stubbed; the patched release serves as the
    control build.
-3. *Design-philosophy analysis.* Trace each reproduced failure mode back to
-   the Linux-lineage design choices (flat memory, kernel-as-library, no MMU
-   requirement) and to the project's stated security doctrine — under the
-   unifying thesis that all five bugs are one category error: a component
-   trusting an input the protocol should have constrained.
-4. *Practice comparison.* Systematic comparison with Zephyr: disclosure
-   handling, fuzzing and CI, hardening defaults, academic attention.
 
 = Progress Achieved
 
@@ -112,28 +128,6 @@ input validation on the application developer. The research questions are:
    drafted (security team, disclosure, fuzzing posture, NCC Group 2020 assessment,
    Rtkaller/RTCON academic fuzzing literature).
 
-*Remaining (weeks 9-11):*
-
-1. Slides + Q&A rehearsal; measured cost of the missing guards (flash/RAM).
-2. Stretch: QEMU end-to-end on the RISC-V `netnsh64` target for the fs CVEs;
-   xtensa/ESP32 BLE target for the Bluetooth CVE.
-3. Optional: with injection-capable Wi-Fi hardware, upgrade the Section 5
-   mechanism proofs to over-the-air demonstrations.
-
-= Schedule (Table 1)
-
-#figure(
-  table(
-    columns: (auto, 1fr, auto, auto, auto),
-    align: (left, left, center, center, left),
-    table.header([*Task*], [*Description*], [*Start*], [*Finish*], [*Responsible*]),
-    [1], [CVE/disclosure review and taxonomy], [28/10/2026], [5/11/2026], [João Pinto],
-    [2], [Design-philosophy analysis (Linux lineage, flat memory)], [3/11/2026], [12/11/2026], [Sérgio Cardoso],
-    [3], [Replication harnesses: CVE-2025-35003, CVE-2025-48768, KRACK/SAE mechanism models], [7/11/2026], [19/11/2026], [Vitor Santos],
-    [4], [Zephyr practice comparison + final report and presentation], [14/11/2026], [25/11/2026], [Shijo George],
-  ),
-  caption: [Major tasks, owners and dates.],
-)
 
 = Open Issues
 

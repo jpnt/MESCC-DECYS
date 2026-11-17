@@ -29,7 +29,7 @@ divergence between "developer contract" and "runtime enforcement".
 
 **NuttX fs_rename (analysed, not reproduced)** — an optimization (buffer
 reuse across loop iterations) outliving the single-threaded mental model
-that justified it; our failed harness (Sections 3 and 7 / Appendix A) shows how
+that justified it; our failed harness (Chapters 3 and 7 / Appendix A) shows how
 hard even reading this one is to turn into machine-checked evidence —
 which is itself data about code-archaeology cost as a security property.
 
@@ -54,7 +54,7 @@ sanitizers watching.
 2. **A negative result costs nothing to publish and buys trust.** The
    fs_rename non-reproduction is the paragraph reviewers cite.
 3. **"No CVEs" must never be read as "no bugs";** in NuttX's Wi-Fi
-   layer it is structurally unverifiable (Section 4), and the absence of
+   layer it is structurally unverifiable (Chapter 4), and the absence of
    a ledger, not of incidents, is the risk.
 4. **The supply chain is where the auditable security stopped.** In 2017
    the question was "which supplicant build do I run"; in NuttX products

@@ -5,10 +5,9 @@ Wi-Fi bug and not a cryptography bug: it is a state-machine bug in the
 client's 4-way handshake receiver — the supplicant, in 802.11i terms —
 and the whole attack reduces to one missing `if` [@krack] [@krack-site].
 
-We fetched the actual `wpa_supplicant` receiver sources (upstream hostap
-via the Debian source archive, checked in under
-`report/snippets/upstream/` [@wpasrc]: `wpa.c` 2.3, the KRACK-era receiver, and
-`wpa.c` current, the fixed receiver) and rebuilt the receiver's decision
+We fetched the actual `wpa_supplicant` receiver sources from upstream
+(w1.fi release archives: `wpa_supplicant-2.3.tar.gz`, sha256 `eaaa5bf3…9d7b6a`, and `hostapd-2.6.tar.gz`, sha256 `01526b90…7117d` — both checked in under `lab/`; the extracted files mirrored under `report/snippets/upstream/`) [@wpasrc]: `wpa.c` 2.3, the KRACK-era
+receiver, and `wpa.c` current, the fixed receiver and rebuilt the receiver's decision
 structure in a small model, `snippets/krack_harness.c`. The vulnerable
 build mirrors 2.3 (`Install` bit on Message 3 → `wpa_sm_set_key()`,
 unconditionally), and the fixed build carries the guard that the fix
@@ -53,10 +52,14 @@ validation layer behind it.
 
 SAE (the WPA3 handshake, "Dragonfly") failed in the ways of its 2019 advisory family
 (CVE-2019-9494 through 9499, "Dragonblood") [@nvd-dragonblood]
-[@dragonblood]. We model CVE-2019-9494 (reflection) and measure
-CVE-2019-9495/9496 (timing); the confirm-phase variants
-(CVE-2019-9497/9498/9499) follow from the same missing-comparison
-families and are not modelled here. Part one is a missing comparison. The
+[@dragonblood]. We model CVE-2019-9494 (reflection; note the upstream history: the
+reflection guard landed with the 2017 KRACK-era batch — it is already
+in the 2.6 release — while CVE-2019-9495/9496, which we measure, came
+with Dragonblood itself in the 2.10 rewrite to constant-time
+hash-to-element). The remaining variants (CVE-2019-9497/9498/9499:
+confirm reflection, key-confirmation downgrade, and the timing
+distance-attack refinement) follow from the same missing-comparison
+and variable-work families and are not modelled here. Part one is a missing comparison. The
 commit exchange sends (blind = v+m, commit = v·G − PWE; m = our secret
 scalar, v = our mask, G = the curve's base point); the 2.3 receiver
 stored whatever arrived and continued, with no check that the peer's
@@ -116,9 +119,7 @@ measures on the upstream loop itself.
 
 This is the part that decides whether this section is about NuttX at
 all. Verified in the trees (the wpa_supplicant sources are checked in
-under `snippets/upstream/`; the ESP-IDF claims were verified against
-the cited tags via GitHub, and `make sources-esp` refetches the
-component READMEs that anchor them):
+under `snippets/upstream/`; the ESP-IDF claims were verified against the cited tags via the GitHub API; the fetched file lists, guard greps, READMEs and commit records are checked in under `lab/` (see `make sources-esp`)):
 
 - **NuttX has no supplicant.** `apps/wireless` contains `bluetooth`,
   `ieee802154`, `iwpan`, `wapi` and `gs2200m` — no hostap. The gs2200m
@@ -130,18 +131,22 @@ component READMEs that anchor them):
   state machine. The kernel tree carries no 802.11 crypto either; the
   ESP32 paths route into Espressif's closed `libnet80211`/`libpp`.
 - **ESP-IDF carries the supplicant, and its provenance is
-  undocumented.** [@esp-wpasupplicant] `components/wpa_supplicant/README.md` says only
+  undocumented.** [@esp-wpasupplicant] `components/wpa_supplicant/README.md` (fetched at v4.4 and v5.2 into `lab/wpa_readme_v*.md`) says only
   "ported for ESP family of platforms" — no base commit, and the version
   string is stripped: neither the README nor the build records it.
   Dating has to be done by content: ESP-IDF v4.4 has DPP files and no
   `dragonfly.c` (the file where SAE lives upstream); v5.2 has
   `dragonfly.c` and `sae_pk.c` (SAE's hash-to-element variant, added
   after Dragonblood), i.e. post-2019 upstream. The KRACK-era guards and
-  the reflection guard *are* present in both greps — but as *backports*:
+  the reflection guard *are* present in both greps — fetched files
+  `lab/v44_wpa.c`, `lab/v52_wpa.c`, `lab/v44_sae.c` — but as *backports*:
   the PTK guard above has a driver-side sibling, and v4.4's history
-  carries 2021 commits titled "Prevent reinstallation of an already
-  in-use group key" and "Group key reinstallation fixes",
-  applied to a snapshot of no stated base commit.
+  (`lab/esp_v4.4_reinstall_commits.txt`) carries 2021 commits titled
+  "Prevent reinstallation of an already in-use group key"
+  (035909872b) and "Group key reinstallation fixes" (20bb0c3b02),
+  applied to a snapshot of no stated base commit. The closed Wi-Fi
+  stack itself (`net80211`, `pp`) ships as prebuilt blobs linked from
+  `components/esp_wifi/lib/` (`lab/esp_wifi_prebuilt_blobs.txt`).
 
 The consequence for a fleet is uncomfortable and worth stating exactly:
 a NuttX-based Wi-Fi product's WPA security is (a) *not in any source

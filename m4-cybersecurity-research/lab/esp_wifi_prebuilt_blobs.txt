@@ -1,0 +1,2 @@
+components/esp_wifi/CMakeLists.txt (v5.2) sets prebuilt blobs: core espnow [mesh] net80211 pp smartconfig [wapi] as lib<blob>.a linked from components/esp_wifi/lib/<target>/
+libnet80211.a libpp.a are the Wi-Fi stack binaries; wpa_supplicant source links against them.
