@@ -50,7 +50,7 @@ sanitizers watching.
 Cremers, Kiesl and Medinger prove the same boundary from the other
 side [@cremers2020]: modelling 802.11i's handshake formally, WPA2's
 cryptographic properties hold; what breaks is the
-implementation-layer handoff -- key installation and counter state,
+implementation-layer handoff: key installation and counter state,
 the branch our KRACK model walks. The distinction this chapter
 keeps making (protocol sound, state machine unsafe) is a theorem-level
 statement, not a rhetorical one. Their public Tamarin model is the plan's optional
