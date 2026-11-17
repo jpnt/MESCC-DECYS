@@ -169,7 +169,7 @@
  *uniform-cost* too (Dragonblood showed patching install isn't
  enough if work leaks the password).
  - WPA3/SAE removes PMK replay and adds PMF; its own
- reference-flow flaws (9494–99) became hash-to-element.
+ reference-flow flaws (9494-99) became hash-to-element.
  - Process, not patch: hostap's fuzz-build targets (libFuzzer/AFL on the
  EAPOL parsers) are the defence that reads continuously.
  - For embedded fleets: *demand provenance* for the crypto layer
