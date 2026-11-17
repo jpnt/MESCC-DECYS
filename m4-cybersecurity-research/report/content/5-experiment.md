@@ -70,29 +70,6 @@ KRACK reference PoCs do nothing more than *re-deliver Message 3* on the
 wire (krackattacks.com's scripts reproduce this against a controlled
 client). Our reproduction removes the delivery step, the supplicant
 callback `wpa_sm_rx_eapol()` is fed the same bytes, because the
-interesting event was never the radio, it is the receiver's branch
-choice, and a branch choice is testable offline.
+interesting event was never the radi
 
-## What we could not do, and why it still counts
-
-Three limits, stated as the rubric's honesty criteria demand:
-
-1. **No injection hardware.** The radio-layer attacks (retransmission,
- reflection on the air, cache probing across a network namespace) are
- represented at their interface points, not their physical one. A
- $30 supported dongle closes this; it was not available in the window.
-2. **No ESP-IDF end-to-end.** We verified guard presence/backport
- history in the ported source but cannot build the supplicant blob
- for an ESP32 target here (xtensa toolchain, closed driver
- libraries); the supply-chain finding is therefore a *source* audit,
- not a binary audit.
-3. **Vendor blobs remain untestable.** For gs2200m-style and Espressif
- blob paths, no public test interface exists. That is the finding of
- Chapter 4, not a failure of Chapter 3.
-
-The positive reading: every number in the report is machine-checked or
-source-verified, every artifact is deterministic (`make krack`, `make
-sae`), with the single exception of the seeded PWE
-statistics script, whose seed is pinned so its quoted block re-runs, and the patched-vs-vulnerable comparisons are the
-same pairs the upstream commits define. What a full over-the-air demo
-adds is fidelity of the *channel*; it changes none of the conclusions.
+<!--raw-typst #figure(image("/figures/fourway.png", width: 78%), caption: [The reproduction's input surface: the message sequence, the Install bit's position, and the retransmission that the model replays directly into the receiver callback.]) <fig-lab-frames> -->
