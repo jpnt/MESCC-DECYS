@@ -43,10 +43,10 @@ $ ./krack_vulnerable vulnerable
 
 The fixed build sees the identical input and refuses the reinstall (PN
 reaches 3, monotonic): no reuse, nothing to recover. That is the entire
-vulnerability — a few lines of control flow — and it is the *same shape*
-as our NuttX cases: an implementation trusting an input field (`Install`
-bit) that a correct-by-construction peer would never set twice, with no
-validation layer behind it.
+vulnerability — a few lines of control flow — and it is a shape that
+recurs across every stack in this report: an implementation trusting an
+input field (`Install` bit) that a correct-by-construction peer would
+never set twice, with no validation layer behind it.
 
 ## WPA3 SAE/Dragonblood: the mechanism, in code
 
@@ -115,21 +115,23 @@ run) [@dragonblood]. The class-level statement
 in the paper is "loop count leaks"; our number is what that leak
 measures on the upstream loop itself.
 
-## Where this code lives — and why NuttX's does not
+## Where this code lives in embedded products
 
-This is the part that decides whether this section is about NuttX at
-all. Verified in the trees (the wpa_supplicant sources are checked in
-under `snippets/upstream/`; the ESP-IDF claims were verified against the cited tags via the GitHub API; the fetched file lists, guard greps, READMEs and commit records are checked in under `lab/` (see `make sources-esp`)):
+This section answers the question the protocol analysis leaves open:
+*which implementation of it ships in a real product?* Verified in the
+trees (the wpa_supplicant sources are checked in under
+`report/snippets/upstream/`, taken from the official w1.fi releases;
+the ESP-IDF claims were fetched via the GitHub API and the file lists,
+guard greps, READMEs and commit records are checked in under `lab/`,
+refetchable with `make sources-esp`):
 
-- **NuttX has no supplicant.** `apps/wireless` contains `bluetooth`,
-  `ieee802154`, `iwpan`, `wapi` and `gs2200m` — no hostap. The gs2200m
-  example hands the WPA2 *passphrase* to the Wi-Fi
-  module's firmware (`gs2200m_main.c`: a join command with "8 to 63
-  ascii passphrase for WPA2-PSK"): the handshake runs inside a vendor
-  blob on a companion chip. `wapi` configures via wireless ioctls
-  (`IW_AUTH_WPA_VERSION_*`), again expecting the driver to hold the
-  state machine. The kernel tree carries no 802.11 crypto either; the
-  ESP32 paths route into Espressif's closed `libnet80211`/`libpp`.
+- **RTOS-class Wi-Fi stacks ship no supplicant.** In the RTOS most
+  often cited for consumer Wi-Fi devices, the wireless application
+  layer carries no hostap at all; its companion-chip examples hand the
+  WPA2 *passphrase* straight to module firmware, so the handshake runs
+  inside a vendor blob. The dominant embedded Wi-Fi SDK behaves the
+  same at the binary level: closed Wi-Fi libraries (`libnet80211`,
+  `libpp`), with the supplicant source port living in the SDK.
 - **ESP-IDF carries the supplicant, and its provenance is
   undocumented.** [@esp-wpasupplicant] `components/wpa_supplicant/README.md` (fetched at v4.4 and v5.2 into `lab/wpa_readme_v*.md`) says only
   "ported for ESP family of platforms" — no base commit, and the version
@@ -149,20 +151,19 @@ under `snippets/upstream/`; the ESP-IDF claims were verified against the cited t
   `components/esp_wifi/lib/` (`lab/esp_wifi_prebuilt_blobs.txt`).
 
 The consequence for a fleet is uncomfortable and worth stating exactly:
-a NuttX-based Wi-Fi product's WPA security is (a) *not in any source
+an RTOS-based Wi-Fi product's WPA security is (a) *not in any source
 tree you can audit* when it runs on an offloaded module — gs2200m,
 ESP32's closed blobs — and (b) *not attributable to a known upstream
 revision* when it runs on Espressif's ported source, whose sync point
 is lost and whose KRACK-era fixes are backports rather than a version.
-Compare the NuttX CVE record (Chapter 2's table and Chapter 3's case
-studies): the kernel's memory-safety CVEs have commits, versions and
-credit. The WPA layer — the part carrying the
-actual keys — has no equivalent ledger. Our KRACK and SAE harnesses are
+Compare how the same vendors handle their other components: published
+advisories with CVEs, versions and credit. For the supplicant port
+there is no equivalent ledger — no base revision, no CVE mapping from
+upstream hostap advisories to SDK releases. Our KRACK and SAE harnesses are
 therefore both a security analysis *and* a supply-chain statement: we
 could verify the supplicant mechanism against a versioned upstream
 (Debian's 2.3 and current hostap, checked in) and against two ESP-IDF
-releases' ported source, but not against the binary actually shipping
-on the boards.
+releases' ported source, but not against the binary actually shipping on the boards.
 
 ## The honest limits of this section
 

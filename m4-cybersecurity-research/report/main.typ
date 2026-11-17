@@ -1,10 +1,6 @@
 // DECYS cybersecurity research project report (group #10).
-// KRACK WPA2 — Security Analysis of Existing Systems, per the team plan
-// ("KRACK WPA2 — Project Description and Work Plan", 17 Nov 2026):
-// 1 Introduction / 2 Technical background / 3 The vulnerability /
-// 4 Security implications / 5 Experimental reproduction /
-// 6 Mitigations and evolution / 7 Critical evaluation and conclusion.
-// Prose in report/content/*.md, evidence in report/snippets/ + lab/.
+// "Key Reinstallation Attacks against WPA2" per the team plan of 17 Nov 2026.
+// Prose in report/content/*.md, evidence in report/snippets/ and lab/.
 // Build: `make report` from m4-cybersecurity-research/.
 
 #import "@preview/red-agora:0.2.0": project
@@ -42,20 +38,13 @@
 
 = Technical Background
 #md("2-background/0-ieee80211-wpa2.md")
-#md("2-background/1-nuttx.md")
-#md("2-background/2-cve-taxonomy.md")
 #md("2-background/3-related-work.md")
 
 = The Vulnerability: Key Reinstallation
-#md("5-analysis/1-wpa-mechanisms.md")
-#md("3-philosophy.md")
-#md("5-analysis/2-nuttx-cve1.md")
-#md("5-analysis/3-nuttx-cve1-model.md")
-#md("5-analysis/4-nuttx-cve1-results.md")
-#md("5-analysis/5-nuttx-cve2.md")
+#md("3-analysis/1-wpa-mechanisms.md")
 
 = Security Implications
-#md("6-implications.md")
+#md("4-implications.md")
 
 = Experimental Reproduction
 #md("5-experiment.md")
@@ -64,8 +53,6 @@
 #md("6-mitigations.md")
 
 = Critical Evaluation and Conclusion
-#md("6-zephyr.md")
-#md("7-discussion.md")
 #md("7-evaluation.md")
 #md("8-conclusion.md")
 

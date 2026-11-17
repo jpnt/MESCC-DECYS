@@ -1,17 +1,16 @@
-## Academic work on RTOS fuzzing and triage
 
-Two lines of literature bear on this report. The first is the RTOS fuzzing wave: Rtkaller (ACM TECS 2021) generates state-aware tasks to fuzz RTOS kernels [@rtkaller]; RTCON (NDSS 2026) does context-adaptive function-level fuzzing of RTOS kernels and reports previously unknown bugs with CVEs across Zephyr, RIOT, FreeRTOS and ThreadX [@rtcon]; the "Survey of Fuzzing Open-Source Operating Systems" (arXiv 2502.13163) catalogues kernel fuzzing work where Linux (syzkaller) and Zephyr dominate [@fuzz-survey]. In none of these is NuttX a headline target or an evaluation subject. This asymmetry of attention is the same one Chapters 2 inferred from the CVE counts, now visible from the academic side.
 
-The second line is empirical triage studies of an RTOS's own issue tracker and code. The closest analogue to what we do here for NuttX is the NCC Group assessment of Zephyr and MCUboot (2020) [@ncc-zephyr]: 25 vulnerabilities in Zephyr including remotely reachable memory corruption, several privilege-escalation paths from user applications into kernel mode, and weaknesses in the kernel's own exploit mitigations. It is worth stating plainly what that result means for a comparison project like ours: Zephyr's security reputation is not "unpatched-free code", it is "a process that finds and publishes code".
+## Why "which implementation?" is the question that matters here
 
-## Prior work on NuttX specifically
-
-We found no equivalent public systematic assessment of NuttX. What exists is: the individual CVE disclosures and their fix PRs, conference-material mentions of NuttX inside drone-security research (the PX4 line, of which CVE-2021-34125 is an instance), and project-ideas pages listing periodic security/GSoC topics (MAC, fuzzing) without any shipped result in-tree. For an OS of NuttX's deployment scale this research gap is itself a finding: the bugs we reproduce in Chapter 3 were each found by a reader, not by any tool watching continuously, and both filesystem CVEs trace to a single outside finder [@nuttx-security].
-
-## The deployment literature
-
-Xiaomi's openvela documentation is the clearest public statement of the consumer-fleet argument [@openvela]: the platform is NuttX-derived, targets "millions of IoT devices and AI gadgets" (the project's own README wording) — smartwatches, bands, speakers, earbuds, appliances, robotics — and advertises high POSIX conformance as the developer-on-ramp from Linux. Historically, the same flat-memory lineage also underpinned Samsung's Tizen RT watch stack and the Pebble smartwatch. In safety-adjacent domains, PX4 (drone autopilots) builds on NuttX, which is how the Yuneec CVE reaches flight hardware. We use these only as impact context: none of the vendors published an advisory naming a specific CVE in a shipped product during our survey window.
-
-## The two WPA attacks we model
-
-The Wi-Fi half of this report does not re-derive KRACK or Dragonblood; it takes them as the established best-in-class analyses of supplicant failure — Van hoef & Jakma's CCS 2017 paper for the key reinstallation family [@krack] [@krack-site] and Van hoef et al.'s USENIX Security 2020 paper for the SAE/Dragonfly side-channel and reflection family [@dragonblood] — and Two further sources anchor the plan's reference set: the reproduction tooling itself, `krackattacks-scripts` and its `wifi-framework`/`mac80211_hwsim` testbed [@krack-scripts] [@wifi-framework], and Cremers, Kiesl and Medinger's formal analysis of WPA2 (USENIX Security 2020) [@cremers2020] -- the rigorous statement of the distinction this report leans on: the handshake's *state machine*, not 802.11i's cryptography, is where the flaw lives. That paper also ships the public Tamarin model our stretch option builds on. We ask the question neither KRACK paper answers for embedded Linux-flavoured systems: *where does the vulnerable code physically run when the OS is NuttX, and what can a team with no radio hardware still verify for itself?* That framing is the bridge between our case studies and the experiment chapter.
+WPA2's history is a sequence of implementation failures, not algorithm
+failures: the KRACK CVEs are numbered per product because each vendor's
+handshake code failed differently. That makes the reproduction target —
+and the provenance of whatever copy of it ships in a device — the
+substance of the analysis. Two further sources anchor the plan's
+reference set: the reproduction tooling itself, `krackattacks-scripts`
+and its `wifi-framework`/`mac80211_hwsim` testbed [@krack-scripts]
+[@wifi-framework], and Cremers, Kiesl and Medinger's formal analysis of
+WPA2 (USENIX Security 2020) [@cremers2020] — the rigorous statement of
+the distinction this report leans on: the handshake's state machine,
+not 802.11i's cryptography, is where the flaw lives. That paper also
+ships the public Tamarin model our optional stretch builds on.

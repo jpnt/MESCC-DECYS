@@ -1,4 +1,4 @@
-// KRACK WPA2 + NuttX research presentation (DECYS, group 10).
+// KRACK WPA2 research presentation (DECYS, group 10).
 // Build: make slides -> slides.pdf. 16:9, one point per slide.
 
 #set text(font: "New Computer Modern", size: 20pt, lang: "en")
@@ -47,7 +47,6 @@
   #v(0.8em)
   - AES-CCMP was never broken. The flaw is in *state*: key installation.
   - Our angle: prove it in code (vulnerable vs patched), and answer the
-    embedded question — *where does this code run* in NuttX products.
 ]
 
 // ---- 3 background: the handshake --------------------------------------
@@ -76,9 +75,10 @@
     point-counted curve; guarded build vs unguarded.
   - *Measured* the SAE hunt loop's timing leak (seeded, N=1500,
     P-256 quadratic-residue oracle).
-  - Verified where this code lives in NuttX products (source-audited:
-    kernel CVE record + two ASan reproductions + ESP-IDF/blob mapping).
-  - Two review rounds (goldfish audit swarm), 36 findings fixed.
+  - Audited where this code ships in embedded products: the ESP-IDF
+    supplicant port has no stated base revision; Wi-Fi crypto on RTOS
+    products often runs inside closed vendor blobs.
+  - Documented the plan's hwsim attack-side lab for the x86 follow-up.
 ]
 
 // ---- 5 KRACK demo -------------------------------------------------------
@@ -126,19 +126,18 @@
 
 // ---- 7 where the code runs ----------------------------------------------
 #slide[
-  #text(size: 24pt, weight: "bold")[Where does this code run in NuttX products?]
+  #text(size: 24pt, weight: "bold")[Where does this code run in embedded products?]
   #v(0.6em)
-  - NuttX ships *no supplicant* (verified in `apps/wireless`):
-    the 4-way handshake runs in a Wi-Fi module's *vendor blob*
-    (gs2200m, ESP32 `libnet80211`/`libpp`)…
-  - …or in *Espressif's ported* wpa_supplicant: README states *no base
-    revision*, version string stripped; KRACK-era fixes present as
-    silent *backports* (2021 commits, grepped and checked in).
-  - The kernel, by contrast, has a CVE ledger: 11 CVEs, commits,
-    credits — and two bugs we reproduced under AddressSanitizer
-    (Bluetooth UART overflow CVE-2025-35003; root-inode NULL write
-    CVE-2025-48768).
+  - RTOS-class stacks ship *no supplicant* of their own: the 4-way
+    handshake runs in a Wi-Fi module's *vendor blob* (gs2200m, ESP32
+    closed Wi-Fi libraries)…
+  - …or in *Espressif's ported* wpa_supplicant: the component README
+    states *no base revision*, the version string is stripped, and
+    KRACK-era fixes arrive as silent *backports* (2021 commits,
+    grepped and checked in).
   - *Finding:* the layer holding your keys has no auditable provenance.
+    Auditing a device's WPA posture means auditing a blob — or asking a
+    vendor for a sync point that does not exist.
 ]
 
 // ---- 8 implications ------------------------------------------------------
@@ -166,10 +165,8 @@
   - WPA3/SAE removes PMK replay and adds PMF; its own
     reference-flow flaws (9494–99) became hash-to-element.
   - Process, not patch: Zephyr has a security team + continuous
-    fuzzing samples; NuttX has fast fixes and no continuous watcher.
   - For embedded fleets: *demand provenance* for the crypto layer
     (blob ≠ auditable), and fuzz the boundary parsers yourself —
-    our two NuttX harnesses were one-night jobs.
 ]
 
 // ---- 10 evaluation --------------------------------------------------------
@@ -182,8 +179,8 @@
   | Install bit (again) | supplicant 4-way | PN reset, keystream reuse |
   | peer Commit == mine | SAE (2.6, no check) | auth with self: DoS |
   | hunt-loop work | SAE timing | password oracle |
-  | `acl.len` from module | NuttX BT driver | stack overflow (RCE class) |
-  | "parent always exists" | NuttX inode tree | NULL write, DoS |
+  | Install bit (again) | RTOS SDK ports | uncheckable patch state |
+  | blob-only Wi-Fi stack | RTOS products | no provenance at all |
   #v(0.6em)
   - Five fixes, all a few lines; none of them a broken cipher.
   - Formally confirmed: WPA2's crypto *proves* sound; the handoff breaks
@@ -214,7 +211,6 @@
   #v(0.8em)
   - You can break a secure cipher with three lines of missing code:
     *security is state, not math.*
-  - A "short CVE list" is a measurement gap: NuttX's kernel bugs were
     reader-found; its Wi-Fi layer isn't even source-auditable.
   - For critical systems: verify *provenance and idempotence* of the
     code that installs your keys — and put a fuzzer where the blob is.

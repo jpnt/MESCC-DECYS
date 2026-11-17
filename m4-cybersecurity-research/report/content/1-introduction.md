@@ -1,32 +1,76 @@
-## Why NuttX and its Wi-Fi stack, and why now
+## Why WPA2, and why now
 
-This project follows the DECYS research style "Security Analysis of Existing Systems" [@brief]: identify real flaws in a deployed system and demonstrate them. Embedded RTOS security research concentrates on FreeRTOS and Zephyr. NuttX gets less attention, which makes it an interesting target for a course project: the interesting question is not "is there a bug in NuttX" (there is always a bug) but "what does the NuttX project *do* about bugs, and does that answer change once NuttX is what a hundred million consumer devices boot?".
+This project follows the DECYS research style "Security Analysis of
+Existing Systems" [@brief]: identify real flaws in a deployed system and
+demonstrate them. WPA2 is the most deployed link-layer security protocol
+in existence, and for a decade it carried a family of vulnerabilities
+that no cipher change could fix, because the cipher was never the
+problem: KRACK (2017) forced nonce reuse in AES-CCMP by replaying a
+handshake message, and Dragonblood (2019) did the same to WPA3's SAE
+handshake through reflection and timing. Between them they define the
+subject of this report: how state machines leak what mathematics keeps.
 
-The second half of that question is why the timing matters. NuttX shipped in the Pebble watch and in a long tail of industrial panels, but its big consumer moment is Xiaomi's openvela (formerly Vela OS), the OS Xiaomi publishes for wearables, bands, speakers and appliances. Xiaomi's own documentation states the kernel "is built upon Apache NuttX" and describes POSIX conformance as the reason developers can port Linux software across with little effort. A generic memory-safety bug that only cost hobbyists a reboot now costs a vendor an OTA across a large fleet.
+## Nota de âmbito (scope note, PT)
 
-WPA2 matters here for the simplest reason: it is the only thing standing between a drive-by attacker and the plaintext of every frame a device sends, and in this class of product the code doing that job is not in the OS we can audit. The kernel bugs (Chapter 3) matter as instances of the same failure mode; the handshake attacks (Chapters 2-3) are that failure mode in its most consequential form. NuttX publishes a short list of CVEs, and the list is short partly because disclosures have been sparse and partly because the project counts differently from, say, the Linux kernel. Between May and December 2025 four CVEs landed in one codebase alone (Bluetooth UART, a font-conversion tool, an example XML-RPC application, and two filesystem bugs), which tells you both that auditing is happening and that the audit surface is not being watched continuously by fuzzers.
+> O ataque em si não é conduzido sobre o ar: reproduzir KRACK ou
+> Dragonblood por rádio exige hardware de injeção e um kernel Linux com
+> `mac80211_hwsim`, indisponíveis na máquina usada neste trabalho (arm64,
+> ver Capítulo 5). Demonstramos antes o *mecanismo* no ponto exato onde
+> ele vive — a máquina de estados do `wpa_supplicant` — com modelos fiéis
+> ao código oficial a montante (versão 2.3 vulnerável vs. versão atual
+> corrigida, com *hashes* sha256 fixados), e medimos a fuga temporal do
+> ciclo de caça SAE com aritmética real em P-256. O procedimento completo
+> do laboratório de ataque (`krackattacks-scripts` + `wifi-framework` +
+> Wireshark com PSK) está documentado passo a passo no Capítulo 5 para
+> execução em x86/Kali. Nenhum ataque foi dirigido contra uma rede real;
+> o resultado esperado e relatado é o contraste vulnerável/patched.
 
-## Nota de âmbito: porquê WPA como mecanismo e não como exploração de rádio
+## Research question
 
-> Este projeto é uma análise de segurança do sistema operativo de tempo real Apache NuttX e da pilha WPA que efetivamente protege os produtos Wi-Fi baseados nele. A decisão de não conduzir ataques WPA por rádio (KRACK e SAE/Dragonblood sobre o ar) foi deliberada e definitiva: esses ataques vivem no `wpa_supplicant` e no firmware de coprocessadores — componentes que não existem no NuttX upstream (verificado na árvore `apps/wireless`, que só contém bluetooth, ieee802154, iwpan, wapi e gs2200m, com o handshake a correr dentro do blob do módulo) — e a sua demonstração sem fios exigiria hardware Wi-Fi programável com injeção de frames e o toolchain xtensa, indisponíveis no prazo curto do projeto. Em alternativa, provámos o *mecanismo* dos dois ataques no ponto exato onde vivem, as máquinas de estado do supplicant, com modelos fiéis ao código upstream real (wpa.c 2.3 vs. atual; sae.c 2.3 vs. atual; curva e aritmética verdadeiras) e com medições estatísticas do próprio ciclo de caça do SAE. O capítulo correspondente (Capítulo 3) fecha com a análise da cadeia de fornecimento: em que árvore corre efetivamente o WPA de um produto NuttX, e por que razão essa resposta não está documentada em lado nenhum. O que foi possível reproduzir com provas de compilador está nos Estudos de Caso 1 e 2 (CVE-2025-35003 e CVE-2025-48768): as funções verbatim do kernel sob AddressSanitizer, com o código corrigido como controlo.
-
-## Research questions
-
-**RQ (KRACK):** How can a vulnerability in the WPA2 four-way handshake
-undermine encryption without actually breaking the encryption algorithm?
-The answer this report gives — in code, with a patched-vs-vulnerable
-comparison — is in Chapter 3; the protocol machinery it presumes is in
-Chapters 2.
+**How can a vulnerability in the WPA2 four-way handshake undermine
+encryption without actually breaking the encryption algorithm?** The
+answer is given in code (Chapter 3), with the patched-versus-vulnerable
+comparison the plan requires; the protocol machinery it presumes is
+Chapter 2.
 
 ## What we did
 
-1. We enumerated the publicly disclosed NuttX CVEs from NVD and the Apache project's own security page, and classified them by subsystem, bug class and attack interface (Chapters 2).
-2. We picked two CVEs to reproduce, chosen for demonstrability rather than severity: CVE-2025-35003 (buffer overflow in the Bluetooth UART driver) and CVE-2025-48768 (NULL write in the inode removal path). Chapter 3 explains the choice and shows the reproduction: the verbatim upstream functions compiled under AddressSanitizer with a small harness that replaces only the NuttX-specific glue.
-3. We wrote a chapter on why NuttX is built the way it is, and where that design comes from in the Linux tradition, because the CVE list does not make sense without it (Chapters 2 and 3).
-4. We proved the WPA2/KRACK and WPA3/SAE mechanisms at the supplicant's decision points with faithful upstream-code models, and mapped where that code actually executes in NuttX products (Chapters 5).
-5. We compared NuttX's security engineering practice to Zephyr's, subsystem by subsystem: disclosure handling, fuzzing, static analysis, memory-protection posture (Chapter 7).
-9. We close with what we think a critical-systems acquirer should take from all this (Chapters 7 and 8).
+1. Built a faithful model of the supplicant's 4-way receiver from the
+   official `wpa_supplicant` 2.3 release (w1.fi tarball, sha256 recorded)
+   and its patched successor, and executed the key-reinstallation
+   consequence: a replayed Message 3 resets the transmit counter, the
+   keystream is reused, and a known ARP frame yields a second frame's
+   plaintext. The patched model refuses the reinstall (`make krack`).
+2. Modelled the WPA3/SAE reflection DoS on a real, point-counted curve
+   (vulnerable: 5/5 livelocked rounds; patched: guard drops the echo),
+   and *measured* the SAE hunt loop's timing leak with a seeded replica
+   of the upstream loop over NIST P-256 arithmetic (`make sae`).
+3. Analysed the root cause at protocol level (the Install bit's meaning
+   versus its transport) against the formal analysis of Cremers et al.
+   [@cremers2020], and mapped the security implications honestly:
+   keystream reuse versus the TKIP and all-zero-key edge cases.
+4. Audited where this code actually ships: the vendor-SDK path
+   (ESP-IDF's supplicant port carries no base revision; KRACK-era fixes
+   arrive as silent backports; Wi-Fi crypto on RTOS-class products runs
+   inside closed blobs) — evidence checked in under `lab/`.
+5. Documented the plan's reference lab step by step (`krackattacks-scripts`,
+   `mac80211_hwsim`, `wifi-framework`, Wireshark PSK decryption) and
+   reported our negative result honestly: this machine has no
+   hwsim-capable kernel, so the attack-side capture is an x86 follow-up.
+6. Wrote mitigations and evolution (idempotent key installation,
+   uniform-cost loops, WPA3/SAE with its real scope), the critical
+   evaluation the plan asks for, and the conclusion.
 
 ## Scope and honesty notes
 
-The reproductions are host-harness reproductions, not full-system ones. They run the exact code the project shipped, with exact-sized heap allocations, under the same compiler class (LLVM with ASan); they do not run NuttX on silicon, and they cannot demonstrate register-level control-flow hijack. Where we claim consequences beyond the sanitizer trace (arbitrary code execution, fleet impact), the claim comes from the vendor advisory, and we cite it. Chapter 3 explains why the one CVE we could *not* reproduce cleanly (CVE-2025-48769, the `fs_rename` use-after-free, because "what is hard to reproduce" is itself information about the bug.
+The reproductions are receiver-side models: the vulnerable branch, the
+key reset and the consequence are computed exactly as the upstream code
+does, and the patched control is the guard string from the same file.
+What the models do not do is radiate frames; that step belongs to the
+documented hwsim lab. Where we rely on the original research instead of
+our own runs (the TKIP MICAR attack, the Android/Linux zero-key cases,
+the cache-attack micro-architecture), we cite and say so. The SAE
+timing result is a *measured property of the upstream loop*, not a
+cache attack performed here. Everything executable in the report
+re-runs byte-identically from a clean checkout: `make krack`, `make
+sae`, `make report`, `make slides`.

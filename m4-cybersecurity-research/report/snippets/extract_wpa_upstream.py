@@ -1,4 +1,4 @@
-"""Extract the verbatim SAE hunt loop from upstream wpa.c (run once)."""
+"""Extract the verbatim SAE hunt loop from the pinned upstream file."""
 import pathlib
 root = pathlib.Path(__file__).resolve().parent
 src = (root / "upstream" / "sae_2.3.c").read_text()

@@ -15,8 +15,9 @@ side by side:
 
 Two lessons generalize. First, a *missing three-line check* is the
 normal form of these vulnerabilities — which is why source reading finds
-them (Chapter 4) and why tooling that reads continuously (Chapter 7's
-Zephyr contrast) is the only defence at fleet scale. Second, the KRACK
+them (Chapter 3) and why tooling that reads continuously — hostap
+maintains dedicated fuzzing targets for exactly these parsers — is the
+only defence at fleet scale. Second, the KRACK
 GTK and SAE-timing fixes show that *idempotence alone is not enough*:
 installations must be idempotent AND uniform-cost, and state machines
 must validate the *provenance* of peer messages, not merely their
@@ -29,14 +30,13 @@ practice: SAE removes PMK-replay exposure, PMF (802.11w) protects
 handshake and deauth frames, and the RFC 8032 "hunt-and-peck" flaw
 (Dragonblood) taught the next generation — hash-to-element,
 zero-rtt-PK — to make the *implementation* the thing that cannot leak.
-For embedded stacks specifically: the supplicant belongs in a language
-and process with memory isolation and continuous fuzzing (the Zephyr/
-OSS comparison, Chapter 7); on Linux-class systems the same lesson
-produced `wpa_supplicant`'s long-standing fuzz-build targets. NuttX's
-own `CONFIG_BUILD_PROTECTED` exists for the *kernel* side of this
-argument; what nothing provides in the NuttX ecosystem today is a
-protected place to put the supplicant — the crypto lives either in the
-flat kernel or in a blob.
+For embedded stacks specifically: hostap's own
+fuzz-build targets (`make fuzz`, libFuzzer/AFL on the EAPOL parsers) are
+the lesson learned at protocol level — the parser surface is now a
+continuous, instrumented target rather than code trusted at compile
+time. On the device side the same argument demands a vendor that can
+answer "which upstream commit is your supplicant?"; a product that
+cannot, ships the blob path above.
 
 ## What the patches and our reproductions prove together
 

@@ -1,28 +1,31 @@
-# NuttX security research report (DECYS, group 10)
+# KRACK WPA2 research report (DECYS, group 10)
 
-Security analysis of Apache NuttX RTOS: CVE taxonomy, two source-level
-reproductions (CVE-2025-35003, CVE-2025-48768), a Linux-lineage design
-chapter, and a Zephyr practice comparison. Written for Reliability and
-Cybersecurity (DECYS), research style "Security Analysis of Existing
-Systems".
-
-`make report` compiles `report.pdf` (final report, ~50 pages) from the
-markdown in `report/content/` with Typst. `make progress` compiles
-`progress_report.pdf`; `make slides` compiles `slides.pdf` (13 slides,
-the presentation deck). `make snippets` fetches the two NuttX release
-trees the harnesses quote and rebuilds and runs the AddressSanitizer
-reproductions in `report/snippets/` (see `report/snippets/Makefile`);
-`make sources` only fetches.
+Security analysis of WPA2 key reinstallation (KRACK) and its WPA3/SAE
+successor, per the team plan of 17 Nov 2026: the protocol machinery, the
+state-machine flaw reproduced at the receiver's decision point (official
+`wpa_supplicant` 2.3 vs current, sha256 pinned), the SAE reflection DoS
+on a point-counted real curve, a seeded measurement of the SAE hunt
+loop's timing leak, an honest account of attacker gain, the reference
+hwsim lab (documented; x86 follow-up), mitigations, and an embedded
+supply-chain audit (ESP-IDF supplicant port provenance, vendor-blob Wi-Fi
+stacks). No real network is attacked.
 
 ```
-report/content/      one markdown file per section
-report/snippets/     ASan harnesses, verbatim upstream extracts, frozen traces
-report/main.typ      report structure (typst + cmarker, as in m3)
-work/                cloned upstream trees (gitignored)
-idea.org             original project idea notes
+make krack        # KRACK receiver model: vulnerable + patched control
+make sae          # SAE reflection model + the leak measurement
+make snippets     # both of the above, from checked-in upstream slices
+make report       # report.pdf (~30 pp.)
+make slides       # slides.pdf (13 slides)
+make progress     # progress_report.pdf
+make sources-esp  # refetch the lab/ ESP-IDF evidence (network)
 ```
 
-`work/` is gitignored and regenerable (`make sources`); everything in
-`report/` is source. The `.inc` files are byte-extracts of the upstream
-release tags named in their headers; `make snippets` regenerates and
-runs them.
+```
+report/content/      one markdown file per section (plan's 7 chapters)
+report/snippets/     models, verbatim upstream slices, frozen traces
+report/main.typ      structure (typst + cmarker, as in m3)
+tools/               curve_check.py, sae_pwe_stats.py, esp_evidence.py
+lab/                 ESP-IDF + w1.fi release evidence for Chapter 3
+goldfish_review_report.md  review ledgers (rounds 1-2)
+KRACK WPA2 Project Description and Work Plan.pdf  team plan (in repo root)
+```

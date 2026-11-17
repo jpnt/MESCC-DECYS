@@ -1,4 +1,0 @@
-$ ./bt_uart_harness evt   # EVT frame, hdr.len=255, same pre-fix code
-==33400==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x00016d5a9bcf at pc 0x000102f32cc4 bp 0x00016d5a9a70 sp 0x00016d5a9220
-WRITE of size 255 at 0x00016d5a9bcf thread T0
-SUMMARY: AddressSanitizer: stack-buffer-overflow bt_uart_harness.c:73 in sim_read

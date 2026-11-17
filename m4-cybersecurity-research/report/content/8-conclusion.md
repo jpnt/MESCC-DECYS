@@ -1,7 +1,30 @@
-We studied Apache NuttX and its Wi-Fi stack as one security subject: we catalogued NuttX's eleven published CVEs, explained the flat-memory, Linux-flavoured design that gives them their shape, reproduced two of them by compiling the verbatim upstream functions under AddressSanitizer, proved the KRACK and Dragonblood mechanisms as faithful models of the supplicant state machines (with a measured timing leak on the real SAE hunt loop), and compared the project's assurance practices against Zephyr's.
+We studied the WPA2 key-reinstallation failure — and its WPA3 successor
+— as one security subject: the protocol mechanics (Chapter 2), the
+receiver-side reproductions (Chapter 3), the honest scope of the
+attacker's gain (Chapter 4), the lab that would extend them over the air
+(Chapter 5), the mitigations (Chapter 6), and what went wrong (Chapter
+7).
 
-The reproductions are the part we can defend line by line. CVE-2025-35003 overflows a 79-byte stack buffer with an attacker-declared HCI frame length, in driver code that shipped for eight years; the 12.9.0 build eats the identical input and logs one warning. CVE-2025-48768 writes the parent's child pointer through a NULL parent pointer when removing the filesystem root, on the default configuration where the assertion that should have stopped it is compiled out. Both fixes are tiny; both gaps were visible by reading. Our attempt at the third candidate (the `fs_rename` use-after-free) is reported as not reproduced, because we could not build a harness faithful enough to count as evidence.
+The reproductions are the part we can defend line by line. In the 2.3
+receiver, a replayed Message 3 reinstalls the key, resets the transmit
+counter, and lets a known ARP frame decrypt a second frame; the patched
+receiver, fed the identical bytes, answers the retransmission without
+installing and the counter keeps counting. In SAE, the reflection
+livelock occupies five of five rounds until the guard — the exact
+comparison string from current upstream — drops the echo; and the
+hunt loop's work is measurably password-dependent (6.6% beyond its own
+anti-leak padding), on real P-256 arithmetic. The negative results are
+reported too: this machine ran no radio, and the model's scope stops at
+CCMP keystream reuse where the original paper's went to TKIP forging
+and zero-key installs.
 
-The comparison with Zephyr is what makes the bugs mean something beyond themselves. Same class of silicon, overlapping hardware, and a ten-year-old codebase whose bugs were found by readers rather than by tooling, against a project with a standing security team, an embargoed advisory process and in-tree fuzzing tooling and a published advisory flow — the difference is not in the quality of any single fix, it is in the presence of a process that looks every day.
-
-The Wi-Fi detour produced its own finding: in NuttX products the code that holds the keys has no provenance ledger at all — offloaded modules run vendor blobs, and ESP-IDF's supplicant port states no upstream base commit, its KRACK-era guards arriving as silent backports. The kernel's CVE discipline is, by comparison, exemplary; the gap has moved to the layer that does not ship source. The conclusion for critical systems is not "do not use NuttX". It is that NuttX's design philosophy was priced for a world where the OS and the application are the same vendor's firmware on a dead-simple device, and it has been shipping into a world that is no longer that. When a consumer platform sells POSIX portability as its feature, it is selling the attack surface along with the API, and the only honest procurement question left is: who, or what, is reading the boundary code — today, tomorrow, and after nobody remembers the product exists.
+The embedded counterpart of the research question produced its own
+finding: the code that holds the keys has no provenance ledger at the
+device layer — offloaded modules run vendor blobs, and the leading
+RTOS-class SDK port states no upstream base revision, with KRACK-era
+guards arriving as silent backports. The conclusion for critical
+systems is not to fear a broken cipher; it is to ask, of any stack that
+claims to implement a secure protocol, the one question this whole
+report answers for hostap: *what exactly do you do when a message
+arrives twice, from a peer you cannot see?* State is where security
+lives, and state is where it is lost.

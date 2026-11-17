@@ -1,5 +1,31 @@
-Central question: how can a vulnerability in the WPA2 four-way handshake undermine encryption without breaking the encryption algorithm at all? This report answers it in code, and then answers the harder embedded question: where does the vulnerable supplicant code actually run when the device is built on Apache NuttX. We first survey NuttX's disclosed CVE record and the kernel design choices that explain its bug profile.
-
-The report then takes the two famous Wi-Fi handshake attacks -- KRACK (WPA2) and Dragonblood (WPA3/SAE) -- down to their mechanism: faithful code models of the vulnerable and fixed supplicant state machines, with patched-versus-vulnerable comparisons and no real network harmed, plus a measurement of the SAE hunt loop's actual timing leak on real P-256 arithmetic. The supply-chain finding that follows from verifying them: in NuttX products the WPA code either runs inside unauditable vendor blobs or carries undocumented provenance, unlike the kernel CVEs which have commits, versions and credit.
-
-We close the analysis by replicating two NuttX kernel memory-safety CVEs (CVE-2025-35003, a Bluetooth HCI UART buffer overflow; CVE-2025-48768, a NULL write in inode removal) under AddressSanitizer -- the same category error, an implementation trusting its input, seen from the platform side -- comparing the project's assurance practices against Zephyr's, and evaluating what went wrong across all five cases: nobody broke AES or Dragonfly; every failure lived in the seam where mathematics stops and state machines begin.
+Key reinstallation (KRACK) is the most consequential WPA2 vulnerability
+of the last decade: by replaying one handshake message, an attacker can
+force a client to reinstall a key it is already using, resetting its
+packet numbers and reusing the encryption keystream — without touching
+AES. The research question this report answers is how that is possible
+while the cipher itself remains unbroken. We answer it in code: a
+faithful model of the supplicant's four-way-handshake receiver, built
+from the official `wpa_supplicant` 2.3 sources (release tarball, sha256
+pinned) and the current patched receiver, shows the reinstallation
+branch, the counter reset, the keystream collision, and — from one
+known ARP frame — the recovery of a second frame's plaintext. The
+patched model, fed the identical input, refuses the reinstall and no
+reuse occurs. The same method is applied to WPA3's handshake (SAE): the
+reflection denial of service from CVE-2019-9494 is demonstrated on a
+real, point-counted elliptic curve (livelocked retries in the
+vulnerable flow, guard-drop in the patched one), and the timing side
+channels are quantified by measuring the upstream password-to-point
+hunt loop against a real quadratic-residue oracle on NIST P-256: about
+6.6% of passwords take detectably longer, the signal that turns a
+remote handshake into a password oracle. We then answer the embedded
+counterpart of the research question — which implementation of all this
+ships inside real devices — with a source audit of the vendor path
+(ESP-IDF's supplicant port with no stated base revision, Krack-era
+fixes as silent backports, and Wi-Fi crypto living inside closed
+binaries on RTOS-based products). The report closes with mitigations
+(idempotent installation, uniform-cost design, WPA3/SAE and its honest
+scope), a root-cause evaluation of why a protocol-level assumption
+broke so many independent implementations, and a formal-analysis view
+(Cremers et al.) that proves the same boundary: WPA2's cryptography is
+sound; its state machine is where security is lost. No real network was
+attacked at any point; all experiments run offline and deterministically.

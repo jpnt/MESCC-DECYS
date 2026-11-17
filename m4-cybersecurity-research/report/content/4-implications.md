@@ -51,23 +51,28 @@ terms: the attacks exploit *choice*, not chance — which is exactly why
 they transfer to the embedded world, where those choices get made in
 vendor ports nobody re-audits.
 
-## The NuttX supply-chain consequence
+## The embedded supply-chain consequence
 
-The source-tree evidence is in Chapter 3, "Where this code lives — and
-why NuttX's does not". Its meaning for a fleet, stated once: a NuttX
-product's WPA layer is either unauditable (vendor blobs) or
-unattributable (undocumented ESP-IDF sync point), while the kernel's CVE
-layer has commits, versions and credit. The audit consequence of that
-asymmetry is the subject of the rest of this chapter.
+The evidence is in Chapter 3 ("Where this code lives in embedded
+products"); its meaning for a fleet, stated once: the WPA layer of an
+embedded product is either *not in any source tree you can audit*
+(offloaded modules run vendor blobs) or *not attributable to a known
+upstream revision* (the ESP-IDF port has no stated sync point, and its
+KRACK-era fixes arrive as backports rather than versions). The rest of
+this chapter reads against that fact: the same protocol, proven sound in
+the abstract, becomes unverifiable at the point of shipping.
 
-## Security implications for the kernel cases
+## The misconception boundary
 
-Same lens, NuttX proper: CVE-2025-35003's overflow direction (upward
-through a work-queue frame) makes control-flow corruption plausible on
-Cortex-M-class parts, matching the advisory's "arbitrary code execution"
-as a *possibility*, not a claim; its trigger surface (UART from the
-BT controller module) is exactly the trusted-hardware-component mistake
-KRACK makes with the Install bit. CVE-2025-48768 is bounded: a clean
-DoS where an MMU/MPU traps the NULL write, worse on flat builds; the
-advisory's CVSS 6.5 is right for the first and unknowable for the
-second, which is the flat-memory tax again.
+The popular summary "KRACK broke Wi-Fi encryption" is wrong in both
+halves, and the boundary matters for any defender reading the
+vulnerability notes. KRACK broke *freshness*: given a known or guessable
+plaintext it reveals a frame, and via the group-key variant it replays
+broadcast traffic; it does not decrypt captured history, does not recover
+the PTK, and does not reveal the passphrase (the last is a WPA3/SAE
+side-channel property, not a KRACK one). Conversely, the severe cases in
+the paper — TKIP frame forging, the Linux/Android zero-key bug — are not
+hypotheticals waiting for an exploit; they were the measured results of
+the original research and are cited here as the boundary of our own
+claims, which stop at CCMP keystream reuse, exactly what our model
+shows.
