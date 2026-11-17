@@ -1,10 +1,11 @@
-.PHONY: help sources report krack sae snippets clean progress
+.PHONY: help sources report krack sae snippets clean progress slides
 
 help:
 	@printf '%s\n' \
 		'make sources    fetch the two NuttX release trees the report quotes' \
 		'make snippets   rebuild + run the ASan reproduction harnesses' \
 		'make report     build report.pdf'
+		'make slides     build slides.pdf (presentation)'
 		'make krack sae  build + run the WPA mechanism models'
 
 # Verbatim upstream sources used by the extracts (see report/appendix).
@@ -53,6 +54,9 @@ report:
 
 progress: progress_report.typ
 	typst compile --root . progress_report.typ progress_report.pdf
+
+slides: slides.typ
+	typst compile --root . slides.typ slides.pdf
 
 clean:
 	rm -f report/report.pdf

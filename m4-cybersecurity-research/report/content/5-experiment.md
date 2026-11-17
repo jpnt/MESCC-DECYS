@@ -2,8 +2,9 @@
 
 The team plan specifies the reference environment: an isolated Linux lab
 running Mathy Vanhoef's `krackattacks-scripts` (`krack-test-client.py`)
-against a modified hostapd, with `mac80211_hwsim` virtual WLAN
-interfaces and the `wifi-framework` so no physical radio is involved,
+against a modified hostapd [@krack-scripts], with `mac80211_hwsim`
+virtual WLAN interfaces and the `wifi-framework` [@wifi-framework] so
+no physical radio is involved,
 Kali Linux as the supported host, and a deliberately unpatched
 `wpa_supplicant` 2.4-2.6 client as the before case. That is the lab we
 prepared and the one we document here as the *attack-side* procedure;

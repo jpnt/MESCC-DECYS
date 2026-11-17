@@ -6,9 +6,10 @@ chapter, and a Zephyr practice comparison. Written for Reliability and
 Cybersecurity (DECYS), research style "Security Analysis of Existing
 Systems".
 
-`make report` compiles `report.pdf` (final report, ~35 pages) from the
+`make report` compiles `report.pdf` (final report, ~50 pages) from the
 markdown in `report/content/` with Typst. `make progress` compiles
-`progress_report.pdf`. `make snippets` fetches the two NuttX release
+`progress_report.pdf`; `make slides` compiles `slides.pdf` (13 slides,
+the presentation deck). `make snippets` fetches the two NuttX release
 trees the harnesses quote and rebuilds and runs the AddressSanitizer
 reproductions in `report/snippets/` (see `report/snippets/Makefile`);
 `make sources` only fetches.

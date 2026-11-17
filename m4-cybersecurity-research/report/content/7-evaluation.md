@@ -46,6 +46,18 @@ peer it cannot see, faster than it expects?* The report's contributions
 are five concrete answers to that question, three of them compiled with
 sanitizers watching.
 
+## The formal-analysis view
+
+Cremers, Kiesl and Medinger prove the same boundary from the other
+side [@cremers2020]: modelling 802.11i's handshake formally, WPA2's
+cryptographic properties hold; what breaks is the
+implementation-layer handoff -- key installation and counter state,
+exactly the branch our KRACK model walks. The distinction this chapter
+keeps making (protocol sound, state machine unsafe) is a theorem-level
+statement, not a rhetorical one. Their public Tamarin model is the
+plan's optional stretch: reproducing the vulnerable-vs-patched
+property separation formally.
+
 ## Lessons learned (ours, not the industry's)
 
 1. **Fidelity beats breadth in reproductions.** Stubbing only the glue
