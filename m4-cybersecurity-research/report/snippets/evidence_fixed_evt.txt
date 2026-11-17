@@ -1,0 +1,3 @@
+$ ./bt_uart_harness_fixed evt   # 12.9.0 code, EVT hdr.len=255 into a 2048-byte buffer: no overflow
+[stack] bt_netdev_receive(type=4, hdrlen+pktlen=257)
+[test] rxwork returned

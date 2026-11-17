@@ -1,0 +1,7 @@
+$ ./bt_uart_harness acl   # pre-fix 12.7.0 btuart_rxwork(), stack buffer = BLUETOOTH_MAX_FRAMELEN (79 bytes)
+==33393==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x00016d959bcf at pc 0x000102c1ecc4 bp 0x00016d959a70 sp 0x00016d959220
+WRITE of size 4096 at 0x00016d959bcf thread T0
+    #0 0x000102c1ecc0 in __asan_memcpy+0x330 (libclang_rt.asan_osx_dynamic.dylib:arm64e+0x3ecc0)
+    #1 0x0001024a4e90 in sim_read bt_uart_harness.c:73
+    #0 0x0001024a50d0 in btuart_rxwork bt_uart_under_test.inc:45
+SUMMARY: AddressSanitizer: stack-buffer-overflow bt_uart_harness.c:73 in sim_read

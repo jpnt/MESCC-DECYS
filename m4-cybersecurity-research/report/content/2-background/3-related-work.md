@@ -1,0 +1,13 @@
+## Academic work on RTOS fuzzing and triage
+
+Two lines of literature bear on this report. The first is the RTOS fuzzing wave: Rtkaller (ACM TECS 2021) generates state-aware tasks to fuzz RTOS kernels [@rtkaller]; RTCON (NDSS 2026) does context-adaptive function-level fuzzing of RTOS kernels and reports previously unknown bugs with CVEs across Zephyr, RIOT, FreeRTOS and ThreadX [@rtcon]; the "Survey of Fuzzing Open-Source Operating Systems" (arXiv 2502.13163) catalogues kernel fuzzing work where Linux (syzkaller) and Zephyr dominate [@fuzz-survey]. In none of these is NuttX a headline target or an evaluation subject. This asymmetry of attention is the same one Section 2 inferred from the CVE counts, now visible from the academic side.
+
+The second line is empirical triage studies of an RTOS's own issue tracker and code. The closest analogue to what we do here for NuttX is the NCC Group assessment of Zephyr and MCUboot (2020) [@ncc-zephyr]: 25 vulnerabilities in Zephyr including remotely reachable memory corruption, several privilege-escalation paths from user applications into kernel mode, and weaknesses in the kernel's own exploit mitigations. It is worth stating plainly what that result means for a comparison project like ours: Zephyr's security reputation is not "unpatched-free code", it is "a process that finds and publishes code".
+
+## Prior work on NuttX specifically
+
+We found no equivalent public systematic assessment of NuttX. What exists is: the individual CVE disclosures and their fix PRs, conference-material mentions of NuttX inside drone-security research (the PX4 line, of which CVE-2021-34125 is an instance), and project-ideas pages listing periodic security/GSoC topics (MAC, fuzzing) without any shipped result in-tree. For an OS of NuttX's deployment scale this research gap is itself a finding: the bugs we reproduce in Sections 4 and 5 were each found by one person reading code, not by any tool watching continuously.
+
+## The deployment literature
+
+Xiaomi's openvela documentation is the clearest public statement of the consumer-fleet argument [@openvela]: the platform is NuttX-derived, targets "millions of IoT devices and AI gadgets" (the project's own README wording) — smartwatches, bands, speakers, earbuds, appliances, robotics — and advertises high POSIX conformance as the developer-on-ramp from Linux. Historically, the same flat-memory lineage also underpinned Samsung's Tizen RT watch stack and the Pebble smartwatch. In safety-adjacent domains, PX4 (drone autopilots) builds on NuttX, which is how the Yuneec CVE reaches flight hardware. We use these only as impact context: none of the vendors published an advisory naming a specific CVE in a shipped product during our survey window.

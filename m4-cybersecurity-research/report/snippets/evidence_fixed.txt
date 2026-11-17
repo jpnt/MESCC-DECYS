@@ -1,0 +1,3 @@
+$ ./bt_uart_harness_fixed acl   # 12.9.0 code (PR #16179), same input
+WARNING: H4 packet is too long
+[test] rxwork returned

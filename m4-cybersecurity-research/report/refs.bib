@@ -1,0 +1,163 @@
+@misc{nuttx-readme,
+  author       = {{Apache Software Foundation}},
+  title        = {Apache NuttX: README},
+  organization = {Apache NuttX RTOS},
+  year         = {2026},
+  url          = {https://github.com/apache/nuttx/blob/master/README.md},
+  urldate      = {2026-11-17},
+}
+
+@misc{nuttx-security,
+  author       = {{Apache Software Foundation}},
+  title        = {Security --- NuttX documentation},
+  organization = {Apache NuttX RTOS},
+  year         = {2026},
+  url          = {https://nuttx.apache.org/docs/latest/security.html},
+  urldate      = {2026-11-17},
+}
+
+@misc{nvd,
+  author       = {{National Institute of Standards and Technology}},
+  title        = {NVD: search for keyword \texttt{nuttx}},
+  organization = {National Vulnerability Database},
+  year         = {2026},
+  url          = {https://nvd.nist.gov/vuln/search},
+  urldate      = {2026-11-17},
+}
+
+% NuttX CVEs (NVD records)
+@misc{cve-2018-20578, title={{CVE-2018-20578}}, year={2018}, url={https://nvd.nist.gov/vuln/detail/CVE-2018-20578}, urldate={2026-11-17}}
+@misc{cve-2020-1939,  title={{CVE-2020-1939}},  year={2020}, url={https://nvd.nist.gov/vuln/detail/CVE-2020-1939},  urldate={2026-11-17}}
+@misc{cve-2020-17528, title={{CVE-2020-17528}}, year={2020}, url={https://nvd.nist.gov/vuln/detail/CVE-2020-17528}, urldate={2026-11-17}}
+@misc{cve-2020-17529, title={{CVE-2020-17529}}, year={2020}, url={https://nvd.nist.gov/vuln/detail/CVE-2020-17529}, urldate={2026-11-17}}
+@misc{cve-2021-26461, title={{CVE-2021-26461}}, year={2021}, url={https://nvd.nist.gov/vuln/detail/CVE-2021-26461}, urldate={2026-11-17}}
+@misc{cve-2021-34125, title={{CVE-2021-34125}}, year={2023}, url={https://nvd.nist.gov/vuln/detail/CVE-2021-34125}, urldate={2026-11-17}}
+@misc{cve-2025-35003, title={{CVE-2025-35003}}, year={2025}, url={https://nvd.nist.gov/vuln/detail/CVE-2025-35003}, urldate={2026-11-17}}
+@misc{cve-2025-47868, title={{CVE-2025-47868}}, year={2025}, url={https://nvd.nist.gov/vuln/detail/CVE-2025-47868}, urldate={2026-11-17}}
+@misc{cve-2025-47869, title={{CVE-2025-47869}}, year={2025}, url={https://nvd.nist.gov/vuln/detail/CVE-2025-47869}, urldate={2026-11-17}}
+@misc{cve-2025-48768, title={{CVE-2025-48768}}, year={2025}, url={https://nvd.nist.gov/vuln/detail/CVE-2025-48768}, urldate={2026-11-17}}
+@misc{cve-2025-48769, title={{CVE-2025-48769}}, year={2025}, url={https://nvd.nist.gov/vuln/detail/CVE-2025-48769}, urldate={2026-11-17}}
+
+% NuttX sources and fixes
+@misc{pr-16179,
+  author       = {{Apache NuttX contributors}},
+  title        = {PR \#16179: Fix two potential buffer overflow in Bluetooth HCI/UART},
+  organization = {apache/nuttx on GitHub},
+  year         = {2025},
+  url          = {https://github.com/apache/nuttx/pull/16179},
+}
+@misc{pr-16437,
+  author       = {Garc{\'i}a, Alberto and Liu, Richard},
+  title        = {PR \#16437: fs/inode: Fix inoderemove when removing an inode without parent},
+  organization = {apache/nuttx on GitHub},
+  year         = {2025},
+  url          = {https://github.com/apache/nuttx/pull/16437},
+}
+@misc{pr-16455,
+  author       = {Cederom and Liu, Richard},
+  title        = {PR \#16455: fs/vfs/fs\_rename: fix directory move operation},
+  organization = {apache/nuttx on GitHub},
+  year         = {2025},
+  url          = {https://github.com/apache/nuttx/pull/16455},
+}
+@misc{oss-sec-35003,
+  author       = {{OpenWall project}},
+  title        = {oss-security: Apache NuttX RTOS: Buffer overflow in bluetooth HCI/UART stack (CVE-2025-35003)},
+  year         = {2025},
+  url          = {https://www.openwall.com/lists/oss-security/2025/05/26/1},
+  urldate      = {2026-11-17},
+}
+@misc{nuttx-bt-kconfig,
+  author       = {{Apache Software Foundation}},
+  title        = {drivers/wireless/bluetooth/Kconfig: BLUETOOTH\_UART\_RXBUFSIZE},
+  organization = {Apache NuttX RTOS},
+  year         = {2026},
+  url          = {https://github.com/apache/nuttx/blob/master/drivers/wireless/bluetooth/Kconfig},
+}
+@misc{nuttx-netnsh,
+  author       = {{Apache Software Foundation}},
+  title        = {boards/risc-v/qemu-rv/rv-virt/configs/netnsh64/defconfig},
+  organization = {Apache NuttX RTOS},
+  year         = {2026},
+  url          = {https://github.com/apache/nuttx/blob/master/boards/risc-v/qemu-rv/rv-virt/configs/netnsh64/defconfig},
+}
+
+% Deployment
+@misc{openvela,
+  author       = {{Xiaomi and the openvela contributors}},
+  title        = {openvela: README and documentation (kernel built upon Apache NuttX)},
+  year         = {2026},
+  url          = {https://github.com/open-vela/docs},
+  urldate      = {2026-11-17},
+}
+
+% Zephyr comparison
+@misc{zephyr-sec,
+  author       = {{Zephyr Project}},
+  title        = {Zephyr security documentation: reporting, triage and the Security Triage Team},
+  organization = {Linux Foundation},
+  year         = {2026},
+  url          = {https://docs.zephyrproject.org/latest/security/reporting.html},
+  urldate      = {2026-11-17},
+}
+@misc{zephyr-fuzz,
+  author       = {Woskoboinikow, Peter},
+  title        = {Fuzzing Zephyr with AFL and Renode},
+  organization = {Zephyr Project blog},
+  year         = {2022},
+  url          = {https://www.zephyrproject.org/fuzzing-zephyr-with-afl-and-renode/},
+  urldate      = {2026-11-17},
+}
+@techreport{ncc-zephyr,
+  author      = {Boone, Jeremy and Zhuravlev, Ilya},
+  title       = {Zephyr \& MCUboot Security Assessment},
+  institution = {NCC Group},
+  year        = {2020},
+  month       = may,
+  url         = {https://www.nccgroup.com/research/research-report-zephyr-and-mcuboot-security-assessment/},
+}
+@misc{ossfuzz,
+  author       = {{Google}},
+  title        = {OSS-Fuzz project tree (projects/ directory)},
+  year         = {2026},
+  url          = {https://github.com/google/oss-fuzz/tree/master/projects},
+  urldate      = {2026-11-17},
+}
+
+% RTOS fuzzing literature
+@article{rtkaller,
+  author  = {Niu, Miao and others},
+  title   = {Rtkaller: State-aware Task Generation for RTOS Fuzzing},
+  journal = {ACM Transactions on Embedded Computing Systems},
+  year    = {2021},
+  doi     = {10.1145/3447962},
+}
+@inproceedings{rtcon,
+  author    = {Lee, Sang Kyun and others},
+  title     = {RTCON: Context-Adaptive Function-Level Fuzzing for RTOS Kernels},
+  booktitle = {Proceedings of the Network and Distributed System Security Symposium (NDSS)},
+  year      = {2026},
+  url       = {https://www.ndss-symposium.org/wp-content/uploads/2026-f1600-paper.pdf},
+}
+@misc{fuzz-survey,
+  author = {{see survey}},
+  title  = {A Survey of Fuzzing Open-Source Operating Systems},
+  year   = {2025},
+  url    = {https://arxiv.org/abs/2502.13163},
+}
+
+% Course material
+@misc{brief,
+  author       = {{Instituto Superior de Engenharia do Porto}},
+  title        = {Cybersecurity Research Project: Assignment Brief},
+  howpublished = {Reliability and Cybersecurity (DECYS), Master in Critical Computing Systems},
+  year         = {2026},
+}
+
+@misc{ossfuzz-zephyr-pr,
+  author       = {{Zephyr contributors}},
+  title        = {google/oss-fuzz PR \#15486: zephyr: initial integration},
+  year         = {2026},
+  url          = {https://github.com/google/oss-fuzz/pull/15486},
+  urldate      = {2026-11-17},
+}
