@@ -21,21 +21,21 @@ fetched wpa_supplicant hostap files are checked in verbatim under
 | `sae_derive_pwe_pre_dragonblood.inc` | the real SAE hunt loop, verbatim from wpa 2.3 sae.c |
 | `../tools/sae_pwe_stats.py` | P-256 quadratic-residue oracle: the loop's iteration-count leak (seeded, N=1500) |
 | `evidence_krack.txt`, `evidence_sae.txt` | the WPA traces cited in Chapters 3 and 5 |
-| `upstream/wpa_23.c`, `upstream/wpa_cur.c` | hostap `wpa.c` 2.3 and current, as fetched (Debian source archive) |
+| `upstream/wpa_23.c`, `upstream/wpa_cur.c` (`report/snippets/upstream/`) | hostap `wpa.c` 2.3 and current, as fetched (Debian source archive) |
 | `upstream/sae_23.c`, `upstream/sae_cur.c` | hostap `sae.c` 2.3 and current, same |
 | `Makefile` | builds both harnesses with `-fsanitize=address,undefined` |
 
 ### Build and run
 
 ```text
-make            # builds the harness binaries
-make run        # vulnerable ACL frame -> ASan stack-buffer-overflow
-make fixed      # same frame, patched code -> "WARNING: H4 packet is too long"
+# from the module root (m4-cybersecurity-research/):
+make snippets   # build + run the NuttX harnesses
 make krack      # vulnerable 4-way receiver -> keystream reuse + recovery;
-                # fixed model -> guard refuses the reinstall
-make sae        # vulnerable receiver -> 5/5 reflection livelock;
-                # fixed model -> guard drops the echo
-python3 ../tools/sae_pwe_stats.py   # the hunt-loop leak measurement
+make progress   # (and make sae) the WPA models
+make report     # typst compile
+cd report/snippets && make run && make fixed   # the NuttX ASan demos
+python3 tools/sae_pwe_stats.py    # the hunt-loop leak (module root)
+python3 tools/curve_check.py      # point-count of the harness curve
 ```
 
 Toolchain used: Apple clang with ASan/UBSan (macOS, arm64). The NuttX

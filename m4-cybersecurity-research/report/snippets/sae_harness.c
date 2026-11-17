@@ -36,7 +36,8 @@
  * the pad; see tools/sae_pwe_stats.py).
  *
  * Crypto notes for reviewers: the curve is small (field prime p=1009,
- * group order 987 = 3*7*47) so everything is exact integer math, fast,
+ * group order 987 = 3*7*47, verified by point count) so everything is
+ * exact integer math, fast,
  * and readable. Group structure follows SAE exactly: blind = (v + m)
  * mod n, commit = v*G - PWE, key = blind * (PWE + h*commit), where the
  * attacker echoes the victim's public (blind, commit) and knows neither
@@ -55,7 +56,7 @@
 
 #define P   1009            /* prime field                     */
 #define A   (P - 3)         /* a = -3                          */
-#define B   749             /* b; curve has order 987 = 3*7*47   */
+#define B   745             /* b; #E = 987 = 3*7*47 (point-counted)*/
 #define ORD 987             /* group order                     */
 
 struct pt { int x, y; int inf; };
@@ -112,7 +113,10 @@ static struct pt generator(void)
         if ((long long)y * y % P == y2)
           {
             struct pt q = {x, y, 0};
-            if (!pt_mul(q, ORD / 2).inf && !pt_mul(q, ORD / 3).inf)
+            /* 987 = 3*7*47: q generates iff each prime-factor multiple
+             * of q is non-zero (order exactly ORD). */
+            if (pt_mul(q, ORD / 3).inf && pt_mul(q, ORD / 7).inf &&
+                pt_mul(q, ORD / 47).inf)
               return q;
           }
     }

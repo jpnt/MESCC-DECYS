@@ -11,7 +11,7 @@ and nothing needs to.
 | Inode root removal (CVE-2025-48768) | ASan `SEGV`, write at 0x10 | verbatim `inode_unlink()`, 12.9.0 |
 | KRACK key reinstallation | PN reset → keystream reuse → recovered plaintext | wpa.c 2.3 control structure vs current guard string |
 | SAE reflection DoS | 5/5 livelock vs guard-drop round 1 | sae.c 2.3 state flow; real group law (p=1009) |
-| SAE hunt-loop leak | P(work beyond pad) = 0.066 (seeded, N=1500) | faithful loop-control replica + real P-256 QR oracle |
+| SAE hunt-loop leak | P(work beyond pad) = 0.066 (seeded, N=1500, per-password) | faithful loop-control replica + real P-256 QR oracle |
 
 ## Packet analysis: the frames, without the air
 

@@ -18,3 +18,6 @@ real-stops-at-5: 0.031
 real-stops-at-6: 0.019
 real-stops-at-7: 0.009
 P(work beyond the k=4 pad) = 0.066
+
+$ python3 ../tools/curve_check.py    # the curve claim, verified
+#E(F_1009) = 987 = 3 * 7 * 47

@@ -37,17 +37,12 @@ vendor ports nobody re-audits.
 
 ## The NuttX supply-chain consequence
 
-The source-tree evidence for this section is in Chapter 3, "Where this
-code lives — and why NuttX's does not"; we do not repeat it, only its
-meaning. For a fleet: a NuttX-based Wi-Fi product's WPA security is
-either *not in any source tree you can audit* (offloaded modules run
-vendor blobs) or *not attributable to a known upstream revision*
-(Espressif's ported supplicant has no stated sync point, and its
-KRACK-era guards arrive as silent backports). The kernel's CVE record
-has commits, versions and credit; the layer that holds the network keys
-has no ledger at all. Our "demo without radio" is a feature of this
-methodology, not an apology: it is what an auditor *can* do with
-sources, and Chapter 5 states what remains impossible without them.
+The source-tree evidence is in Chapter 3, "Where this code lives — and
+why NuttX's does not". Its meaning for a fleet, stated once: a NuttX
+product's WPA layer is either unauditable (vendor blobs) or
+unattributable (undocumented ESP-IDF sync point), while the kernel's CVE
+layer has commits, versions and credit. The audit consequence of that
+asymmetry is the subject of the rest of this chapter.
 
 ## Security implications for the kernel cases
 

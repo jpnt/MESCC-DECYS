@@ -7,7 +7,7 @@ and the whole attack reduces to one missing `if` [@krack] [@krack-site].
 
 We fetched the actual `wpa_supplicant` receiver sources (upstream hostap
 via the Debian source archive, checked in under
-`snippets/upstream/` [@wpasrc]: `wpa.c` 2.3, the KRACK-era receiver, and
+`report/snippets/upstream/` [@wpasrc]: `wpa.c` 2.3, the KRACK-era receiver, and
 `wpa.c` current, the fixed receiver) and rebuilt the receiver's decision
 structure in a small model, `snippets/krack_harness.c`. The vulnerable
 build mirrors 2.3 (`Install` bit on Message 3 → `wpa_sm_set_key()`,
@@ -51,10 +51,12 @@ validation layer behind it.
 
 ## WPA3 SAE/Dragonblood: the mechanism, in code
 
-SAE (the WPA3 handshake, "Dragonfly") failed in two ways in 2019
+SAE (the WPA3 handshake, "Dragonfly") failed in the ways of its 2019 advisory family
 (CVE-2019-9494 through 9499, "Dragonblood") [@nvd-dragonblood]
-[@dragonblood]: we model CVE-2019-9494 (reflection) and measure
-CVE-2019-9495/9496 (timing). Part one is a missing comparison. The
+[@dragonblood]. We model CVE-2019-9494 (reflection) and measure
+CVE-2019-9495/9496 (timing); the confirm-phase variants
+(CVE-2019-9497/9498/9499) follow from the same missing-comparison
+families and are not modelled here. Part one is a missing comparison. The
 commit exchange sends (blind = v+m, commit = v·G − PWE; m = our secret
 scalar, v = our mask, G = the curve's base point); the 2.3 receiver
 stored whatever arrived and continued, with no check that the peer's
@@ -64,11 +66,12 @@ authenticating against a copy of itself. Both sides' confirm tags
 evaluate the SAME expression (the reflector has only our public
 material), so they agree — but by pure echo: an "authentication" of the
 station with itself, no independent AP secret anywhere in the derived
-key. Our harness asserts exactly this (`key_tag()` executed on both
-views), and the DoS is the station stuck retrying a handshake that can
-never yield usable data.
+key. Our harness demonstrates exactly this: it computes `key_tag()` from
+both views and the two tags are identical only because the reflector
+has no values of its own; the DoS is the station stuck retrying a
+handshake that can never yield usable data.
 The station retries: each retry costs the supplicant commit work and a
-session slot on the target — a permanent, cheap DoS of the handshake
+handshake session allocated on the target — a permanent, cheap DoS of the handshake
 state machine [@dragonblood]. Current `sae.c` contains exactly the
 missing comparison (*"would be evidence of a reflection attack"*).
 `snippets/sae_harness.c` implements the true group law on a small curve
@@ -86,9 +89,9 @@ password-derived curve point, padding to k=4 iterations to hide how
 long the hunt took. The replica (`tools/sae_pwe_stats.py`) reproduces
 the loop control line for line, and evaluates each candidate with the
 real quadratic-residue test (Legendre symbol, Euler criterion) on NIST
-P-256, over 1500 seeded 8-byte pseudo-passwords — each standing for one
-candidate — with a fixed histogram range so the block below is
-reproducible:
+P-256, over 1500 seeded 8-byte pseudo-passwords (each one candidate, the
+sample unit below is per-password) with a fixed histogram range so the
+block is reproducible:
 
 ```
 $ python3 ../tools/sae_pwe_stats.py
@@ -99,8 +102,8 @@ real-stops-at-7: 0.009
 P(work beyond the k=4 pad) = 0.066
 ```
 
-About 6–7% of password candidates do *extra* cryptographic work the
-rest never do (±0.6pp at N=1500) — runtime is password-correlated,
+About 6–7% of passwords hunt past the pad (binomial 95% CI ±1.2pp at
+N=1500) — runtime is password-correlated,
 which is the signal the Dragonblood cache/retry attacks extract to
 verify a guessed password offline at near-local speed (their
 "dictionary attack in a handshake" result: one candidate verified per
@@ -113,9 +116,9 @@ measures on the upstream loop itself.
 
 This is the part that decides whether this section is about NuttX at
 all. Verified in the trees (the wpa_supplicant sources are checked in
-under `snippets/upstream/`; the ESP-IDF claims were grepped from the
-fetched tags via `make sources-esp`, and the greps themselves live in
-this and the companion files):
+under `snippets/upstream/`; the ESP-IDF claims were verified against
+the cited tags via GitHub, and `make sources-esp` refetches the
+component READMEs that anchor them):
 
 - **NuttX has no supplicant.** `apps/wireless` contains `bluetooth`,
   `ieee802154`, `iwpan`, `wapi` and `gs2200m` — no hostap. The gs2200m
@@ -133,10 +136,11 @@ this and the companion files):
   Dating has to be done by content: ESP-IDF v4.4 has DPP files and no
   `dragonfly.c` (the file where SAE lives upstream); v5.2 has
   `dragonfly.c` and `sae_pk.c` (SAE's hash-to-element variant, added
-  after Dragonblood), i.e. post-2019 upstream. The KRACK-era guard and
+  after Dragonblood), i.e. post-2019 upstream. The KRACK-era guards and
   the reflection guard *are* present in both greps — but as *backports*:
-  v4.4's history carries 2021 commits titled "Prevent reinstallation of
-  an already in-use group key" and "Group key reinstallation fixes",
+  the PTK guard above has a driver-side sibling, and v4.4's history
+  carries 2021 commits titled "Prevent reinstallation of an already
+  in-use group key" and "Group key reinstallation fixes",
   applied to a snapshot of no stated base commit.
 
 The consequence for a fleet is uncomfortable and worth stating exactly:

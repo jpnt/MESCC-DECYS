@@ -49,3 +49,7 @@ sae_fixed: sae_harness.c
 sae: sae_vulnerable sae_fixed
 	./sae_vulnerable
 	./sae_fixed
+
+# The .inc extracts are checked in (regenerate via the module-root
+# extract_upstream.py / extract_wpa_upstream.py after `make sources`).
+$(VULN_INC) $(FIXED_INC): ;
