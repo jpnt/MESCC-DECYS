@@ -55,9 +55,7 @@ and nothing needs to.
 
 | Experiment | Evidence | Faithfulness anchor |
 |---|---|---|
-| Bluetooth UART overflow (CVE-2025-35003) | ASan `stack-buffer-overflow`, 4096-byte write | verbatim `btuart_rxwork()`, 12.7.0 tag vs 12.9.0 control |
-| Inode root removal (CVE-2025-48768) | ASan `SEGV`, write at 0x10 | verbatim `inode_unlink()`, 12.9.0 |
-| KRACK key reinstallation | PN reset → keystream reuse → recovered plaintext | wpa.c 2.3 control structure vs current guard string |
+| KRACK key reinstallation | keystream reuse + known-plaintext recovery | wpa.c 2.3 control structure vs current guard string |
 | SAE reflection DoS | 5/5 livelock vs guard-drop round 1 | sae.c 2.3 state flow; real group law (p=1009) |
 | SAE hunt-loop leak | P(work beyond pad) = 0.066 (seeded, N=1500, per-password) | faithful loop-control replica + real P-256 QR oracle |
 
@@ -94,7 +92,7 @@ Three limits, stated as the rubric's honesty criteria demand:
 
 The positive reading: every number in the report is machine-checked or
 source-verified, every artifact is deterministic (`make krack`, `make
-sae`, `make run`) — with the single exception of the seeded PWE
+sae`) — with the single exception of the seeded PWE
 statistics script, whose seed is pinned so its quoted block re-runs, and the patched-vs-vulnerable comparisons are the
 same pairs the upstream commits define. What a full over-the-air demo
 adds is fidelity of the *channel*; it changes none of the conclusions.

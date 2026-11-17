@@ -22,7 +22,7 @@ against the release files named in their headers.
 | `sae_derive_pwe_pre_dragonblood.inc` | the real SAE hunt loop, verbatim from the official 2.3 release |
 | `upstream/wpa_23.c`, `upstream/wpa_cur.c` | hostap `wpa.c` at the official 2.3 release and current |
 | `upstream/sae_2.3.c`, `upstream/sae_2.6_reflection_fixed.c`, `upstream/sae_cur.c` | hostap `sae.c` at 2.3 (pre-guard), 2.6 (guard present), and current |
-| `evidence_krack.txt`, `evidence_sae.txt` | the WPA traces cited in Chapters 3 and 5 |
+| `evidence_krack.txt`, `evidence_sae.txt` | the traces cited in Chapters 3 and 5 |
 | `Makefile` | builds every model with ASan/UBSan; `make krack`, `make sae` run before/after |
 
 ### Build and run
@@ -47,8 +47,7 @@ release files under `upstream/` and `lab/` are the diff targets.
 ### Sanitizer and run traces (frozen)
 
 `evidence_krack.txt` and `evidence_sae.txt` are the full, verbatim
-program output of the four model runs quoted in Chapter 3 and Chapter
-5; the PWE statistics block in `evidence_sae.txt` is the seeded run of
+program output of the four model runs quoted in Chapters 3 and 5; the PWE statistics block in `evidence_sae.txt` is the seeded run of
 `tools/sae_pwe_stats.py`. Reviewers can diff the quoted blocks against
 these files; `make krack && make sae` regenerates the behaviour, and
 the models' headers carry the mapping to the upstream guard strings

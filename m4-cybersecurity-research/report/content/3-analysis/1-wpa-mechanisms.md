@@ -172,5 +172,4 @@ require injecting or re-delivering frames, and we model the receiving
 code instead. The consequence traces are exact (the state machines are
 the upstream ones, the SAE key derivation is faithful on a real curve,
 and the PWE statistics use real P-256 arithmetic), but the *radio* layer
-is the papers', not ours. The gap is named and bounded once, in Section
-5's "What we could not do"; we do not re-argue it here.
+is the papers', not ours. The gap is named and bounded once, in Chapter 5's "What we could not do"; we do not re-argue it here.

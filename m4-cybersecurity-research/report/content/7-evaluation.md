@@ -34,7 +34,7 @@ validates state is a blob, no one — not even the vendor — can answer
 
 ## The difference between breaking a cipher and exploiting an implementation
 
-Five demonstrations here, zero broken primitives: AES-CCMP stayed sound
+Three demonstrations here, zero broken primitives: AES-CCMP stayed sound
 through KRACK; the Dragonfly group law stayed sound throughout
 Dragonblood. The attacks
 all live in the seam where mathematics stops and state machines begin —
@@ -42,7 +42,7 @@ counters, installation order, message provenance, execution time. For a
 procurement team this collapses to one testable question about any
 stack: *what does your code do when it receives a message twice, from a
 peer it cannot see, faster than it expects?* The report's contributions
-are five concrete answers to that question, three of them compiled with
+are three concrete answers to that question, three of them compiled with
 sanitizers watching.
 
 ## The formal-analysis view
@@ -62,8 +62,9 @@ property separation formally.
 1. **Fidelity beats breadth in reproductions.** Stubbing only the glue
    (our harness pattern) gave, in one night, evidence nobody had
    published for three of these CVEs.
-2. **A negative result costs nothing to publish and buys trust.** The
-   fs_rename non-reproduction is the paragraph reviewers cite.
+2. **A negative result costs nothing to publish and buys trust.** Our
+   arm64 hwsim gap is stated once, with the procedure left runnable by
+   the next person; the attack-side capture is assigned, not hidden.
 3. **"No CVE mapping" must never be read as "no bugs":** in a vendor
    supplicant port with no stated base revision, a known fix cannot be
    confirmed present (Chapter 3), and the absence of a ledger, not of

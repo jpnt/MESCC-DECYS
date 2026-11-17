@@ -164,9 +164,11 @@
     enough if work leaks the password).
   - WPA3/SAE removes PMK replay and adds PMF; its own
     reference-flow flaws (9494–99) became hash-to-element.
-  - Process, not patch: Zephyr has a security team + continuous
+  - Process, not patch: hostap's fuzz-build targets (libFuzzer/AFL on the
+    EAPOL parsers) are the defence that reads continuously.
   - For embedded fleets: *demand provenance* for the crypto layer
-    (blob ≠ auditable), and fuzz the boundary parsers yourself —
+    (blob ≠ auditable), and ask the vendor "which upstream commit is
+    your supplicant?" — the only question this analysis makes answerable.
 ]
 
 // ---- 10 evaluation --------------------------------------------------------
@@ -215,6 +217,6 @@
   - For critical systems: verify *provenance and idempotence* of the
     code that installs your keys — and put a fuzzer where the blob is.
   #v(1em)
-  #text(size: 14pt, fill: gray)[Report: 51 pp., 38 refs. Demos: `make krack`,
+  #text(size: 14pt, fill: gray)[Report: 30 pp., 12 refs. Demos: `make krack`,
   `make sae`, `make snippets` — deterministic, no radio harmed.]
 ]
