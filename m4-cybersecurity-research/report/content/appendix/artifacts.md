@@ -8,10 +8,15 @@ supply-chain section: the two official w1.fi release tarballs (sha256:
 `hostapd-2.6` =
 `01526b90c1d23bec4b0f052039cc4456c2fd19347b4d830d1d58a0a6aea7117d`),
 the ESP-IDF v4.4/v5.2 READMEs, the generated component file lists, the
-guard-presence greps and the 2021 reinstall-commit record (regenerate
+guard-presence greps, the 2021 reinstall-commit record, the
+release-to-release guard probe (`lab/esp_guard_probe.md`) and the
+fix-commit timeline (`lab/esp_v4.4_timeline.md`) (regenerate
 with `make sources-esp`); `tools/` holds `sae_pwe_stats.py` (seeded
-leak measurement), `curve_check.py` (curve point count) and
-`esp_evidence.py`. The fetched hostap files are checked in verbatim
+leak measurement), `curve_check.py` (curve point count),
+`esp_evidence.py`, `esp_timeline.py` (date-sorted tables from
+`lab/v44_commits.json`, keys `sha`, `parents[].sha`,
+`commit.author.date`, `commit.message`) and `esp_guard_probe.py`
+(marker presence with line numbers over the fetched and pinned sources). The fetched hostap files are checked in verbatim
 under `report/snippets/upstream/` (byte slices of the pinned w1.fi
 releases in `lab/`, or of the current upstream tree) so a reader can
 diff the models against the release files named in their headers.
@@ -24,6 +29,8 @@ diff the models against the release files named in their headers.
 | `upstream/wpa_23.c`, `upstream/wpa_cur.c` | hostap `wpa.c` at the official 2.3 release and current |
 | `upstream/sae_2.3.c`, `upstream/sae_2.6_reflection_fixed.c`, `upstream/sae_cur.c` | hostap `sae.c` at 2.3 (pre-guard), 2.6 (guard present), and current |
 | `evidence_krack.txt`, `evidence_sae.txt` | the traces cited in Chapters 3 and 5 |
+| `lab/esp_v4.4_timeline.md` | date-sorted fix-commit table from `lab/v44_commits.json` (2021 GTK backports with parents; KRACK-subject window empty, reported as such) |
+| `lab/esp_guard_probe.md` | per-snapshot guard marker presence with line numbers (upstream 2.3/2.6 anchors plus ESP-IDF v4.4/v5.2 sources) |
 | `Makefile` | builds every model with ASan/UBSan; `make krack`, `make sae` run before/after |
 
 ### Build and run

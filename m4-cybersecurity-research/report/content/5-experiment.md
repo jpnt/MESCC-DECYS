@@ -6,7 +6,10 @@ against a modified hostapd [@krack-scripts], with `mac80211_hwsim`
 virtual WLAN interfaces and the `wifi-framework` [@wifi-framework] so
 no physical radio is involved,
 Kali Linux as the supported host, and a deliberately unpatched
-`wpa_supplicant` 2.4-2.6 client as the before case. That is the lab we
+`wpa_supplicant` 2.4-2.6 client as the before case; the w1.fi advisory
+confirms those as exactly the versions with the severe TK
+configurations (2.4/2.5 install an all-zero TK on the GTK sequence,
+2.6 on the 4-way sequence) [@dv-w1fi-2017-1]. That is the lab we
 prepared and the one we document here as the *attack-side* procedure;
 our own executed evidence is the receiver-side reproduction below,
 because this machine has no Linux kernel with `mac80211_hwsim` compiled

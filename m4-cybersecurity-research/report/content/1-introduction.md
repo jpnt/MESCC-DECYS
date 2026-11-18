@@ -54,7 +54,8 @@ does, and the patched control is the guard string from the same file.
 What the models do not do is radiate frames; that step belongs to the
 documented hwsim lab. Where we rely on the original research instead of
 our own runs (the TKIP MICAR attack, the Android/Linux zero-key cases,
-the cache-attack micro-architecture), we cite and say so. The SAE
+the cache-attack micro-architecture [@krack2018] [@schepers2019asiaccs]
+[@dragonblood]), we cite and say so. The SAE
 timing result is a *measured property of the upstream loop*, not a
 cache attack performed here. Everything executable in the report
 re-runs byte-identically from a clean checkout: `make krack`, `make

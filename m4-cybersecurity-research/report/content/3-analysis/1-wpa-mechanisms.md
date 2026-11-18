@@ -48,7 +48,13 @@ reaches 3, monotonic): no reuse, nothing to recover. That is the entire
 vulnerability, a few lines of control flow, and it is a shape that
 recurs across every stack in this report: an implementation trusting an
 input field (`Install` bit) that a correct-by-construction peer would
-never set twice, with no validation layer behind it.
+never set twice, with no validation layer behind it. Upstream's own
+advisory words the mechanism the same way: reinstalling a key
+"clear[s] the RX packet number to an old value", which breaks replay
+protection on RX and reuses packet numbers on TX, and the fix
+commit states the invariant two ways, the same TPTK set once as the PTK
+and the same PTK installed once [@dv-w1fi-2017-1]
+[@dv-hostap-ptk-guard-commit].
 
 <!--raw-typst #figure(image("/figures/state-machine.png", width: 92%), caption: [The supplicant's RSNA pairwise state machine. The vulnerable path (red) re-enters PTK-NEGOTIATING/PTK-DONE on a retransmitted Message 3 and installs again; the patched path (blue dashed) keeps the reply but skips installation. This is Figure 3 of the original paper [@krack], reproduced from the same state descriptions.]) <fig-fsm> -->
 
@@ -88,6 +94,186 @@ arithmetic; the tiny group is a vehicle for the state machine, not a
 real-curve cost estimate) and drives five independent Commit exchanges
 (a fixed count, not a sample): the 2.3-shaped receiver is stuck in all
 five, the guarded receiver drops the echo in round one.
+
+### The group algebra of the reflection, worked out
+
+Everything below is the algebra of the checked-in upstream files, not a
+textbook restatement: the sending side is `sae_derive_commit()` and
+`sae_derive_commit_element_ecc()` in `report/snippets/upstream/sae_2.3.c`
+(verbatim identical in 2.6 and current), the receiving side is
+`sae_derive_k_ecc()` and `sae_derive_keys()` in the same file. The code's
+own comments name the quantities, and `sae_get_rand_and_mask()` draws the
+two secrets (`sae_rand` and `mask`, both from `sae_get_rand()`,
+1 < value < r, neither transmitted):
+
+```c
+/* commit-scalar = (rand + mask) modulo r */          /* sae_derive_commit */
+/* COMMIT-ELEMENT = inverse(scalar-op(mask, PWE)) */  /* sae_derive_commit_element_ecc */
+```
+
+Call a party's on-wire pair (s, C) with s = (r + m) mod q and
+C = -(m·PWE), the minus being `crypto_ec_point_invert()` in
+`sae_derive_commit_element_ecc`. Honest exchange, A with (r_A, m_A), B
+with (r_B, m_B). A's receiver computes, per the verbatim comment block in
+`sae_derive_k_ecc`:
+
+```c
+/*
+ * K = scalar-op(rand, (elem-op(scalar-op(peer-commit-scalar, PWE),
+ *                                        PEER-COMMIT-ELEMENT)))
+ * If K is identity element (point-at-infinity), reject
+ * k = F(K) (= x coordinate)
+ */
+```
+
+that is K_A = r_A·(s_B·PWE + C_B). Substituting the definitions:
+s_B·PWE + C_B = (r_B + m_B)·PWE - m_B·PWE = r_B·PWE, so **K_A = r_A·r_B·PWE**;
+symmetrically K_B = r_B·r_A·PWE. Each mask cancels against the *other*
+party's scalar sum, and the shared secret is the product of the two
+untransmitted r values, anchored to the password through PWE (which
+enters only via the cancelled sums). That cancellation is SAE's Commit
+binding: seeing (s, C) on the wire leaks neither r nor m, and K cannot be
+formed without one of them.
+
+Reflect: the malicious AP answers A's Commit with A's own (s_A, C_A).
+A's receiver stores them as the peer's and computes
+
+```
+K = r_A·(s_A·PWE + C_A) = r_A·((r_A + m_A)·PWE - m_A·PWE) = r_A²·PWE
+```
+
+The mask cancels exactly as before, but the surviving factor is A's own
+rand, twice. The key material then follows `sae_derive_keys()` verbatim
+in 2.3 (`sae_cur.c` keeps the same construction for the non-H2E case):
+
+```c
+/* keyseed = H(<0>32, k)
+ * KCK || PMK = KDF-512(keyseed, "SAE KCK and PMK",
+ *                      (commit-scalar + peer-commit-scalar) modulo r)
+ * PMKID = L((commit-scalar + peer-commit-scalar) modulo r, 0, 128)
+ */
+```
+
+Under reflection the scalar sum degenerates to 2·s_A mod q and k is the
+x-coordinate of r_A²·PWE: every input to the KDF is a function of A's own
+secrets and the password. The AP contributes nothing, and needs no
+password knowledge to "share" the key: it never computes the key, it
+copies A's frames. The confirm tags match for the same reason.
+`sae_write_confirm()` sends `CN(KCK, send-confirm, own_commit_scalar,
+COMMIT-ELEMENT, peer-commit-scalar, PEER-COMMIT-ELEMENT)` and
+`sae_check_confirm()` evaluates the same expression with the own/peer
+slots swapped (both call shapes are in `sae_2.3.c` lines 998-1064); when
+peer = own by echo, the two argument permutations are the identical
+byte string, so any tag the reflector returns, namely A's own, verifies.
+`send-confirm` is the only remaining asymmetry, a two-byte counter the
+reflector replays. The independence of the two commitments is precisely
+what the swapped-slot construction assumes; reflection satisfies the
+check while emptying it of meaning. The harness makes the self-reference
+executable: `snippets/sae_harness.c` lines 202-208 compute
+`key_tag(&sta, &reflect)` and `key_tag(&reflect, &sta)` and report them
+equal (`int key_match = (ours == theirs); /* trivially true BY ECHO */`)
+with own and peer values identical, the stuck condition.
+
+### The guard, verbatim, and what 2.3 does instead
+
+The fix is a comparison. From `sae_parse_commit()` in
+`report/snippets/upstream/sae_2.6_reflection_fixed.c`, `src/common/sae.c`
+at hostap 2.6, lines 1123-1146 (current `sae_cur.c` carries the
+identical block at lines 2242-2265):
+
+```c
+	/*
+	 * Check whether peer-commit-scalar and PEER-COMMIT-ELEMENT are same as
+	 * the values we sent which would be evidence of a reflection attack.
+	 */
+	if (!sae->tmp->own_commit_scalar ||
+	    crypto_bignum_cmp(sae->tmp->own_commit_scalar,
+			      sae->peer_commit_scalar) != 0 ||
+	    (sae->tmp->dh &&
+	     (!sae->tmp->own_commit_element_ffc ||
+	      crypto_bignum_cmp(sae->tmp->own_commit_element_ffc,
+				sae->tmp->peer_commit_element_ffc) != 0)) ||
+	    (sae->tmp->ec &&
+	     (!sae->tmp->own_commit_element_ecc ||
+	      crypto_ec_point_cmp(sae->tmp->ec,
+				  sae->tmp->own_commit_element_ecc,
+				  sae->tmp->peer_commit_element_ecc) != 0)))
+		return WLAN_STATUS_SUCCESS; /* scalars/elements are different */
+
+	/*
+	 * This is a reflection attack - return special value to trigger caller
+	 * to silently discard the frame instead of replying with a specific
+	 * status code.
+	 */
+	return SAE_SILENTLY_DISCARD;
+```
+
+The 2.3 file has no such lines: `grep -c reflection` on `sae_2.3.c`
+returns 0. What 2.3 does instead, in `sae_parse_commit_scalar()`
+(lines 750-793), is compare the arriving scalar only against the scalar
+remembered from an already-*accepted* session, the 802.11 re-use rule
+(the comment cites IEEE Std 802.11-2012, 11.3.8.6.1), then store
+unconditionally and fall through:
+
+```c
+	if (sae->state == SAE_ACCEPTED && sae->peer_commit_scalar &&
+	    crypto_bignum_cmp(sae->peer_commit_scalar, peer_scalar) == 0) {
+		wpa_printf(MSG_DEBUG, "SAE: Do not accept re-use of previous "
+			   "peer-commit-scalar");
+```
+
+```c
+	crypto_bignum_deinit(sae->peer_commit_scalar, 0);
+	sae->peer_commit_scalar = peer_scalar;
+```
+
+and `sae_parse_commit()` ends with the unconditional tail call
+`return sae_parse_commit_element(sae, pos, end);` (line 916), which
+stores the peer element the same way and returns success. During an
+in-progress handshake `sae->state` is `SAE_COMMITTED`, not
+`SAE_ACCEPTED`, so the one comparison that exists cannot fire; the
+validity checks that do run are format only, `0 < scalar < r` (lines
+778-784) and "on curve" (`sae_parse_commit_element_ecc`), and an echo
+passes both.
+The echoed (s, C) is stored, `sae_process_commit()` derives r_A²·PWE, and
+`sae_check_confirm()` (lines 1025-1064) compares the HMAC against the
+echoed tag and returns 0. Every branch the receiver could take on a
+reflected Commit is an accept branch. The guard closes the livelock path
+itself, not the whole confirm family: if the reflected Commit had been
+slightly altered the 2.6 guard rejects, and the separate confirm-
+reflection result of Dragonblood (CVE-2019-9497) is fixed only in the
+2.10 rewrite, not by these lines.
+
+### What each retry costs the station
+
+The livelock is not free for the victim, and the bill is readable from
+the call graph rather than measured in cycles (our curve is a
+state-machine vehicle, not a cost model, per the harness header). Each
+re-Commit restarts at `sae_prepare_commit()` (2.3 line 504; current
+`sae_cur.c` line 1347), which runs the entire Commit build:
+`sae_derive_pwe_ecc()`, a minimum of k = 4 HMAC-SHA256 candidate hunts
+(`u8 counter, k = 4;`, 2.3 line 294; the loop runs to `counter > 200`
+before the "This should not happen in practice" break, line 334) each
+with a point-decomposition solve; then `sae_derive_commit()`, i.e. two
+`sae_get_rand()` rejection draws plus a `crypto_bignum_add`/`mod`, then
+`sae_derive_commit_element_ecc()`, one `crypto_ec_point_mul()` and one
+`crypto_ec_point_invert()`. After the echoed reply arrives,
+`sae_process_commit()` adds `sae_derive_k_ecc()`: two further
+`crypto_ec_point_mul()` and one `crypto_ec_point_add()`, then
+`sae_derive_keys()`'s HMAC, SHA256-PRF and `crypto_bignum_add`/`mod`.
+On retry, `sae_clear_temp_data()` and `sae_clear_data()` free and
+`os_memset(sae, 0, sizeof(*sae))` the per-session structure (2.3 lines
+73-102) and it is allocated again. The order of magnitude per attempt is
+therefore four full EC scalar multiplications before the confirm even
+starts, the 2.6-era `sae_derive_commit()` `do { ... } while` scalar
+draw (from the function's opening line, `sae_2.6_reflection_fixed.c`
+line 655) possibly looping the two `sae_get_rand()`s again, all of it
+against the attacker's cost of one copied frame. The retransmission
+timers themselves live in the supplicant-side SAE state machine outside
+these files (hostap's `sme` layer, which we did not fetch, so we do not
+quote their values); what the checked-in code shows is that every expiry
+walks the full path above again. That asymmetry, a station's complete
+re-commit for the reflector's single echo, is the DoS's engine.
 
 <!--raw-typst #figure(image("/figures/pipeline.png", width: 80%), caption: [The SAE password-to-point hunt: each counter value is one KDF and residue test; when a point is found at counter i, the loop's runtime encodes i. The k=4 pad masks only small i.]) <fig-pipeline> -->
 
@@ -143,19 +329,116 @@ refetchable with `make sources-esp`):
  undocumented.** [@esp-wpasupplicant] `components/wpa_supplicant/README.md` (fetched at v4.4 and v5.2 into `lab/wpa_readme_v*.md`) says only
  "ported for ESP family of platforms", no base commit, and the version
  string is stripped: neither the README nor the build records it.
- Dating has to be done by content: ESP-IDF v4.4 has DPP files and no
- `dragonfly.c` (the file where SAE lives upstream); v5.2 has
- `dragonfly.c` and `sae_pk.c` (SAE's hash-to-element variant, added
- after Dragonblood), i.e. post-2019 upstream. The KRACK-era guards and
- the reflection guard *are* present in both greps, fetched files
- `lab/v44_wpa.c`, `lab/v52_wpa.c`, `lab/v44_sae.c`, but as *backports*:
- the PTK guard above has a driver-side sibling, and v4.4's history
- (`lab/esp_v4.4_reinstall_commits.txt`) carries 2021 commits titled
- "Prevent reinstallation of an already in-use group key"
- (035909872b) and "Group key reinstallation fixes" (20bb0c3b02),
- applied to a snapshot of no stated base commit. The closed Wi-Fi
+- **The dating method is a systematic probe, not a file-name guess.**
+ Three questions separate a base-revision claim from an undated
+ snapshot, and all three run over checked-in files only (the GitHub
+ tree listings, fetched sources, and the pinned w1.fi copies under
+ `lab/`), via `tools/esp_guard_probe.py`, output in
+ `lab/esp_guard_probe.md`, rerunnable with `make sources-esp`:
+ (i) *When did this guard string enter upstream?* Probed with the
+ official 2.3 and 2.6 files as anchors: "Do not re-install same PTK to
+ the driver" is absent from 2.3 (`official_wpa_2.3_wpa.c`) and present
+ in 2.6 (`official_wpa_2.6_wpa.c`, line 620); the reflection guard
+ ("evidence of a reflection attack") is absent from 2.3's `sae.c` and
+ present at `official_sae_2.6.c` line 1125.
+ (ii) *Which guards does each ESP release carry?* v4.4's `wpa.c`: PTK
+ guard absent, GTK guard present (`v44_wpa.c`, "Detect possible key
+ reinstallation" line 796, "already in-use GTK" line 799); `v44_sae.c`:
+ reflection guard present, line 1250. v5.2's `v52_wpa.c`: PTK guard
+ present, line 763; GTK guard lines 879, 1017. v5.2's `sae.c` is not in
+ `lab/` (the fetch rule takes `wpa.c` per tag; the file-listed
+ `sae.c` path is the same at both tags), so the probe says so instead
+ of guessing.
+ (iii) *Does each hit live where upstream keeps it?* The GTK-guard
+ string appears only in `wpa.c` at every snapshot (cross-checked in the
+ sae files too: absent); the reflection guard only in the sae files.
+ A guard that had landed in the wrong file would signal hand-edited
+ porting rather than a sync, and the probe would show it.
+ The picture this yields is inconsistent with any single upstream
+ snapshot: v4.4 has DPP files (present at both tags, so DPP is not a
+ discriminator) but no `dragonfly.c`, the file where SAE's
+ hash-to-element work lives upstream; its `sae.c` has the post-2018
+ reflection guard (so the snapshot is not 2.3-era) yet lacks the PTK
+ guard that shipped in 2.6; and its `sae_derive_pwe_ecc` pads to
+ `k = 40` (`lab/v44_sae.c` line 430) where official 2.3/2.6 pad to 4,
+ a value upstream chose for a different reason than ESP's port
+ documents. v5.2 has `dragonfly.c` and `sae_pk.c` (SAE-PK, added after
+ Dragonblood), i.e. post-2019 upstream. No release between 2.6 and 2.9
+ reproduces (ii)+(iii) together: the KRACK-era guards are in as
+ *backports* applied to a snapshot whose base commit nothing states.
+- **The fix timeline that is recorded, and the one that is not.**
+ `tools/esp_timeline.py` parses the fetched commit record
+ `lab/v44_commits.json` (GitHub API
+ `commits?sha=v4.4&path=components/wpa_supplicant&per_page=100`; the
+ record carries `sha`, `parents[].sha`, `commit.author.date` and the
+ full message for each commit) into
+ `lab/esp_v4.4_timeline.md`, sorted by author date then SHA, one table
+ per keyword family:
+
+| Date | Short SHA | Parent(s) | Commit subject |
+|---|---|---|---|
+| 2021-04-06T12:38:44Z | `035909872b` | `9d649505bc` | wpa_supplicant: Prevent reinstallation of an already in-use group key |
+| 2021-04-22T07:35:49Z | `20bb0c3b02` | `7f34657013` | wpa_supplicant: Group key reinstallation fixes |
+
+ (from `lab/v44_commits.json`; the second commit's body says verbatim
+ "This commit reverts previous commit for GTK reinstallation fix and
+ corrects original fix.") The KRACK-subject window of the same table is
+ *empty*: no commit in the fetched page has a subject matching
+ `reinstalled` or `re-install`, because the fetched window spans
+ 2020-01-07 to 2021-12-23 (100 commits, one API page), and the 2017
+ PTK-side KRACK batch predates it; the PTK guard's absence in
+ `v44_wpa.c` while the 2021 GTK backports are present is the asymmetry
+ the timeline records but cannot explain. That is the factual state:
+ group-key backports with dates and parents, pairwise-key fix present
+ in source with no commit record at this tag, base revision nowhere.
+ The closed Wi-Fi
  stack itself (`net80211`, `pp`) ships as prebuilt blobs linked from
  `components/esp_wifi/lib/` (`lab/esp_wifi_prebuilt_blobs.txt`).
+
+### What a defender can conclude, and what this evidence cannot give them
+
+Read positively, the probe above supports four statements about an
+ESP-IDF build. (1) The v4.4 supplicant's 4-way receiver carries no
+`ptk.installed` guard: `grep -n "Do not re-install same PTK"
+lab/v44_wpa.c` finds nothing, and `wpa_supplicant_install_ptk()` there
+(`lab/v44_wpa.c`, line 694) prints and installs unconditionally; that
+matches the 2.3-side shape of our KRACK model for *this file*, the
+pairwise install path. (2) The GTK path in the same v4.4 tree does
+carry the in-use comparison (`v44_wpa.c` line 796), so the group-key
+reinstallation class, CVE-2017-13087 in upstream terms, is closed at
+this tag, and the 2021 backport commits say when the corrected version
+landed. (3) The SAE reflection guard is present in v4.4's `sae.c` (line
+1250), so the CVE-2019-9494 livelock is not this file's failure mode.
+(4) v5.2 carries the PTK guard (line 763), so whatever v4.4's pairwise
+path was, the later tag matches the fixed shape.
+
+None of that transfers to a device, and the reasons are structural, not
+rhetorical. The binary that actually encrypts frames is not in any of
+these files: the supplicant hands keys to the closed `libnet80211`/
+`libpp` blobs (`lab/esp_wifi_prebuilt_blobs.txt`) over a driver ABI, and
+the TX-counter reset that made KRACK fatal is *the driver's* behavior; a
+guard-free install call is only fatal if the driver resets the replay
+counter on re-install, and that question is answerable only inside a
+blob we cannot read. Absence of a base revision cuts both ways: v4.4's
+port lacking the PTK guard string is evidence about Espressif's tree,
+not proof that a given product's build is vulnerable, because a vendor
+fork may patch it silently and the tree we can fetch is Espressif's, not
+the product's. The commit record makes the fleet problem concrete:
+`035909872b` and `20bb0c3b02` are dated 2021-04-06 and 2021-04-22 with
+parents `9d649505bc` and `7f34657013` (`lab/v44_commits.json`), and the
+same table has *no* 2017-2018 KRACK-era row and no version bump anywhere
+in the fetched window: a fleet operator holding a device at "v4.4.x"
+cannot map the build to fixed or affected from the SDK's own metadata,
+only from a source probe like the one above. And because the KRACK CVEs
+are numbered per product family (13077..13087 split across supplicant,
+driver and AP roles, [@nvd-krack]), "is my device patched for CVE-2017-
+13087?" is not even a question the vendor's version string can answer:
+the answer lives in files whose revision no ledger records. What the
+evidence does give a defender is a *prior* and a *test*: treat an
+SDK-port supplicant as unaudited until grepped, grep the guard strings
+the upstream fix used (they are the observable signature, and they cost
+seconds), and remember that for the driver half of the attack the only
+honest position is "unverifiable from source".
 
 <!--raw-typst #figure(image("/figures/supplychain.png", width: 88%), caption: [How the supplicant reaches the device: an SDK port of unknown revision, or a closed binary. Neither path leaves an auditable mapping to upstream releases.]) <fig-supply> -->
 

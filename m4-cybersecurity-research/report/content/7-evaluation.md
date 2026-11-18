@@ -6,16 +6,29 @@ the bit's meaning ("install now") was conflated with its transport
 ("this frame may arrive twice"). Van hoef's own summary is the lesson:
 a protocol-level defect (the specification text) that manifested
 differently per implementation, which is why the family ran to ten-plus
-CVEs across eight vendors. Why did it affect so many stacks? Because
+CVEs across eight vendors. **Why did it affect so many stacks?** Because
 "retransmit-safe" was implemented locally per supplicant, and
-"installation idempotence" never existed as a concept.
+"installation idempotence" never existed as a concept; CERT/CC's
+position is that the flaws are in the standard itself, such that "any
+correct implementation is likely affected" [@dv-cert-228519].
 
 **Dragonblood**, the same failure one layer up: the handshake *logic*
 assumed honest peer behaviour (commitments independent, work bounded by
 protocol rather than attacker), and the security proof's abstract model
 omitted the side channels that made the assumption observable. The
 password-based authentication model (low-entropy secret, online check)
-made even a weak oracle lethal at fleet scale.
+made even a weak oracle lethal at fleet scale. The per-CVE boundaries
+are worth having precise, because the advisory and CVE texts differ
+from the paper's framing in useful ways: the reflection-class commit
+validation CVEs 9497-9499 are EAP-pwd vulnerabilities, and w1.fi states
+that the SAE implementation already had the validation steps that were
+missing from EAP-pwd [@dv-w1fi-2019-4]; CVE-2019-9496 is a separate
+implementation bug, a NULL pointer dereference (hostapd crash) from
+missing state validation in SAE confirm processing, not a side channel
+at all [@dv-w1fi-2019-3] [@dv-nvd-9496]. CERT/CC opened its own note
+for the family on 2019-04-12 and observed that the root cause of the
+implementation vulnerabilities "may involve modifying the protocol"
+[@dv-cert-871675].
 
 **Why it affected so many implementations**, because each stack
 implemented the comment, not the invariant. The standard's state
@@ -27,7 +40,10 @@ down when its install step is not idempotent by construction.
 **The embedded product path, the same disease one level out**, a
 companion Wi-Fi module is architecturally a peer, and the RTOS-class
 vendor SDKs treated it as trusted silicon while shipping their
-supplicant port with no stated base revision. The supply-chain audit
+supplicant port with no stated base revision. The contrast with the
+desktop ecosystems is instructive: Debian's DSA names the exact fixed
+package versions [@dv-debian-dsa3999], and Google's bulletin names the
+exact AOSP commits [@dv-android-2017-11]. The supply-chain audit
 (Chapter 3) is the KRACK lesson in the limit: when the layer that
 validates state is a blob, no one, not even the vendor, can answer
 "does your device reinstall keys?" from source.

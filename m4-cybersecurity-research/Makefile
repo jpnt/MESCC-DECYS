@@ -19,12 +19,16 @@ report/snippets/upstream:
 
 sources-esp:
 	mkdir -p lab
-	curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/v4.4/components/wpa_supplicant/README.md -o lab/wpa_readme_v44.md
-	curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/v5.2/components/wpa_supplicant/README.md -o lab/wpa_readme_v52.md
-	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/git/trees/v4.4?recursive=1" -o lab/v44_src.json
-	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/git/trees/v5.2?recursive=1" -o lab/v52_src.json
-	curl -sfsL "https://api.github.com/repos/espressif/esp-idf/commits?sha=v4.4&path=components/wpa_supplicant&per_page=100" -o lab/v44_commits.json
+	@for tag in v4.4 v5.2; do \
+	  short=$${tag#v}; short=$${short%.*}; \
+	  curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/$${tag}/components/wpa_supplicant/README.md -o lab/wpa_readme_$${short}.md; \
+	  curl -sfsL "https://api.github.com/repos/espressif/esp-idf/git/trees/$${tag}?recursive=1" -o lab/$${short}_src.json; \
+	  curl -sfsL "https://api.github.com/repos/espressif/esp-idf/commits?sha=$${tag}&path=components/wpa_supplicant&per_page=100" -o lab/$${short}_commits.json; \
+	  curl -sfsL https://raw.githubusercontent.com/espressif/esp-idf/$${tag}/components/wpa_supplicant/src/rsn_supp/wpa.c -o lab/$${short}_wpa.c; \
+	done
 	python3 tools/esp_evidence.py
+	python3 tools/esp_timeline.py
+	python3 tools/esp_guard_probe.py
 
 figures:
 	for f in report/figures/*.dot; do dot -Tpng -Gdpi=180 "$$f" -o "$${f%.dot}.png"; done
