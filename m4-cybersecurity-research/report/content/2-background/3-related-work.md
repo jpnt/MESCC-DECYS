@@ -17,7 +17,7 @@ named attack class, key reinstallation, plus the specific result that
 the 4-way handshake's own state machine makes reinstallations
 mandatory-accept: message 3 must be answered because message 4 may
 have been lost, and the supplicant state machine the paper reproduces
-from the standard (from 802.11r, [1, Fig. 13-17]) still accepts Msg3 in
+from the standard (802.11r, Figure 13-17) still accepts Msg3 in
 PTK-DONE [@krack]. Method: read the standard's scattered textual
 description into a state machine, then attack the implementation
 surface with a channel-based MitM and measure per-OS behaviour (its

@@ -62,7 +62,7 @@ because it is where the family's severity quietly moves: PMF does not
 protect the frames the FT handshake uses, and the FT variant needs no
 MitM position at all, only eavesdropping plus injection, so "PMF is
 forced" does not exempt a network that supports 802.11r fast roaming
-(Chapter 2's FT paragraph, quoting §12.6.19 of the standard as the
+(Chapter 2's FT paragraph, quoting clause 12.6.19 of the standard as the
 paper reads it) [@krack]. In our
 terms: the attacks exploit *choice*, not chance, which is why
 they transfer to the embedded world, where those choices get made in
@@ -86,8 +86,7 @@ against the evidence [@krack]. Four criteria, each satisfied:
 3. **The consequence is the documented consequence of misuse.** CTR
    keystream reuse decrypting known-plaintext frames is exactly what
    CCM's own security analysis assumes away; Jonsson's CTR+CBC-MAC
-   proof takes nonce uniqueness as a premise [@jonsson-ccm] (the paper's
-   reference [42]). The attack violates a precondition and observes
+   proof takes nonce uniqueness as a premise [@jonsson-ccm]. The attack violates a precondition and observes
    the predicted outcome. That is misuse, not weakness.
 4. **The fix touches zero cryptography.** The patches are installation
    idempotence (Chapter 6, quoted from the source), the standard's
