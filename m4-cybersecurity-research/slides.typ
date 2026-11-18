@@ -160,6 +160,42 @@
  believed an input* it should have checked.
 ]
 
+// ---- 8b severity by cipher + the falsification criteria ------------------
+#slide[
+ #text(size: 24pt, weight: "bold")["The cipher wasn't broken": severity per
+ primitive, four tests]
+ #v(0.4em)
+ #grid(columns: (1.15fr, 1fr), gutter: 1em,
+   block[
+     #set text(size: 15pt)
+     #table(
+       columns: 3,
+       inset: 5pt,
+       align: left,
+       stroke: 0.5pt + luma(180),
+       table.header([*Reuse of (key, PN) gives*], [*CCMP*], [*TKIP / GCMP*]),
+       [keystream collision + replay], [yes], [yes],
+       [forge frames], [no (CBC-MAC safe)], [yes (Michael key / GHASH H)],
+       [decrypt injected], [no], [yes, GCMP both directions],
+     )
+     #v(0.5em)
+     Same attack, three outcomes: the *state machine* is constant, the
+     primitive only prices the damage.
+   ],
+   block[
+     #set text(size: 15pt)
+     *Four falsification tests (all pass):*
+     - no key recovered (all-zero bug is an implementation writing a
+       known key itself);
+     - work factor independent of key size;
+     - outcome is exactly CCM's documented misuse consequence;
+     - the fix changed zero cryptography (guard + two standard lines
+       about counters, NuSMV-checked).
+     - FT caveat: the AP-side variant is trivial *even with PMF*, the
+       reassociation frame carries no replay counter at all.
+   ])
+]
+
 // ---- 9 mitigations -------------------------------------------------------
 #slide[
  #text(size: 24pt, weight: "bold")[Mitigations and evolution]

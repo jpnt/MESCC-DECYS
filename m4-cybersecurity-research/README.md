@@ -14,8 +14,8 @@ stacks). No real network is attacked.
 make krack # KRACK receiver model: vulnerable + patched control
 make sae # SAE reflection model + the leak measurement
 make snippets # both of the above, from checked-in upstream slices
-make report # report.pdf (~30 pp.)
-make slides # slides.pdf (13 slides)
+make report # report.pdf (~55 pp.)
+make slides # slides.pdf (14 slides)
 make progress # progress_report.pdf
 make sources-esp # refetch the lab/ ESP-IDF evidence (network)
 ```
