@@ -88,8 +88,14 @@ weeks later. The FT (802.11r) side of the family closed with the
 companion commit "hostapd: Avoid key reinstallation in FT handshake"
 (CVE-2017-13082), which only skips the *second* driver install if the
 first succeeded, an explicitly driver-conditional form of the same
-invariant [@dv-hostap-ft-commit]. A defender's question is not
-"is KRACK fixed" but
+invariant [@dv-hostap-ft-commit]. The counter-based form of the
+standard's fix has its own recorded bypass: Release the Kraken showed
+that mixing EAPOL-Key frames of the group-key handshake with
+WNM-Sleep Mode frames can make a victim first install a *different*
+group key and then reinstall the old one, so the "identify an existing
+key" comparison never fires and the counters reset anyway; the paper's
+name for the defence it defeats is exactly "the official key
+reinstallation countermeasure of 802.11" [@krack2018]. The fleet
 "which of these ledgers does my device appear in".
 
 ## Why idempotence was not enough: the uniform-cost rule after Dragonblood
@@ -136,9 +142,24 @@ that future changes do not accidentally break this property")
 group keys ("do not install the given key if it is already in use")
 [@dv-hostap-gtk-commit]. The IEEE 802.11 standard text itself, however,
 is paywalled and not verifiable offline, so this report claims no
-amendment number for a normative install-idempotence clause; what is
-documented in the fetched primary sources is that each handshake
-mechanism in the standard got its own identifier: the four-way, group
+amendment number for a normative install-idempotence clause. What the
+fetched follow-up paper quotes from the post-KRACK revision is
+verifiable through it: the amendment "consisted of just two new lines,
+with the main one being ... 'When the Key, Address, Key Type, and Key
+ID parameters identify an existing key, the MAC shall not change the
+current transmitter TSC/PN/IPN counter or the receiver replay counter
+values associated with that key.'" [@krack2018]. The original paper
+also proved its own guard's shape before shipping it: the modified
+supplicant state machine was modelled in NuSMV and checked for the
+invariant that two key installations are always separated by a fresh
+PTK generation [@krack] [@nusmv2002]. That the clause is about
+*counters* and not about *installation* matters, and Chapter 3's
+pairwise model and the WNM-Sleep bypass paragraph in this chapter's
+vendor-window section are what it
+means in practice: an implementation satisfies the letter by
+preserving counter values across a reinstallation without ever
+becoming idempotent about installing. And each handshake mechanism in
+the standard got its own CVE anyway: the four-way, group
 key, FT (802.11r), 802.11w-dependent IGTK, TDLS, and WNM-Sleep (802.11v)
 cases are CVE-2017-13077/13078, 13080/13081, 13082, 13079/13081, 13086
 and 13087/13088 respectively [@nvd-krack] [@dv-nvd-13086]

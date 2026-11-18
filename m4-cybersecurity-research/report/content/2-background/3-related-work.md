@@ -214,3 +214,17 @@ follow-up. That is why the report's executable contribution is a
 receiver-side model rather than a capture, and why the model's driver
 contract is reproduced from the pinned upstream sources rather than
 from a live kernel.
+
+**The two He/Mitchell papers are not one paper**, and the CCS
+disclosure text names them separately: He, Sundararajan, Datta, Derek
+and Mitchell's *A Modular Correctness Proof of IEEE 802.11i and TLS*
+(CCS 2005) [@he-mod-2005] is the machine-checked proof whose properties
+KRACK leaves intact, while He and Mitchell's *Analysis of the 802.11i
+4-way Handshake* (WiSe 2005) [@he2005] is the companion analysis that
+found the denial-of-service weakness in the handshake's retransmission
+handling, which led to a slightly improved standardised handshake,
+while He et al.'s CCS 2005 proof is the one whose guarantees KRACK
+leaves untouched [@krack]. The distinction is load-bearing for this report's thesis:
+even the authors reading their own 2005 result a decade later agree
+the proof covered secrecy and authentication and was silent about key
+installation [@krack].

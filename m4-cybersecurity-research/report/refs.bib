@@ -462,3 +462,62 @@ note         = {grepped at tags v4.4 and v5.2; README.md at both states no base 
   note      = {The IV/nonce best-practices survey named in the CCS'17 related-work section (reference [51] there), whose discussion of security risks does not cover key reinstallation.},
   urldate      = {2026-11-18},
 }
+
+@inproceedings{jonsson-ccm,
+  author    = {Jonsson, Jakob},
+  title     = {On the Security of {CTR} + {CBC-MAC}},
+  booktitle = {SAC 2002, Selected Areas in Cryptography},
+  year      = {2002},
+  note      = {The CCM security analysis the CCS'17 paper cites for the limits
+               of forging under nonce reuse (its reference [42]); read from the
+               fetched work/ccs2017.txt reference list during this pass.},
+  urldate   = {2026-11-18},
+}
+@inproceedings{michael-attack,
+  author    = {Tews, Erik and Beck, Martin},
+  title     = {Practical attacks against {WEP} and {WPA}},
+  booktitle = {Proceedings of the Second ACM Conference on Wireless Network Security (WiSec '09)},
+  year      = {2009},
+  pages     = {79--86},
+  doi       = {10.1145/1514274.1514286},
+  note      = {The CCS'17 paper's reference [66] for recovering the Michael MIC
+               key from a decrypted frame and its MIC. DOI and pages verified
+               against the ACM record.},
+  urldate   = {2026-11-18},
+}
+@inproceedings{gcmp-weak,
+  author    = {Joux, Antoine},
+  title     = {Authentication Failures in {NIST} Version of {GCM}},
+  year      = {2006},
+  howpublished = {Comments submitted to the NIST Modes of Operation Process},
+  url       = {http://csrc.nist.gov/groups/ST/toolkit/BCM/documents/Joux_comments.pdf},
+  note      = {The CCS'17 paper's reference [43] for the shared-secret GHASH key H
+               and its exposure under nonce reuse; Ferguson's companion critique
+               is the same process's [29]. URLs verified 301 to the live NIST
+               archive during this pass; content not re-read.},
+  urldate   = {2026-11-18},
+}
+@inproceedings{he-mod-2005,
+  author    = {He, Changhua and Sundararajan, Mukund and Datta, Anupam and Derek, Ante and Mitchell, John C.},
+  title     = {A Modular Correctness Proof of {IEEE} 802.11i and {TLS}},
+  booktitle = {Proceedings of the 12th ACM Conference on Computer and Communications Security (CCS '05)},
+  year      = {2005},
+  note      = {The CCS'17 paper's reference [39]: the proof of key secrecy and
+               session authentication for the 4-way and group key handshakes
+               that KRACK does not violate. Names and venue read from the
+               fetched work/ccs2017.txt reference list; Crossref DOI lookup was
+               not performed for this entry.},
+  urldate   = {2026-11-18},
+}
+@inproceedings{nusmv2002,
+  author    = {Cimatti, Alessandro and Clarke, Edmund and Giunchiglia, Enrico and Giunchiglia, Fausto and Pistore, Marco and Roveri, Marco and Sebastiani, Roberto and Tacchella, Armando},
+  title     = {{NuSMV} 2: An Open Source Tool for Symbolic Model Checking},
+  booktitle = {Proceedings of the 14th International Conference on Computer Aided Verification (CAV '02)},
+  year      = {2002},
+  publisher = {Springer},
+  note      = {The CCS'17 paper's reference [23]: the model checker the authors
+               used to verify that their countermeasure separates any two key
+               installations by a fresh PTK generation. Read from the fetched
+               work/ccs2017.txt reference list.},
+  urldate   = {2026-11-18},
+}

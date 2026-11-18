@@ -54,12 +54,54 @@ tooling repository [@krack-scripts] [@krack]
 **The practical limitations of both attacks are also implementation
 limitations.** They need the attacker *in radio range* of a target
 network, and they need the target to *authenticate* (KRACK needs the
-4-way handshake; the reflection DoS needs an SAE exchange). Neither
-works on a device that is only an AP with PMF forced, or a client
-connecting to a network whose AP installs keys idempotently. In our
+4-way handshake; the reflection DoS needs an SAE exchange). A client
+connecting to a network whose AP installs keys idempotently escapes
+the four-way variant, and a *plain* AP with PMF forced is outside the
+four-way handshake's reach too. One qualifier has to sit next to that,
+because it is where the family's severity quietly moves: PMF does not
+protect the frames the FT handshake uses, and the FT variant needs no
+MitM position at all, only eavesdropping plus injection, so "PMF is
+forced" does not exempt a network that supports 802.11r fast roaming
+(Chapter 2's FT paragraph, quoting §12.6.19 of the standard as the
+paper reads it) [@krack]. In our
 terms: the attacks exploit *choice*, not chance, which is why
 they transfer to the embedded world, where those choices get made in
 vendor ports nobody re-audits.
+
+## How do we know the cipher wasn't broken? Falsification criteria
+
+"State-machine flaw, not a cryptographic break" is a claim that could
+be wrong, and the CCS paper states it in a form that can be tested
+against the evidence [@krack]. Four criteria, each satisfied:
+
+1. **No key recovery.** Except in the all-zero bug (an implementation
+   writing a known key itself), the attacker never learns the PMK, PTK
+   or GTK; the harvest is keystream collisions on frames the victim
+   chose to encrypt. A cryptanalytic break of AES or CCM would not
+   need the victim to mismanage its own state.
+2. **Work factor independent of key size.** The attack cost does not
+   depend on the key length at all; AES-256-CCMP (802.11ac's extension
+   of GCMP aside) would be attacked identically. Key-recovery timing
+   is the currency of real breaks, and none is spent here.
+3. **The consequence is the documented consequence of misuse.** CTR
+   keystream reuse decrypting known-plaintext frames is exactly what
+   CCM's own security analysis assumes away; Jonsson's CTR+CBC-MAC
+   proof takes nonce uniqueness as a premise [@jonsson-ccm] (the paper's
+   reference [42]). The attack violates a precondition and observes
+   the predicted outcome. That is misuse, not weakness.
+4. **The fix touches zero cryptography.** The patches are installation
+   idempotence (Chapter 6, quoted from the source), the standard's
+   amendment is two lines about not resetting counters for an existing
+   key [@krack2018], and patched clients interoperate with unpatched
+   APs. Cipher, key schedule and frame formats are untouched. A defect
+   curable entirely in control logic is a control-logic defect.
+
+The converse evidence also fits: severity *does* change with the
+primitive (Chapter 2's TKIP/CCMP/GCMP table, where GCMP's shared GHASH
+key turns decryption into bidirectional forgery [@krack]), which is
+what a state-machine flaw layered on different ciphers should look
+like. The failure mode is the cipher's *contract*, priced per mode;
+the cipher's mathematics is not in default.
 
 ## The embedded supply-chain consequence
 
