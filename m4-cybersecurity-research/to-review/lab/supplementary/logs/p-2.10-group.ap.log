@@ -1,0 +1,82 @@
+Configuration file: /home/v/krackattacks-scripts/krackattack/hostapd.conf
+Using interface wlan0 with hwaddr 02:00:00:00:00:00 and ssid "testnetwork"
+wlan0: interface state UNINITIALIZED->ENABLED
+wlan0: AP-ENABLED 
+[19:12:57] Reset PN for GTK
+[19:12:59] Reset PN for GTK
+[19:13:01] Reset PN for GTK
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: authenticated
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: associated (aid 1)
+wlan0: AP-STA-CONNECTED 02:00:00:00:01:00
+wlan0: STA 02:00:00:00:01:00 RADIUS: starting accounting session 1993723FF956C0E9
+[19:13:01] 02:00:00:00:01:00: 4-way handshake completed (RSN)
+[19:13:03] Reset PN for GTK
+[19:13:05] Reset PN for GTK
+[19:13:06] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:06] 02:00:00:00:01:00: received a new group message 2
+[19:13:07] Reset PN for GTK
+[19:13:08] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:08] 02:00:00:00:01:00: received a new group message 2
+[19:13:09] Reset PN for GTK
+[19:13:10] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:10] 02:00:00:00:01:00: received a new group message 2
+[19:13:11] Reset PN for GTK
+[19:13:12] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:12] 02:00:00:00:01:00: received a new group message 2
+[19:13:13] Reset PN for GTK
+[19:13:14] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:14] 02:00:00:00:01:00: received a new group message 2
+[19:13:15] Reset PN for GTK
+[19:13:16] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:16] 02:00:00:00:01:00: received a new group message 2
+[19:13:17] Reset PN for GTK
+[19:13:18] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:18] 02:00:00:00:01:00: received a new group message 2
+[19:13:19] Reset PN for GTK
+[19:13:20] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:20] 02:00:00:00:01:00: received a new group message 2
+[19:13:21] Reset PN for GTK
+[19:13:22] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:22] 02:00:00:00:01:00: received a new group message 2
+[19:13:23] Reset PN for GTK
+[19:13:24] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:24] 02:00:00:00:01:00: received a new group message 2
+[19:13:26] Reset PN for GTK
+[19:13:27] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:27] 02:00:00:00:01:00: received a new group message 2
+[19:13:28] Reset PN for GTK
+[19:13:29] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:29] 02:00:00:00:01:00: received a new group message 2
+[19:13:30] Reset PN for GTK
+[19:13:31] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:31] 02:00:00:00:01:00: received a new group message 2
+[19:13:32] Reset PN for GTK
+[19:13:33] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:33] 02:00:00:00:01:00: received a new group message 2
+[19:13:34] Reset PN for GTK
+[19:13:35] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:35] 02:00:00:00:01:00: received a new group message 2
+[19:13:36] Reset PN for GTK
+[19:13:37] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:37] 02:00:00:00:01:00: received a new group message 2
+[19:13:38] Reset PN for GTK
+[19:13:39] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:39] 02:00:00:00:01:00: received a new group message 2
+[19:13:40] Reset PN for GTK
+[19:13:41] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:41] 02:00:00:00:01:00: received a new group message 2
+[19:13:42] Reset PN for GTK
+[19:13:43] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:43] 02:00:00:00:01:00: received a new group message 2
+[19:13:44] Reset PN for GTK
+[19:13:45] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[19:13:45] 02:00:00:00:01:00: received a new group message 2
+[19:13:46] Reset PN for GTK
+wlan0: interface state ENABLED->DISABLED
+wlan0: AP-STA-DISCONNECTED 02:00:00:00:01:00
+CTRL_IFACE monitor[0]: 111 - Connection refused
+wlan0: AP-DISABLED 
+CTRL_IFACE monitor[0]: 111 - Connection refused
+wlan0: CTRL-EVENT-TERMINATING 
+CTRL_IFACE monitor[0]: 111 - Connection refused
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0

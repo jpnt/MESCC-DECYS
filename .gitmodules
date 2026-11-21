@@ -1,0 +1,4 @@
+[submodule "m4-cybersecurity-research/attack/krackattacks-scripts"]
+	path = m4-cybersecurity-research/attack/krackattacks-scripts
+	url = https://github.com/vanhoefm/krackattacks-scripts.git
+	branch = research

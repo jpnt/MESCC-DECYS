@@ -1,0 +1,41 @@
+=== Victim key-reinstallation evidence: pairwise four-way handshake (before vs after) ===
+
+CORE RESULT (CVE-2017-13077, four-way-handshake pairwise key reinstallation):
+
+  AP retransmits four-way Message 3 (16x). The victim's own wpa_supplicant
+  -dd -K debug log records, per retransmission, whether it reinstalled the
+  pairwise key or refused:
+
+    u-2.3-attack  : PTK install 17 / guard 0    -> VULNERABLE (reinstalls every time)
+    p-2.10-attack : PTK install  1 / guard 16   -> PATCHED   (refuses every reinstall)
+
+  Both clients receive the identical 16 retransmissions and both complete the
+  handshake each time; only the unpatched 2.3 reinstalls the key. The single
+  factor that changes the outcome is the reinstallation guard, not the cipher
+  (CCMP throughout). Raw logs: logs/u-2.3-attack.cl.log, logs/p-2.10-attack.cl.log.
+
+Evidence model (hwsim is software-only):
+  krack-test-client.py reaches its on-air "reinstalls the key" verdict by
+  watching the victim's data frames for a transmit packet-number reset. Under
+  mac80211_hwsim the shared in-kernel datapath never exposes that reset, so the
+  tool prints no verdict. The authoritative evidence is therefore the victim's
+  own -dd -K debug log, counted per test: an INSTALL line versus the GUARD line.
+
+  Markers counted in the client (.cl.log):
+    PTK install : "WPA: Installing PTK to the driver"
+    PTK guard   : "WPA: Do not re-install same PTK to the driver"
+    GTK install : "WPA: Installing GTK to the driver"
+    GTK guard   : "WPA: Not reinstalling already in-use GTK to the driver"
+
+  Clients: unpatched 2.3 (no guard), patched 2.10 (ptk.installed guard). AP =
+  modified hostapd from krackattacks-scripts, retransmitting Message 3.
+
+==========================================================================
+SUPPLEMENTARY RUNS (relocated outside the attack demo)
+==========================================================================
+The group-key (--group), --gtkinit, --replay-broadcast and temporary-PTK
+(--tptk, client 2.6) variant logs, and the software-only wifi-framework route,
+are not part of this pairwise attack demonstration. They have been moved out of
+attack/ to lab/supplementary/ (sibling of attack/): see
+lab/supplementary/logs/ and lab/supplementary/wifi-framework/ for those
+artifacts and their per-test notes.
