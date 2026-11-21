@@ -1,0 +1,21 @@
+
+===================================================================
+Protocol Hierarchy Statistics
+Filter: 
+
+radiotap                                 frames:331 bytes:46041
+  wlan_radio                             frames:331 bytes:46041
+    wlan                                 frames:331 bytes:46041
+      wlan.mgt                           frames:231 bytes:29071
+      llc                                frames:100 bytes:16970
+        eapol                            frames:4 bytes:680
+        ipv6                             frames:46 bytes:8080
+          icmpv6                         frames:21 bytes:2899
+          udp                            frames:25 bytes:5181
+            mdns                         frames:25 bytes:5181
+        ip                               frames:44 bytes:7637
+          igmp                           frames:4 bytes:430
+          udp                            frames:40 bytes:7207
+            mdns                         frames:40 bytes:7207
+        arp                              frames:6 bytes:573
+===================================================================

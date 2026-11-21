@@ -1,0 +1,26 @@
+wlan1: interface state UNINITIALIZED->ENABLED
+wlan1: AP-ENABLED 
+wlan1: STA 02:00:00:00:02:00 IEEE 802.11: authenticated
+wlan1: AP-STA-ASSOCIATING 02:00:00:00:02:00
+wlan1: STA 02:00:00:00:02:00 IEEE 802.11: associated (aid 1)
+wlan1: AP-STA-CONNECTED 02:00:00:00:02:00
+wlan1: STA 02:00:00:00:02:00 RADIUS: starting accounting session A3D3EA6FAD6B3F60
+wlan1: STA 02:00:00:00:02:00 WPA: pairwise key handshake completed (RSN)
+wlan1: EAPOL-4WAY-HS-COMPLETED 02:00:00:00:02:00
+TESTING: Send M3 to 02:00:00:00:02:00
+wlan1: STA 02:00:00:00:02:00 WPA: received EAPOL-Key msg 4/4 in invalid state (11) - dropped
+wlan1: interface state ENABLED->DISABLED
+[01:25:18] Using interface monwlan1 (mac80211_hwsim) to inject frames.[1;0m
+[01:25:18] Starting daemon using: ./dependencies/hostap_2_10/hostapd/hostapd -i wlan1 ./setup/hostapd.conf -K[1;0m
+[01:25:34] Loaded pairwise and group encryption keys.[1;0m
+[01:25:34] [0;33mTrigger = Connected.[1;0m
+[01:25:34] [0;32mGenerating example-krack-zero-key test case.[1;0m
+[01:25:36] [0;33mDot11 / Dot11QoS / LLC / SNAP / ARP who has 192.168.100.254 says 192.168.100.2[1;0m
+[01:25:36] [0;32mClient encrypted a frame with an all-zero key![1;0m
+[01:25:36] [0;33mTrigger = Received.[1;0m
+[01:25:36] [0;32mDisconnecting.[1;0m
+wlan1: AP-STA-DISCONNECTED 02:00:00:00:02:00
+wlan1: AP-DISABLED 
+wlan1: CTRL-EVENT-TERMINATING 
+nl80211: deinit ifname=wlan1 disabled_11b_rates=0
+[01:25:36] Closing daemon and cleaning up ...[1;0m

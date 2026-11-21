@@ -1,0 +1,17 @@
+Successfully initialized wpa_supplicant
+wlan2: SME: Trying to authenticate with 02:00:00:00:01:00 (SSID='testnetwork' freq=2412 MHz)
+wlan2: Trying to associate with 02:00:00:00:01:00 (SSID='testnetwork' freq=2412 MHz)
+wlan2: Associated with 02:00:00:00:01:00
+wlan2: CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+wlan2: WPA: Key negotiation completed with 02:00:00:00:01:00 [PTK=CCMP GTK=CCMP]
+wlan2: CTRL-EVENT-CONNECTED - Connection to 02:00:00:00:01:00 completed [id=0 id_str=]
+wlan2: WPA: Key negotiation completed with 02:00:00:00:01:00 [PTK=CCMP GTK=CCMP]
+p2p-dev-wlan2: CTRL-EVENT-DSCP-POLICY clear_all
+p2p-dev-wlan2: CTRL-EVENT-DSCP-POLICY clear_all
+nl80211: deinit ifname=p2p-dev-wlan2 disabled_11b_rates=0
+p2p-dev-wlan2: CTRL-EVENT-TERMINATING 
+wlan2: CTRL-EVENT-DISCONNECTED bssid=02:00:00:00:01:00 reason=3 locally_generated=1
+wlan2: CTRL-EVENT-DSCP-POLICY clear_all
+wlan2: CTRL-EVENT-DSCP-POLICY clear_all
+nl80211: deinit ifname=wlan2 disabled_11b_rates=0
+wlan2: CTRL-EVENT-TERMINATING 

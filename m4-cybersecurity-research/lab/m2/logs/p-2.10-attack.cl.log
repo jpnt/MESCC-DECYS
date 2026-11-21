@@ -1,0 +1,1895 @@
+wpa_supplicant v2.10
+random: getrandom() support available
+Successfully initialized wpa_supplicant
+Initializing interface 'wlan1' conf '/home/v/client.conf' driver 'nl80211' ctrl_interface 'N/A' bridge 'N/A'
+Configuration file '/home/v/client.conf' -> '/home/v/client.conf'
+Reading configuration file '/home/v/client.conf'
+ctrl_interface='/var/run/wpa_supplicant'
+Priority group 0
+   id=0 ssid='testnetwork'
+nl80211: TDLS supported
+nl80211: TDLS external setup
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:10
+nl80211: Supported cipher 00-0f-ac:8
+nl80211: Supported cipher 00-0f-ac:9
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Supported cipher 00-0f-ac:13
+nl80211: Supported cipher 00-0f-ac:11
+nl80211: Supported cipher 00-0f-ac:12
+nl80211: Using driver-based off-channel TX
+nl80211: Driver-advertised extended capabilities (default) - hexdump(len=8): 04 00 40 00 00 00 00 40
+nl80211: Driver-advertised extended capabilities mask (default) - hexdump(len=8): 04 00 40 00 00 00 00 40
+nl80211: Supported vendor command: vendor_id=0x1374 subcmd=1
+nl80211: Supported vendor event: vendor_id=0x1374 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0x1ff0f enc=0xfef auth=0x7 flags=0xe5000d31fb5bfbe0 rrm_flags=0x10 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=4
+nl80211: interface wlan1 in phy phy55
+nl80211: Set mode ifindex 98 iftype 2 (STATION)
+nl80211: Subscribe to mgmt frames with non-AP handle 0xaaff567e0710
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=040e multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff567e0710 match=7e506f9a1a multicast=0
+rfkill: initial event: idx=55 type=1 op=0 soft=0 hard=0
+netlink: Operstate: ifindex=98 linkmode=1 (userspace-control), operstate=5 (IF_OPER_DORMANT)
+Add interface wlan1 to a new radio phy55
+nl80211: No channel number found for frequency 5900 MHz
+nl80211: No channel number found for frequency 5905 MHz
+nl80211: No channel number found for frequency 5910 MHz
+nl80211: No channel number found for frequency 5915 MHz
+nl80211: No channel number found for frequency 5920 MHz
+nl80211: No channel number found for frequency 5925 MHz
+nl80211: No channel number found for frequency 902 MHz
+nl80211: No channel number found for frequency 903 MHz
+nl80211: No channel number found for frequency 903 MHz
+nl80211: No channel number found for frequency 904 MHz
+nl80211: No channel number found for frequency 904 MHz
+nl80211: No channel number found for frequency 905 MHz
+nl80211: No channel number found for frequency 905 MHz
+nl80211: No channel number found for frequency 906 MHz
+nl80211: No channel number found for frequency 906 MHz
+nl80211: No channel number found for frequency 907 MHz
+nl80211: No channel number found for frequency 907 MHz
+nl80211: No channel number found for frequency 908 MHz
+nl80211: No channel number found for frequency 908 MHz
+nl80211: No channel number found for frequency 909 MHz
+nl80211: No channel number found for frequency 909 MHz
+nl80211: No channel number found for frequency 910 MHz
+nl80211: No channel number found for frequency 910 MHz
+nl80211: No channel number found for frequency 911 MHz
+nl80211: No channel number found for frequency 911 MHz
+nl80211: No channel number found for frequency 912 MHz
+nl80211: No channel number found for frequency 912 MHz
+nl80211: No channel number found for frequency 913 MHz
+nl80211: No channel number found for frequency 913 MHz
+nl80211: No channel number found for frequency 914 MHz
+nl80211: No channel number found for frequency 914 MHz
+nl80211: No channel number found for frequency 915 MHz
+nl80211: No channel number found for frequency 915 MHz
+nl80211: No channel number found for frequency 916 MHz
+nl80211: No channel number found for frequency 916 MHz
+nl80211: No channel number found for frequency 917 MHz
+nl80211: No channel number found for frequency 917 MHz
+nl80211: No channel number found for frequency 918 MHz
+nl80211: No channel number found for frequency 918 MHz
+nl80211: No channel number found for frequency 919 MHz
+nl80211: No channel number found for frequency 919 MHz
+nl80211: No channel number found for frequency 920 MHz
+nl80211: No channel number found for frequency 920 MHz
+nl80211: No channel number found for frequency 921 MHz
+nl80211: No channel number found for frequency 921 MHz
+nl80211: No channel number found for frequency 922 MHz
+nl80211: No channel number found for frequency 922 MHz
+nl80211: No channel number found for frequency 923 MHz
+nl80211: No channel number found for frequency 923 MHz
+nl80211: No channel number found for frequency 924 MHz
+nl80211: No channel number found for frequency 924 MHz
+nl80211: No channel number found for frequency 925 MHz
+nl80211: No channel number found for frequency 925 MHz
+nl80211: No channel number found for frequency 926 MHz
+nl80211: No channel number found for frequency 926 MHz
+nl80211: No channel number found for frequency 927 MHz
+nl80211: No channel number found for frequency 927 MHz
+nl80211: Regulatory information - country=00
+nl80211: 2402-2472 @ 40 MHz 20 mBm
+nl80211: 2457-2482 @ 20 MHz 20 mBm (no IR)
+nl80211: 2474-2494 @ 20 MHz 20 mBm (no OFDM) (no IR)
+nl80211: 5170-5250 @ 80 MHz 20 mBm (no IR)
+nl80211: 5250-5330 @ 80 MHz 20 mBm (DFS) (no IR)
+nl80211: 5490-5730 @ 160 MHz 20 mBm (DFS) (no IR)
+nl80211: 5735-5835 @ 80 MHz 20 mBm (no IR)
+nl80211: 57240-63720 @ 2160 MHz 0 mBm
+nl80211: Remove unsupported mode
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467[NO_IR] 2472[NO_IR] 2484[NO_IR]
+nl80211: Mode IEEE 802.11a: 5180[NO_IR] 5200[NO_IR] 5220[NO_IR] 5240[NO_IR] 5260[NO_IR][RADAR] 5280[NO_IR][RADAR] 5300[NO_IR][RADAR] 5320[NO_IR][RADAR] 5500[NO_IR][RADAR] 5520[NO_IR][RADAR] 5540[NO_IR][RADAR]
+nl80211: Mode IEEE 802.11a: 5955[DISABLED] 5975[DISABLED] 5995[DISABLED] 6015[DISABLED] 6035[DISABLED] 6055[DISABLED] 6075[DISABLED] 6095[DISABLED] 6115[DISABLED] 6135[DISABLED] 6155[DISABLED] 6175[DISABLED] 6195[DISABLED]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467[NO_IR] 2472[NO_IR] 2484[NO_IR]
+wlan1: Own MAC address: 02:00:00:00:01:00
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=0 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=1 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=2 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=3 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=4 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=5 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wlan1: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+wlan1: Setting scan request: 0.100000 sec
+TDLS: TDLS operation supported by driver
+TDLS: Driver uses external link setup
+TDLS: Driver does not support TDLS channel switching
+wlan1: WPS: UUID based on MAC address: 572cf82f-c957-5653-9b16-b5cfb298abf1
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+MBO: Update non-preferred channels, non_pref_chan=N/A
+wlan1: Added interface wlan1
+wlan1: State: DISCONNECTED -> DISCONNECTED
+nl80211: Set wlan1 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=98 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+nl80211: Create interface iftype 10 (P2P_DEVICE)
+nl80211: New P2P Device interface p2p-dev-wlan1 (0x3700000002) created
+Initializing interface 'p2p-dev-wlan1' conf '/home/v/client.conf' driver 'nl80211' ctrl_interface '/var/run/wpa_supplicant' bridge 'N/A'
+Configuration file '/home/v/client.conf' -> '/home/v/client.conf'
+Reading configuration file '/home/v/client.conf'
+ctrl_interface='/var/run/wpa_supplicant'
+Priority group 0
+   id=0 ssid='testnetwork'
+nl80211: TDLS supported
+nl80211: TDLS external setup
+nl80211: Supported cipher 00-0f-ac:1
+nl80211: Supported cipher 00-0f-ac:5
+nl80211: Supported cipher 00-0f-ac:2
+nl80211: Supported cipher 00-0f-ac:4
+nl80211: Supported cipher 00-0f-ac:10
+nl80211: Supported cipher 00-0f-ac:8
+nl80211: Supported cipher 00-0f-ac:9
+nl80211: Supported cipher 00-0f-ac:6
+nl80211: Supported cipher 00-0f-ac:13
+nl80211: Supported cipher 00-0f-ac:11
+nl80211: Supported cipher 00-0f-ac:12
+nl80211: Using driver-based off-channel TX
+nl80211: Driver-advertised extended capabilities (default) - hexdump(len=8): 04 00 40 00 00 00 00 40
+nl80211: Driver-advertised extended capabilities mask (default) - hexdump(len=8): 04 00 40 00 00 00 00 40
+nl80211: Supported vendor command: vendor_id=0x1374 subcmd=1
+nl80211: Supported vendor event: vendor_id=0x1374 subcmd=1
+nl80211: Use separate P2P group interface (driver advertised support)
+nl80211: use P2P_DEVICE support
+nl80211: key_mgmt=0x1ff0f enc=0xfef auth=0x7 flags=0xe5000d31fb5bfbe0 rrm_flags=0x10 probe_resp_offloads=0x0 max_stations=0 max_remain_on_chan=5000 max_scan_ssids=4
+nl80211: interface p2p-dev-wlan1 in phy phy55
+nl80211: Set mode ifindex 0 iftype 10 (P2P_DEVICE)
+nl80211: Failed to set interface 0 to mode 10: -22 (Invalid argument)
+nl80211: Subscribe to mgmt frames with non-AP handle 0xaaff5682fbf0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0104 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=040a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=040b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=040c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=040d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=090a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=090b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=090c multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=090d multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0409506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=7f506f9a09 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0409506f9a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0800 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0801 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=040e multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=12 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=06 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0a07 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0a11 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0a0b multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0a1a multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=1101 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=1102 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0505 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=0500 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=1301 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=1305 multicast=0
+nl80211: Register frame type=0xd0 (WLAN_FC_STYPE_ACTION) nl_handle=0xaaff5682fbf0 match=7e506f9a1a multicast=0
+nl80211: Use (wlan1) to initialize P2P Device rfkill
+rfkill: initial event: idx=55 type=1 op=0 soft=0 hard=0
+nl80211: Start P2P Device p2p-dev-wlan1 (0x3700000002): Success
+Add interface p2p-dev-wlan1 to existing radio phy55
+nl80211: No channel number found for frequency 5900 MHz
+nl80211: No channel number found for frequency 5905 MHz
+nl80211: No channel number found for frequency 5910 MHz
+nl80211: No channel number found for frequency 5915 MHz
+nl80211: No channel number found for frequency 5920 MHz
+nl80211: No channel number found for frequency 5925 MHz
+nl80211: No channel number found for frequency 902 MHz
+nl80211: No channel number found for frequency 903 MHz
+nl80211: No channel number found for frequency 903 MHz
+nl80211: No channel number found for frequency 904 MHz
+nl80211: No channel number found for frequency 904 MHz
+nl80211: No channel number found for frequency 905 MHz
+nl80211: No channel number found for frequency 905 MHz
+nl80211: No channel number found for frequency 906 MHz
+nl80211: No channel number found for frequency 906 MHz
+nl80211: No channel number found for frequency 907 MHz
+nl80211: No channel number found for frequency 907 MHz
+nl80211: No channel number found for frequency 908 MHz
+nl80211: No channel number found for frequency 908 MHz
+nl80211: No channel number found for frequency 909 MHz
+nl80211: No channel number found for frequency 909 MHz
+nl80211: No channel number found for frequency 910 MHz
+nl80211: No channel number found for frequency 910 MHz
+nl80211: No channel number found for frequency 911 MHz
+nl80211: No channel number found for frequency 911 MHz
+nl80211: No channel number found for frequency 912 MHz
+nl80211: No channel number found for frequency 912 MHz
+nl80211: No channel number found for frequency 913 MHz
+nl80211: No channel number found for frequency 913 MHz
+nl80211: No channel number found for frequency 914 MHz
+nl80211: No channel number found for frequency 914 MHz
+nl80211: No channel number found for frequency 915 MHz
+nl80211: No channel number found for frequency 915 MHz
+nl80211: No channel number found for frequency 916 MHz
+nl80211: No channel number found for frequency 916 MHz
+nl80211: No channel number found for frequency 917 MHz
+nl80211: No channel number found for frequency 917 MHz
+nl80211: No channel number found for frequency 918 MHz
+nl80211: No channel number found for frequency 918 MHz
+nl80211: No channel number found for frequency 919 MHz
+nl80211: No channel number found for frequency 919 MHz
+nl80211: No channel number found for frequency 920 MHz
+nl80211: No channel number found for frequency 920 MHz
+nl80211: No channel number found for frequency 921 MHz
+nl80211: No channel number found for frequency 921 MHz
+nl80211: No channel number found for frequency 922 MHz
+nl80211: No channel number found for frequency 922 MHz
+nl80211: No channel number found for frequency 923 MHz
+nl80211: No channel number found for frequency 923 MHz
+nl80211: No channel number found for frequency 924 MHz
+nl80211: No channel number found for frequency 924 MHz
+nl80211: No channel number found for frequency 925 MHz
+nl80211: No channel number found for frequency 925 MHz
+nl80211: No channel number found for frequency 926 MHz
+nl80211: No channel number found for frequency 926 MHz
+nl80211: No channel number found for frequency 927 MHz
+nl80211: No channel number found for frequency 927 MHz
+nl80211: Regulatory information - country=00
+nl80211: 2402-2472 @ 40 MHz 20 mBm
+nl80211: 2457-2482 @ 20 MHz 20 mBm (no IR)
+nl80211: 2474-2494 @ 20 MHz 20 mBm (no OFDM) (no IR)
+nl80211: 5170-5250 @ 80 MHz 20 mBm (no IR)
+nl80211: 5250-5330 @ 80 MHz 20 mBm (DFS) (no IR)
+nl80211: 5490-5730 @ 160 MHz 20 mBm (DFS) (no IR)
+nl80211: 5735-5835 @ 80 MHz 20 mBm (no IR)
+nl80211: 57240-63720 @ 2160 MHz 0 mBm
+nl80211: Remove unsupported mode
+nl80211: Added 802.11b mode based on 802.11g information
+nl80211: Mode IEEE 802.11g: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467[NO_IR] 2472[NO_IR] 2484[NO_IR]
+nl80211: Mode IEEE 802.11a: 5180[NO_IR] 5200[NO_IR] 5220[NO_IR] 5240[NO_IR] 5260[NO_IR][RADAR] 5280[NO_IR][RADAR] 5300[NO_IR][RADAR] 5320[NO_IR][RADAR] 5500[NO_IR][RADAR] 5520[NO_IR][RADAR] 5540[NO_IR][RADAR]
+nl80211: Mode IEEE 802.11a: 5955[DISABLED] 5975[DISABLED] 5995[DISABLED] 6015[DISABLED] 6035[DISABLED] 6055[DISABLED] 6075[DISABLED] 6095[DISABLED] 6115[DISABLED] 6135[DISABLED] 6155[DISABLED] 6175[DISABLED] 6195[DISABLED]
+nl80211: Mode IEEE 802.11b: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467[NO_IR] 2472[NO_IR] 2484[NO_IR]
+p2p-dev-wlan1: Own MAC address: 42:00:00:00:01:00
+p2p-dev-wlan1: RSN: flushing PMKID list in the driver
+nl80211: Flush PMKIDs
+p2p-dev-wlan1: State: DISCONNECTED -> INACTIVE
+p2p-dev-wlan1: WPS: UUID from the first interface: 572cf82f-c957-5653-9b16-b5cfb298abf1
+ENGINE: Loading builtin engines
+ENGINE: Loading builtin engines
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: KEY_RX entering state NO_KEY_RECEIVE
+EAPOL: SUPP_BE entering state INITIALIZE
+EAP: EAP entering state DISABLED
+Using existing control interface directory.
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Own listen channel: 81:11
+P2P: Random operating channel: 81:1
+P2P: initialized
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+MBO: Update non-preferred channels, non_pref_chan=N/A
+p2p-dev-wlan1: Added interface p2p-dev-wlan1
+p2p-dev-wlan1: State: INACTIVE -> DISCONNECTED
+nl80211: Set p2p-dev-wlan1 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=0 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+p2p-dev-wlan1: Determining shared radio frequencies (max len 1)
+p2p-dev-wlan1: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 operstate=0 linkmode=0 ifi_family=0 ifi_flags=0x1043 ([UP][RUNNING])
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 operstate=2 linkmode=0 ifi_family=0 ifi_flags=0x1003 ([UP])
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 operstate=2 linkmode=1 ifi_family=0 ifi_flags=0x1003 ([UP])
+wlan1: State: DISCONNECTED -> SCANNING
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: Starting AP scan for wildcard SSID
+WPS: Building WPS IE for Probe Request
+WPS:  * Version (hardcoded 0x10)
+WPS:  * Request Type
+WPS:  * Config Methods (3148)
+WPS:  * UUID-E
+WPS:  * Primary Device Type
+WPS:  * RF Bands (3)
+WPS:  * Association State
+WPS:  * Configuration Error (0)
+WPS:  * Device Password ID (0)
+WPS:  * Manufacturer
+WPS:  * Model Name
+WPS:  * Model Number
+WPS:  * Device Name
+WPS:  * Version2 (0x20)
+P2P: * P2P IE header
+P2P: * Capability dev=25 group=00
+P2P: * Listen Channel: Regulatory Class 81 Channel 11
+wlan1: Add radio work 'scan'@0xaaff56840c40
+wlan1: First radio work item in the queue - schedule start immediately
+wlan1: Starting radio work 'scan'@0xaaff56840c40 after 0.000013 second wait
+wlan1: nl80211: scan request
+Scan requested (ret=0) - scan timeout 10 seconds
+nl80211: Ignored event 33 (NL80211_CMD_TRIGGER_SCAN) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 33 (NL80211_CMD_TRIGGER_SCAN) received for wlan1
+wlan1: nl80211: Scan trigger
+wlan1: Event SCAN_STARTED (47) received
+wlan1: Own scan request started a scan in 0.000038 seconds
+EAPOL: disable timer tick
+EAPOL: disable timer tick
+nl80211: Ignored event 34 (NL80211_CMD_NEW_SCAN_RESULTS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 34 (NL80211_CMD_NEW_SCAN_RESULTS) received for wlan1
+wlan1: nl80211: New scan results available
+nl80211: Scan probed for SSID ''
+nl80211: Scan included frequencies: 2412 2417 2422 2427 2432 2437 2442 2447 2452 2457 2462 2467 2472 2484 5180 5200 5220 5240 5260 5280 5300 5320 5500 5520 5540 5560 5580 5600 5620 5640 5660 5680 5700 5745 5765 5785 5805 5825
+wlan1: Event SCAN_RESULTS (3) received
+wlan1: Scan completed in 3.895146 seconds
+nl80211: Received scan results (1 BSSes)
+wlan1: BSS: Start scan result update 1
+wlan1: BSS: Add new id 0 BSSID 02:00:00:00:00:00 SSID 'testnetwork' freq 2412
+BSS: last_scan_res_used=1/32
+wlan1: New scan results available (own=1 ext=0)
+wlan1: Radio work 'scan'@0xaaff56840c40 done in 3.895669 seconds
+wlan1: radio_work_free('scan'@0xaaff56840c40): num_active_works --> 0
+wlan1: Selecting BSS from priority group 0
+wlan1: 0: 02:00:00:00:00:00 ssid='testnetwork' wpa_ie_len=0 rsn_ie_len=20 caps=0x411 level=-30 freq=2412 
+wlan1:    selected based on RSN IE
+wlan1:    selected BSS 02:00:00:00:00:00 ssid='testnetwork'
+wlan1: Considering connect request: reassociate: 0  selected: 02:00:00:00:00:00  bssid: 00:00:00:00:00:00  pending: 00:00:00:00:00:00  wpa_state: SCANNING  ssid=0xaaff567ba4f0  current_ssid=(nil)
+wlan1: Request association with 02:00:00:00:00:00
+TDLS: TDLS is allowed in the target BSS
+TDLS: TDLS channel switch allowed in the target BSS
+wlan1: No ongoing scan/p2p-scan found to abort
+wlan1: Add radio work 'sme-connect'@0xaaff56840c40
+wlan1: First radio work item in the queue - schedule start immediately
+p2p-dev-wlan1: Updating scan results from sibling
+nl80211: Received scan results (1 BSSes)
+p2p-dev-wlan1: BSS: Start scan result update 1
+p2p-dev-wlan1: BSS: Add new id 0 BSSID 02:00:00:00:00:00 SSID 'testnetwork' freq 2412
+BSS: last_scan_res_used=1/32
+wlan1: Starting radio work 'sme-connect'@0xaaff56840c40 after 0.000087 second wait
+wlan1: WPA: clearing own WPA/RSN IE
+wlan1: RSN: clearing own RSNXE
+wlan1: Automatic auth_alg selection: 0x1
+RSN: PMKSA cache search - network_ctx=(nil) try_opportunistic=0 akmp=0x0
+RSN: Search for BSSID 02:00:00:00:00:00
+RSN: No PMKSA cache entry found
+wlan1: RSN: using IEEE 802.11i/D9.0
+wlan1: WPA: Selected cipher suites: group 16 pairwise 16 key_mgmt 2 proto 2
+wlan1: WPA: Selected mgmt group cipher 32
+wlan1: WPA: clearing AP WPA IE
+WPA: set AP RSN IE - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+wlan1: WPA: clearing AP RSNXE
+wlan1: WPA: AP group 0x10 network profile group 0x10; available group 0x10
+wlan1: WPA: using GTK CCMP
+wlan1: WPA: AP pairwise 0x10 network profile pairwise 0x10; available pairwise 0x10
+wlan1: WPA: using PTK CCMP
+wlan1: WPA: AP key_mgmt 0x2 network profile key_mgmt 0x2; available key_mgmt 0x2
+wlan1: WPA: using KEY_MGMT WPA-PSK
+wlan1: WPA: AP mgmt_group_cipher 0x20 network profile mgmt_group_cipher 0x0; available mgmt_group_cipher 0x0
+wlan1: WPA: not using MGMT group cipher
+WPA: Set own WPA IE default - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00
+RSN: Set own RSNXE default - hexdump(len=0):
+WPA: Set PMK based on external data - hexdump(len=32): [REMOVED]
+RRM: Determining whether RRM can be used - device support: 0x10
+RRM: No RRM in network
+Added supported operating classes IE - hexdump(len=23): 3b 15 51 51 52 53 54 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82
+EAPOL: External notification - EAP success=0
+EAPOL: External notification - EAP fail=0
+EAPOL: External notification - portControl=Auto
+wlan1: Cancelling scan request
+wlan1: SME: Trying to authenticate with 02:00:00:00:00:00 (SSID='testnetwork' freq=2412 MHz)
+EAPOL: External notification - portValid=0
+wlan1: State: SCANNING -> AUTHENTICATING
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+Not configuring frame filtering - BSS 00:00:00:00:00:00 is not a Hotspot 2.0 network
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=0): completed iteration
+nl80211: Authenticate (ifindex=98)
+  * bssid=02:00:00:00:00:00
+  * freq=2412
+  * SSID=testnetwork
+  * IEs - hexdump(len=0): [NULL]
+  * Auth Type 0
+nl80211: Authentication request send successfully
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 wext ifi_family=0 ifi_flags=0x1003 ([UP])
+nl80211: Ignored event 19 (NL80211_CMD_NEW_STATION) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 19 (NL80211_CMD_NEW_STATION) received for wlan1
+nl80211: New station 02:00:00:00:00:00
+nl80211: Ignored event 19 (NL80211_CMD_NEW_STATION) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 19 (NL80211_CMD_NEW_STATION) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 37 (NL80211_CMD_AUTHENTICATE) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 37 (NL80211_CMD_AUTHENTICATE) received for wlan1
+nl80211: Authenticate event
+wlan1: Event AUTH (10) received
+wlan1: SME: Authentication response: peer=02:00:00:00:00:00 auth_type=0 auth_transaction=2 status_code=0
+SME: Association Request IEs - hexdump(len=58): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00 7f 0b 04 00 4a 02 01 40 40 40 00 01 20 3b 15 51 51 52 53 54 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82
+wlan1: Trying to associate with 02:00:00:00:00:00 (SSID='testnetwork' freq=2412 MHz)
+wlan1: State: AUTHENTICATING -> ASSOCIATING
+nl80211: Set wlan1 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=98 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=0): completed iteration
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+WPA: set own WPA/RSN IE - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00
+wlan1: RSN: clearing own RSNXE
+nl80211: Associate (ifindex=98)
+  * bssid=02:00:00:00:00:00
+  * freq=2412
+  * SSID=testnetwork
+  * IEs - hexdump(len=58): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00 7f 0b 04 00 4a 02 01 40 40 40 00 01 20 3b 15 51 51 52 53 54 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82
+  * WPA Versions 0x2
+  * pairwise=0xfac04
+  * group=0xfac04
+  * akm=0xfac02
+  * htcaps - hexdump(len=26): 63 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  * htcaps_mask - hexdump(len=26): 63 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  * vhtcaps - hexdump(len=12): 00 00 00 00 00 00 00 00 00 00 00 00
+  * vhtcaps_mask - hexdump(len=12): 00 00 00 00 00 00 00 00 00 00 00 00
+nl80211: Association request send successfully
+nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 38 (NL80211_CMD_ASSOCIATE) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 38 (NL80211_CMD_ASSOCIATE) received for wlan1
+nl80211: Associate event
+nl80211: Associated on 2412 MHz
+nl80211: Associated with 02:00:00:00:00:00
+nl80211: Set drv->ssid based on scan res info to 'testnetwork'
+wlan1: Event ASSOC (0) received
+wlan1: Association info event
+req_ies - hexdump(len=96): 00 0b 74 65 73 74 6e 65 74 77 6f 72 6b 01 08 02 04 0b 16 0c 12 18 24 32 04 30 48 60 6c 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00 7f 0b 04 00 4a 02 01 40 40 40 00 01 20 3b 15 51 51 52 53 54 73 74 75 76 77 78 79 7a 7b 7c 7d 7e 7f 80 81 82 dd 07 00 50 f2 02 00 01 00
+resp_ies - hexdump(len=52): 01 08 82 84 8b 96 0c 12 18 24 32 04 30 48 60 6c 7f 08 04 00 40 00 00 00 00 40 dd 18 00 50 f2 02 01 01 00 00 03 a4 00 00 27 a4 00 00 42 43 5e 00 62 32 2f 00
+wlan1: freq=2412 MHz
+WPA: set own WPA/RSN IE - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00
+wlan1: RSN: clearing own RSNXE
+wlan1: State: ASSOCIATING -> ASSOCIATED
+nl80211: Set wlan1 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=98 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: Associated to a new BSS: BSSID=02:00:00:00:00:00
+wlan1: Associated with 02:00:00:00:00:00
+wlan1: WPA: Association event - clear replay counter
+wlan1: WPA: Clear old PTK
+TDLS: Remove peers on association
+EAPOL: External notification - portEnabled=0
+EAPOL: External notification - portValid=0
+EAPOL: External notification - EAP success=0
+EAPOL: External notification - portEnabled=1
+EAPOL: SUPP_PAE entering state CONNECTING
+EAPOL: enable timer tick
+EAPOL: SUPP_BE entering state IDLE
+wlan1: Setting authentication timeout: 10 sec 0 usec
+wlan1: Cancelling scan request
+WMM AC: AC mandatory: AC_BE=0 AC_BK=0 AC_VI=0 AC_VO=0
+WMM AC: U-APSD queues=0x0
+WMM AC: Valid WMM association, WMM AC is enabled
+wlan1: CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 wext ifi_family=0 ifi_flags=0x11003 ([UP][LOWER_UP])
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 wext ifi_family=0 ifi_flags=0x11003 ([UP][LOWER_UP])
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 wext ifi_family=0 ifi_flags=0x11003 ([UP][LOWER_UP])
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 operstate=5 linkmode=1 ifi_family=0 ifi_flags=0x11003 ([UP][LOWER_UP])
+nl80211: Ignored event 46 (NL80211_CMD_CONNECT) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 46 (NL80211_CMD_CONNECT) received for wlan1
+nl80211: Ignore connect event (cmd=46) when using userspace SME
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: Setting authentication timeout: 10 sec 0 usec
+wlan1: IEEE 802.1X RX: version=2 type=3 length=95
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x8a (ver=2 keyidx=0 rsvd=0 Pairwise Ack)
+wlan1:   key_length=16 key_data_length=0
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 01
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+wlan1: State: ASSOCIATED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 1 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+RSN: msg 1/4 key data - hexdump(len=0):
+WPA: Renewed SNonce - hexdump(len=32): 89 7b 24 a0 e0 15 6f 11 fe c3 35 b9 b6 70 26 88 da ca f6 fa 8e cf 66 69 45 a0 87 fa c4 10 d1 35
+WPA: PTK derivation using PRF(SHA1)
+WPA: PTK derivation - A1=02:00:00:00:01:00 A2=02:00:00:00:00:00
+WPA: Nonce1 - hexdump(len=32): 89 7b 24 a0 e0 15 6f 11 fe c3 35 b9 b6 70 26 88 da ca f6 fa 8e cf 66 69 45 a0 87 fa c4 10 d1 35
+WPA: Nonce2 - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+WPA: PMK - hexdump(len=32): [REMOVED]
+WPA: PTK - hexdump(len=48): [REMOVED]
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: KEK - hexdump(len=16): [REMOVED]
+WPA: TK - hexdump(len=16): [REMOVED]
+WPA: WPA IE for msg 2/4 - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 00 00
+WPA: Replay Counter - hexdump(len=8): 00 00 00 00 00 00 00 01
+wlan1: WPA: Sending EAPOL-Key 2/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): b3 8d 36 63 9f 4a a9 13 f9 76 ea 7a dd 65 29 ae
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=121 no_encrypt=1
+nl80211: tx_control_port cookie=0x1
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=1
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 02
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 2c 79 59 49 cd 85 b8 da 96 f6 41 e9 a3 23 29 2f
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: 4WAY_HANDSHAKE -> 4WAY_HANDSHAKE
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 82 b5 b0 e1 50 89 23 2e c0 41 58 30 47 ba 0d fc
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=1
+nl80211: tx_control_port cookie=0x2
+wlan1: WPA: Installing PTK to the driver
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=3 addr=0xaaff567e0ed0 key_idx=0 set_tx=1 seq_len=6 key_len=16 key_flag=0x2c
+nl80211: NEW_KEY
+nl80211: KEY_DATA - hexdump(len=16): [REMOVED]
+nl80211: KEY_SEQ - hexdump(len=6): 00 00 00 00 00 00
+   addr=02:00:00:00:00:00
+   pairwise key
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+WPA: Group Key - hexdump(len=16): [REMOVED]
+wlan1: WPA: Installing GTK to the driver (keyidx=1 tx=0 len=16)
+WPA: RSC - hexdump(len=6): 00 00 00 00 00 00
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=3 addr=0xaaff20a5be68 key_idx=1 set_tx=0 seq_len=6 key_len=16 key_flag=0x14
+nl80211: NEW_KEY
+nl80211: KEY_DATA - hexdump(len=16): [REMOVED]
+nl80211: KEY_SEQ - hexdump(len=6): 00 00 00 00 00 00
+   broadcast key
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Radio work 'sme-connect'@0xaaff56840c40 done in 0.019959 seconds
+wlan1: radio_work_free('sme-connect'@0xaaff56840c40): num_active_works --> 0
+wlan1: CTRL-EVENT-CONNECTED - Connection to 02:00:00:00:00:00 completed [id=0 id_str=]
+nl80211: Set wlan1 operstate 0->1 (UP)
+netlink: Operstate: ifindex=98 linkmode=-1 (no change), operstate=6 (IF_OPER_UP)
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAPOL: SUPP_PAE entering state AUTHENTICATING
+EAPOL: SUPP_BE entering state SUCCESS
+EAP: EAP entering state DISABLED
+EAPOL: SUPP_PAE entering state AUTHENTICATED
+EAPOL: Supplicant port status: Authorized
+nl80211: Set supplicant port authorized for 02:00:00:00:00:00
+EAPOL: SUPP_BE entering state IDLE
+EAPOL authentication completed - result=SUCCESS
+nl80211: Set rekey offload
+nl80211: Driver does not support rekey offload
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 operstate=6 linkmode=1 ifi_family=0 ifi_flags=0x11043 ([UP][RUNNING][LOWER_UP])
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=2
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 03
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 59 87 cb ba df ce d6 dd 48 81 02 22 2f 72 2a da
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): d2 02 b9 44 3e 04 76 e5 f4 11 b7 71 d4 69 08 ed
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x3
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=3
+wlan1: Event EAPOL_TX_STATUS (37) received
+EAPOL: startWhen --> 0
+EAPOL: disable timer tick
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 04
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 8e d5 33 c0 df 0d b7 07 f3 ff 51 59 51 c7 5f 67
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 24 b6 d2 26 9b dd c1 f7 25 18 23 a6 ca 20 0d ae
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x4
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=4
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 05
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): f9 30 51 72 0d 37 11 e4 95 31 f1 39 8b 6a 47 b6
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): d8 6d 40 cd c7 9a 50 ca 2a 46 ea 3c d6 15 1e 8c
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x5
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=5
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 06
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): a9 14 3c d5 0e ce fe 27 ad 35 30 cf 1e 64 08 42
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): e7 75 0d b1 b5 51 b8 c5 20 07 92 d7 d3 81 dd 42
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x6
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=6
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 07
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 0f 15 b4 39 52 af ae 8a c4 e9 52 6a 28 38 98 9b
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): c6 67 ca 86 1d 76 57 f7 7d f2 f0 1d fc 0c da 49
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x7
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=7
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 08
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 18 0c e2 48 d4 ba 0f d6 a0 88 8e cd f1 7f 18 06
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): b8 40 4b 08 0a bc 11 59 94 2b 9e d3 ef bc 61 4c
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x8
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=8
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 09
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): c2 90 95 58 35 18 75 4c d6 65 57 d0 7e f4 8f e2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 5e 9b ff 6c fd 5b fc fb f0 c0 5a 5b e4 83 62 a2
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x9
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=9
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 0a
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): ba 18 c5 ec a0 d3 5d d7 c9 a7 64 f3 94 16 b2 45
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 46 8b c2 72 64 6d 9f f6 f6 15 d9 d2 56 d6 6f 0d
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0xa
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=10
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 0b
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): b8 06 48 ed 46 8d 9b 41 79 a1 0f 39 9a 37 ac f6
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 0e 9e ce 01 e1 15 49 6c 31 79 b6 17 59 9b bd a5
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0xb
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=11
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 0c
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 01 a1 8c 33 7d 43 4e a8 90 50 bc c5 17 b2 62 cc
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): a3 cd a9 e6 00 02 80 41 d0 bf 1c 05 56 b1 59 9e
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0xc
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=12
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 0d
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): e6 80 86 86 7e 09 9c 43 df f2 89 4f 98 d9 27 59
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 9a 92 d1 8c 8f 24 08 5a d8 54 b0 5f 48 1d 15 ab
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0xd
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=13
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 0e
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 35 28 f0 06 8f 9c c4 85 7e 94 53 1c 0b d2 e5 35
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): 36 92 1d ec b8 4e a4 33 5d 16 e1 07 67 14 20 ab
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0xe
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=14
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 0f
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 0d b8 6d 12 f6 7b 49 41 76 0d e2 24 b7 51 f2 c6
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): ae 3a 58 de 8d 6b f6 3e 53 d3 68 2f 7b d9 7a 20
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0xf
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=15
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 10
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 82 52 3c 8e 26 06 97 9a 87 eb 8c 77 5e 29 72 91
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): e6 74 ab 3c 52 66 91 05 c4 6d e3 55 01 ac 9c c1
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x10
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=16
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 11
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 0b c4 6c 5a b1 5c 39 0b 42 e4 c5 56 2d 46 6c b2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): de 5e 1c 9a 87 50 cc 5d f5 df ff 00 60 d7 42 8c
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x11
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=17
+wlan1: Event EAPOL_TX_STATUS (37) received
+nl80211: BSS Event 129 (NL80211_CMD_CONTROL_PORT_FRAME) received for wlan1
+wlan1: Event EAPOL_RX (23) received
+wlan1: RX EAPOL from 02:00:00:00:00:00
+wlan1: IEEE 802.1X RX: version=2 type=3 length=151
+wlan1:   EAPOL-Key type=2
+wlan1:   key_info 0x13ca (ver=2 keyidx=0 rsvd=0 Pairwise Install Ack MIC Secure Encr)
+wlan1:   key_length=16 key_data_length=56
+  replay_counter - hexdump(len=8): 00 00 00 00 00 00 00 12
+  key_nonce - hexdump(len=32): 0d 78 2e ce 81 f4 1e 63 43 48 0c 86 66 2d 3c 8c 94 55 78 4a 17 92 05 2e 69 4e a2 91 5d f3 90 dd
+  key_iv - hexdump(len=16): 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  key_rsc - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_id (reserved) - hexdump(len=8): 00 00 00 00 00 00 00 00
+  key_mic - hexdump(len=16): 88 bc 0a 37 e8 aa 99 a0 c8 34 21 62 be 25 9b f3
+WPA: EAPOL-Key MIC using HMAC-SHA1
+RSN: encrypted key data - hexdump(len=56): b0 5c 2d 36 ef ec 40 b5 20 b4 21 06 46 0e ca a8 11 99 bf 1b b9 d2 f7 79 85 2f 88 80 1f 71 f1 85 3d 62 1a cc 82 e3 8f 36 91 a9 c8 5c d3 46 b9 ed 0a c2 10 94 44 60 41 8e
+WPA: Decrypt Key Data using AES-UNWRAP (KEK length 16)
+WPA: decrypted EAPOL-Key key data - hexdump(len=48): [REMOVED]
+wlan1: State: COMPLETED -> 4WAY_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+wlan1: WPA: RX message 3 of 4-Way Handshake from 02:00:00:00:00:00 (ver=2)
+WPA: IE KeyData - hexdump(len=48): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00 dd 16 00 0f ac 01 01 00 ec 5e ca e2 5e 1b d4 d5 2f 81 ff 8e 15 0f 06 ed dd 00
+WPA: RSN IE in EAPOL-Key - hexdump(len=22): 30 14 01 00 00 0f ac 04 01 00 00 0f ac 04 01 00 00 0f ac 02 0c 00
+WPA: GTK in EAPOL-Key - hexdump(len=24): [REMOVED]
+wlan1: WPA: Sending EAPOL-Key 4/4
+WPA: Send EAPOL-Key frame to 02:00:00:00:00:00 ver=2 mic_len=16 key_mgmt=0x2
+WPA: EAPOL-Key MIC using HMAC-SHA1
+WPA: KCK - hexdump(len=16): [REMOVED]
+WPA: Derived Key MIC - hexdump(len=16): ba 58 5b 92 04 e2 5b 1c bc 09 b7 7e 55 42 d2 58
+nl80211: Send over control port dest=02:00:00:00:00:00 proto=0x888e len=99 no_encrypt=0
+nl80211: tx_control_port cookie=0x12
+wlan1: WPA: Do not re-install same PTK to the driver
+EAPOL: External notification - portValid=1
+wlan1: State: 4WAY_HANDSHAKE -> GROUP_HANDSHAKE
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+RSN: received GTK in pairwise handshake - hexdump(len=18): [REMOVED]
+wlan1: WPA: Not reinstalling already in-use GTK to the driver (keyidx=1 tx=0 len=16)
+wlan1: WPA: Key negotiation completed with 02:00:00:00:00:00 [PTK=CCMP GTK=CCMP]
+wlan1: Cancelling authentication timeout
+wlan1: State: GROUP_HANDSHAKE -> COMPLETED
+wlan1: Determining shared radio frequencies (max len 1)
+wlan1: Shared frequencies (len=1): completed iteration
+wlan1: freq[0]: 2412, flags=0x1
+P2P: Add operating class 81
+P2P: Channels - hexdump(len=11): 01 02 03 04 05 06 07 08 09 0a 0b
+P2P: Update channel list
+P2P: channels: 81:1,2,3,4,5,6,7,8,9,10,11
+P2P: cli_channels:
+EAPOL: External notification - portValid=1
+EAPOL: External notification - EAP success=1
+EAP: EAP entering state DISABLED
+nl80211: Ignored event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) for foreign interface (ifindex 98 wdev 0x0)
+nl80211: Drv Event 139 (NL80211_CMD_CONTROL_PORT_FRAME_TX_STATUS) received for wlan1
+nl80211: Control port TX status (ack=1), cookie=18
+wlan1: Event EAPOL_TX_STATUS (37) received
+RTM_NEWLINK: ifi_index=97 ifname=wlan0 operstate=6 linkmode=0 ifi_family=0 ifi_flags=0x11043 ([UP][RUNNING][LOWER_UP])
+RTM_NEWLINK: ifi_index=100 ifname=monwlan0 operstate=0 linkmode=0 ifi_family=0 ifi_flags=0x11043 ([UP][RUNNING][LOWER_UP])
+RTM_NEWLINK: ifi_index=98 ifname=wlan1 operstate=2 linkmode=1 ifi_family=0 ifi_flags=0x1003 ([UP])
+nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 60 (NL80211_CMD_FRAME_TX_STATUS) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 20 (NL80211_CMD_DEL_STATION) for foreign interface (ifindex 97 wdev 0x0)
+nl80211: Ignored event 20 (NL80211_CMD_DEL_STATION) for foreign interface (ifindex 97 wdev 0x0)
+p2p-dev-wlan1: Removing interface p2p-dev-wlan1
+nl80211: Getting wowlan status
+nl80211: Getting wowlan status failed
+p2p-dev-wlan1: Request to deauthenticate - bssid=00:00:00:00:00:00 pending_bssid=00:00:00:00:00:00 reason=3 (DEAUTH_LEAVING) state=DISCONNECTED
+TDLS: Tear down peers
+p2p-dev-wlan1: State: DISCONNECTED -> DISCONNECTED
+nl80211: Set p2p-dev-wlan1 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=0 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+EAPOL: External notification - portEnabled=0
+EAPOL: External notification - portValid=0
+QM: Clear all active DSCP policies
+p2p-dev-wlan1: CTRL-EVENT-DSCP-POLICY clear_all
+p2p-dev-wlan1: WPA: Clear old PMK and PTK
+p2p-dev-wlan1: BSS: Remove id 0 BSSID 02:00:00:00:00:00 SSID 'testnetwork' due to wpa_bss_flush
+p2p-dev-wlan1: Cancelling scan request
+p2p-dev-wlan1: Cancelling authentication timeout
+Off-channel: Clear pending Action frame TX (pending_action_tx=(nil)
+HS20: Delete all stored icons
+Off-channel: Action frame sequence done notification: pending_action_tx=(nil) drv_offchan_tx=1 action_tx_wait_time=0 off_channel_freq=0 roc_waiting_drv_freq=0
+QM: Clear all active DSCP policies
+p2p-dev-wlan1: CTRL-EVENT-DSCP-POLICY clear_all
+p2p-dev-wlan1: P2P: Disable P2P since removing the management interface is being removed
+P2P: All ASP advertisements flushed
+P2P: Disabling Extended Listen Timing
+P2P: Stopping find
+P2P: Clear timeout (state=IDLE)
+P2P: State IDLE -> IDLE
+P2P: All ASP advertisements flushed
+Remove interface p2p-dev-wlan1 from radio phy55
+nl80211: deinit ifname=p2p-dev-wlan1 disabled_11b_rates=0
+nl80211: Remove monitor interface: refcount=0
+netlink: Operstate: ifindex=0 linkmode=0 (kernel-control), operstate=6 (IF_OPER_UP)
+nl80211: Stop P2P Device p2p-dev-wlan1 (0x3700000002): Success
+nl80211: Unsubscribe mgmt frames handle 0x88882277de0a7379 (deinit)
+nl80211: Delete P2P Device p2p-dev-wlan1 (0x3700000002): Success
+p2p-dev-wlan1: CTRL-EVENT-TERMINATING 
+Control interface directory not empty - leaving it behind
+wlan1: Removing interface wlan1
+nl80211: Getting wowlan status
+nl80211: Getting wowlan status failed
+wlan1: Request to deauthenticate - bssid=02:00:00:00:00:00 pending_bssid=00:00:00:00:00:00 reason=3 (DEAUTH_LEAVING) state=COMPLETED
+TDLS: Tear down peers
+wpa_driver_nl80211_deauthenticate(addr=02:00:00:00:00:00 reason_code=3)
+wlan1: nl80211: MLME command failed: reason=3 ret=-107 (Transport endpoint is not connected)
+wlan1: Event DEAUTH (11) received
+wlan1: Deauthentication notification
+wlan1:  * reason 3 (DEAUTH_LEAVING) locally_generated=1
+Deauthentication frame IE(s) - hexdump(len=0): [NULL]
+wlan1: CTRL-EVENT-DISCONNECTED bssid=02:00:00:00:00:00 reason=3 locally_generated=1
+wlan1: Auto connect disabled: do not try to re-connect
+wlan1: Ignore connection failure indication since interface has been put into disconnected state
+TDLS: Remove peers on disassociation
+wlan1: WPA: Clear old PMK and PTK
+wlan1: Disconnect event - remove keys
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=0 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=(nil) key_idx=1 set_tx=0 seq_len=0 key_len=0 key_flag=0x10
+nl80211: DEL_KEY
+   broadcast key
+wpa_driver_nl80211_set_key: ifindex=98 (wlan1) alg=0 addr=0xaaff567b7b50 key_idx=0 set_tx=0 seq_len=0 key_len=0 key_flag=0x20
+nl80211: DEL_KEY
+   addr=02:00:00:00:00:00
+   pairwise key
+nl80211: Data frame filter flags=0x0
+wlan1: State: COMPLETED -> DISCONNECTED
+nl80211: Set wlan1 operstate 1->0 (DORMANT)
+netlink: Operstate: ifindex=98 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+WMM AC: WMM AC is disabled
+EAPOL: External notification - portEnabled=0
+EAPOL: SUPP_PAE entering state DISCONNECTED
+EAPOL: Supplicant port status: Unauthorized
+nl80211: Skip set_supp_port(unauthorized) while not associated
+EAPOL: SUPP_BE entering state INITIALIZE
+EAPOL: External notification - portValid=0
+EAPOL: External notification - EAP success=0
+nl80211: Data frame filter flags=0x0
+wlan1: State: DISCONNECTED -> DISCONNECTED
+nl80211: Set wlan1 operstate 0->0 (DORMANT)
+netlink: Operstate: ifindex=98 linkmode=-1 (no change), operstate=5 (IF_OPER_DORMANT)
+EAPOL: External notification - portEnabled=0
+EAPOL: External notification - portValid=0
+QM: Clear all active DSCP policies
+wlan1: CTRL-EVENT-DSCP-POLICY clear_all
+wlan1: WPA: Clear old PMK and PTK
+wlan1: BSS: Remove id 0 BSSID 02:00:00:00:00:00 SSID 'testnetwork' due to wpa_bss_flush
+wlan1: Cancelling scan request
+wlan1: Cancelling authentication timeout
+Off-channel: Clear pending Action frame TX (pending_action_tx=(nil)
+nl80211: Data frame filter flags=0x0
+HS20: Delete all stored icons
+Off-channel: Action frame sequence done notification: pending_action_tx=(nil) drv_offchan_tx=1 action_tx_wait_time=0 off_channel_freq=0 roc_waiting_drv_freq=0
+QM: Clear all active DSCP policies
+wlan1: CTRL-EVENT-DSCP-POLICY clear_all
+Remove interface wlan1 from radio phy55
+Remove radio phy55
+nl80211: deinit ifname=wlan1 disabled_11b_rates=0
+nl80211: Remove monitor interface: refcount=0
+netlink: Operstate: ifindex=98 linkmode=0 (kernel-control), operstate=6 (IF_OPER_UP)
+nl80211: Set mode ifindex 98 iftype 2 (STATION)
+nl80211: Unsubscribe mgmt frames handle 0x88882277def68f99 (mode change)
+wlan1: CTRL-EVENT-TERMINATING 

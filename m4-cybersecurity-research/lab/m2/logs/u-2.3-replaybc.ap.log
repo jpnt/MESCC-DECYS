@@ -1,0 +1,55 @@
+Configuration file: /home/v/krackattacks-scripts/krackattack/hostapd.conf
+Using interface wlan0 with hwaddr 02:00:00:00:00:00 and ssid "testnetwork"
+wlan0: interface state UNINITIALIZED->ENABLED
+wlan0: AP-ENABLED 
+[00:51:12] Reset PN for GTK
+[00:51:14] Reset PN for GTK
+[00:51:16] Reset PN for GTK
+[00:51:18] Reset PN for GTK
+[00:51:20] Reset PN for GTK
+[00:51:22] Reset PN for GTK
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: authenticated
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: associated (aid 1)
+wlan0: AP-STA-CONNECTED 02:00:00:00:01:00
+wlan0: STA 02:00:00:00:01:00 RADIUS: starting accounting session 16C6D1C17E502465
+[00:51:23] 02:00:00:00:01:00: 4-way handshake completed (RSN)
+[00:51:24] Reset PN for GTK
+[00:51:26] Reset PN for GTK
+[00:51:28] Reset PN for GTK
+[00:51:30] Reset PN for GTK
+[00:51:32] Reset PN for GTK
+[00:51:35] Reset PN for GTK
+[00:51:37] Reset PN for GTK
+[00:51:39] Reset PN for GTK
+[00:51:41] Reset PN for GTK
+[00:51:43] Reset PN for GTK
+[00:51:45] Reset PN for GTK
+[00:51:47] Reset PN for GTK
+[00:51:49] Reset PN for GTK
+[00:51:51] Reset PN for GTK
+[00:51:53] Reset PN for GTK
+[00:51:55] Reset PN for GTK
+[00:51:57] Reset PN for GTK
+[00:51:59] Reset PN for GTK
+[00:52:01] Reset PN for GTK
+[00:52:03] Reset PN for GTK
+[00:52:05] Reset PN for GTK
+[00:52:07] Reset PN for GTK
+[00:52:09] Reset PN for GTK
+[00:52:11] Reset PN for GTK
+[00:52:13] Reset PN for GTK
+[00:52:16] Reset PN for GTK
+[00:52:18] Reset PN for GTK
+[00:52:20] Reset PN for GTK
+[00:52:22] Reset PN for GTK
+[00:52:24] Reset PN for GTK
+[00:52:26] Reset PN for GTK
+[00:52:28] Reset PN for GTK
+[00:52:30] Reset PN for GTK
+[00:52:32] Reset PN for GTK
+[00:52:34] Reset PN for GTK
+wlan0: interface state ENABLED->DISABLED
+wlan0: AP-STA-DISCONNECTED 02:00:00:00:01:00
+wlan0: AP-DISABLED 
+wlan0: CTRL-EVENT-TERMINATING 
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
