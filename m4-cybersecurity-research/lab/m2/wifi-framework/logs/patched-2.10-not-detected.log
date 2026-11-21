@@ -1,0 +1,13 @@
+wlan1: interface state UNINITIALIZED->ENABLED
+wlan1: AP-ENABLED 
+wlan1: STA 02:00:00:00:02:00 IEEE 802.11: authenticated
+wlan1: AP-STA-ASSOCIATING 02:00:00:00:02:00
+wlan1: STA 02:00:00:00:02:00 IEEE 802.11: associated (aid 1)
+wlan1: AP-STA-CONNECTED 02:00:00:00:02:00
+wlan1: STA 02:00:00:00:02:00 RADIUS: starting accounting session 3C1827DFD6180E5F
+wlan1: STA 02:00:00:00:02:00 WPA: pairwise key handshake completed (RSN)
+wlan1: EAPOL-4WAY-HS-COMPLETED 02:00:00:00:02:00
+TESTING: Send M3 to 02:00:00:00:02:00
+wlan1: STA 02:00:00:00:02:00 WPA: received EAPOL-Key msg 4/4 in invalid state (11) - dropped
+wlan1: AP-STA-DISCONNECTED 02:00:00:00:02:00
+CTRL_IFACE monitor[0]: 111 - Connection refused

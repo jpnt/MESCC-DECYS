@@ -1,0 +1,167 @@
+Configuration file: /home/v/krackattacks-scripts/krackattack/hostapd.conf
+Using interface wlan0 with hwaddr 02:00:00:00:00:00 and ssid "testnetwork"
+wlan0: interface state UNINITIALIZED->ENABLED
+wlan0: AP-ENABLED 
+[00:36:23] Reset PN for GTK
+[00:36:25] Reset PN for GTK
+[00:36:27] Reset PN for GTK
+[00:36:29] Reset PN for GTK
+[00:36:31] Reset PN for GTK
+[00:36:33] Reset PN for GTK
+[00:36:35] Reset PN for GTK
+[00:36:37] Reset PN for GTK
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: authenticated
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: associated (aid 1)
+[00:36:39] Reset PN for GTK
+wlan0: AP-STA-CONNECTED 02:00:00:00:01:00
+wlan0: STA 02:00:00:00:01:00 RADIUS: starting accounting session 29E4C6B8BAC099A0
+[00:36:39] 02:00:00:00:01:00: 4-way handshake completed (RSN)
+[00:36:42] Reset PN for GTK
+[00:36:42] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:42] 02:00:00:00:01:00: received a new message 4
+[00:36:44] Reset PN for GTK
+[00:36:44] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:44] 02:00:00:00:01:00: received a new message 4
+[00:36:46] Reset PN for GTK
+[00:36:46] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:46] 02:00:00:00:01:00: received a new message 4
+[00:36:48] Reset PN for GTK
+[00:36:48] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:48] 02:00:00:00:01:00: received a new message 4
+[00:36:50] Reset PN for GTK
+[00:36:50] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:50] 02:00:00:00:01:00: received a new message 4
+[00:36:52] Reset PN for GTK
+[00:36:52] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:52] 02:00:00:00:01:00: received a new message 4
+[00:36:54] Reset PN for GTK
+[00:36:54] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:54] 02:00:00:00:01:00: received a new message 4
+[00:36:56] Reset PN for GTK
+[00:36:56] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:56] 02:00:00:00:01:00: received a new message 4
+[00:36:58] Reset PN for GTK
+[00:36:58] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:36:58] 02:00:00:00:01:00: received a new message 4
+[00:37:00] Reset PN for GTK
+[00:37:00] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:00] 02:00:00:00:01:00: received a new message 4
+[00:37:02] Reset PN for GTK
+[00:37:02] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:02] 02:00:00:00:01:00: received a new message 4
+[00:37:04] Reset PN for GTK
+[00:37:04] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:04] 02:00:00:00:01:00: received a new message 4
+[00:37:06] Reset PN for GTK
+[00:37:06] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:06] 02:00:00:00:01:00: received a new message 4
+[00:37:08] Reset PN for GTK
+[00:37:08] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:08] 02:00:00:00:01:00: received a new message 4
+[00:37:10] Reset PN for GTK
+[00:37:10] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:10] 02:00:00:00:01:00: received a new message 4
+[00:37:12] Reset PN for GTK
+[00:37:12] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:12] 02:00:00:00:01:00: received a new message 4
+[00:37:14] Reset PN for GTK
+[00:37:14] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:14] 02:00:00:00:01:00: received a new message 4
+[00:37:16] Reset PN for GTK
+[00:37:16] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:16] 02:00:00:00:01:00: received a new message 4
+[00:37:18] Reset PN for GTK
+[00:37:18] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:18] 02:00:00:00:01:00: received a new message 4
+[00:37:20] Reset PN for GTK
+[00:37:20] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:20] 02:00:00:00:01:00: received a new message 4
+[00:37:22] Reset PN for GTK
+[00:37:22] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:22] 02:00:00:00:01:00: received a new message 4
+[00:37:25] Reset PN for GTK
+[00:37:25] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:25] 02:00:00:00:01:00: received a new message 4
+[00:37:27] Reset PN for GTK
+[00:37:27] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:27] 02:00:00:00:01:00: received a new message 4
+[00:37:29] Reset PN for GTK
+[00:37:29] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:29] 02:00:00:00:01:00: received a new message 4
+[00:37:31] Reset PN for GTK
+[00:37:31] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:31] 02:00:00:00:01:00: received a new message 4
+[00:37:33] Reset PN for GTK
+[00:37:33] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:33] 02:00:00:00:01:00: received a new message 4
+[00:37:35] Reset PN for GTK
+[00:37:35] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:35] 02:00:00:00:01:00: received a new message 4
+[00:37:37] Reset PN for GTK
+[00:37:37] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:37] 02:00:00:00:01:00: received a new message 4
+[00:37:39] Reset PN for GTK
+[00:37:39] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:39] 02:00:00:00:01:00: received a new message 4
+[00:37:41] Reset PN for GTK
+[00:37:41] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:41] 02:00:00:00:01:00: received a new message 4
+[00:37:43] Reset PN for GTK
+[00:37:43] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:43] 02:00:00:00:01:00: received a new message 4
+[00:37:45] Reset PN for GTK
+[00:37:45] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:45] 02:00:00:00:01:00: received a new message 4
+[00:37:47] Reset PN for GTK
+[00:37:47] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:47] 02:00:00:00:01:00: received a new message 4
+[00:37:49] Reset PN for GTK
+[00:37:49] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:49] 02:00:00:00:01:00: received a new message 4
+[00:37:51] Reset PN for GTK
+[00:37:51] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:51] 02:00:00:00:01:00: received a new message 4
+[00:37:53] Reset PN for GTK
+[00:37:53] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:53] 02:00:00:00:01:00: received a new message 4
+[00:37:55] Reset PN for GTK
+[00:37:55] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:55] 02:00:00:00:01:00: received a new message 4
+[00:37:57] Reset PN for GTK
+[00:37:57] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:57] 02:00:00:00:01:00: received a new message 4
+[00:37:59] Reset PN for GTK
+[00:37:59] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:37:59] 02:00:00:00:01:00: received a new message 4
+[00:38:01] Reset PN for GTK
+[00:38:01] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:01] 02:00:00:00:01:00: received a new message 4
+[00:38:03] Reset PN for GTK
+[00:38:03] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:03] 02:00:00:00:01:00: received a new message 4
+[00:38:05] Reset PN for GTK
+[00:38:05] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:05] 02:00:00:00:01:00: received a new message 4
+[00:38:08] Reset PN for GTK
+[00:38:08] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:08] 02:00:00:00:01:00: received a new message 4
+[00:38:10] Reset PN for GTK
+[00:38:10] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:10] 02:00:00:00:01:00: received a new message 4
+[00:38:12] Reset PN for GTK
+[00:38:12] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:12] 02:00:00:00:01:00: received a new message 4
+[00:38:14] Reset PN for GTK
+[00:38:14] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:14] 02:00:00:00:01:00: received a new message 4
+[00:38:16] Reset PN for GTK
+[00:38:16] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a zero RSC
+[00:38:16] 02:00:00:00:01:00: received a new message 4
+wlan0: interface state ENABLED->DISABLED
+wlan0: AP-STA-DISCONNECTED 02:00:00:00:01:00
+CTRL_IFACE monitor[0]: 111 - Connection refused
+wlan0: AP-DISABLED 
+CTRL_IFACE monitor[0]: 111 - Connection refused
+wlan0: CTRL-EVENT-TERMINATING 
+CTRL_IFACE monitor[0]: 111 - Connection refused
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0

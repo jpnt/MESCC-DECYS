@@ -1,9 +1,0 @@
-# NuttX security research
-
-- Primary case study: CVE-2025-35003 (Bluetooth HCI/UART stack overflow). Reproduced with a host harness (verbatim 12.7.0 vs 12.9.0 code under ASan): 4096-byte stack overflow confirmed, fixed build contains it.
-- Secondary case study: CVE-2025-48768 (inode_unlink NULL parent write). Reproduced under ASan: SEGV WRITE at 0x10 confirmed on verbatim 12.9.0 code.
-- Third candidate CVE-2025-48769 (fs_rename UAF): attempted, reported honestly as NOT reproduced (needs real FAT readdir lifetime). Analysis kept.
-- CVE table (11 entries) verified against NVD API. NuttX security page verified. openvela-on-NuttX verified via open-vela/docs README.
-- Zephyr comparison: NCC Group 2020 report URL OK, docs.zephyrproject.org security pages OK, OSS-Fuzz has no projects/nuttx (verified via API listing).
-- Citations: Rtkaller (ACM TECS 2021, DOI 10.1145/3447962 verified via Crossref), RTCON (NDSS 2026 PDF URL OK), fuzzing survey arXiv 2502.13163 OK.
-- NOT FOUND / dropped: "Zephyr is Blue" SOUPS 2024 paper (could not verify existence; do not cite).

@@ -1,0 +1,28 @@
+Frame 66: 144 bytes on wire (1152 bits), 144 bytes captured (1152 bits)
+    Key Information: 0x008a
+        .... ...0 .... .... = Key MIC: Not set
+    Replay Counter: 1
+    WPA Key Nonce: a6ebb28b9ef04a1b3137dc80c868c8027edee3026e50516b152e3e1a21328c00
+    WPA Key MIC: 00000000000000000000000000000000
+Frame 67: 179 bytes on wire (1432 bits), 179 bytes captured (1432 bits)
+    Key Information: 0x010a
+        .... ...1 .... .... = Key MIC: Set
+    Replay Counter: 1
+    WPA Key Nonce: 15686efc657ca13e8179832b8217f4efa70ddfefdf5fe6e8d53942915db3b0cf
+    WPA Key MIC: 158f4da68dafb0468046168051f96be4
+                .... .... .... 00.. = RSN PTKSA Replay Counter capabilities: 1 replay counter per PTKSA/GTKSA/STAKeySA (0x0)
+                .... .... ..00 .... = RSN GTKSA Replay Counter capabilities: 1 replay counter per PTKSA/GTKSA/STAKeySA (0x0)
+Frame 68: 200 bytes on wire (1600 bits), 200 bytes captured (1600 bits)
+    Key Information: 0x13ca
+        .... ...1 .... .... = Key MIC: Set
+    Replay Counter: 2
+    WPA Key Nonce: a6ebb28b9ef04a1b3137dc80c868c8027edee3026e50516b152e3e1a21328c00
+    WPA Key MIC: d12b1b2e11c1b2a83e2ffd806692bdab
+                .... .... .... 00.. = RSN PTKSA Replay Counter capabilities: 1 replay counter per PTKSA/GTKSA/STAKeySA (0x0)
+                .... .... ..00 .... = RSN GTKSA Replay Counter capabilities: 1 replay counter per PTKSA/GTKSA/STAKeySA (0x0)
+Frame 69: 157 bytes on wire (1256 bits), 157 bytes captured (1256 bits)
+    Key Information: 0x030a
+        .... ...1 .... .... = Key MIC: Set
+    Replay Counter: 2
+    WPA Key Nonce: 0000000000000000000000000000000000000000000000000000000000000000
+    WPA Key MIC: 7675a37c8915796be98f5c9fd577e087
