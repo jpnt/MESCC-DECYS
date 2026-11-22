@@ -1,0 +1,105 @@
+=== Group-key-family evidence: group-key handshake, GTK-init RSC, broadcast replay ===
+    (before vs after, same lab as the pairwise four-way demonstration)
+
+Driver: scripts/run-variant.sh  (MODE=--replay-broadcast | --group | --gtkinit)
+Clients: unpatched wpa_supplicant 2.3  vs  patched wpa_supplicant 2.10
+AP:      modified hostapd from krackattacks-scripts, via krack-test-client.py
+Medium:  mac80211_hwsim, two virtual radios (Route B, software-only)
+
+--------------------------------------------------------------------------
+RESULTS TABLE
+--------------------------------------------------------------------------
+Test               Command            CVE                Unpatched 2.3        Patched 2.10
+Pairwise reinstall krack-test-client  CVE-2017-13077     PTK install 17/g0    PTK install 1/g16
+  (see ../analysis/reinstall-evidence-summary.txt; included here for context)
+Group-key reinstall --group           CVE-2017-13080     GTK install 25/g0    GTK install 1/g24
+                                                          VULNERABLE           PATCHED
+Group-key init RSC --gtkinit          CVE-2017-13079 /   not exhibited        not exhibited
+                                      CVE-2017-13081      (tool: good)         (tool: good)
+Broadcast replay   --replay-broadcast prerequisite check "doesn't accept"     "doesn't accept"
+                                                          (prereq satisfied)   (prereq satisfied)
+
+g = "Do not re-install / Not reinstalling" guard lines in the victim -dd -K log.
+
+--------------------------------------------------------------------------
+1. --replay-broadcast  (prerequisite, run FIRST)
+--------------------------------------------------------------------------
+Purpose: does the client accept replayed broadcast frames at all? If it always
+does, the --group test can report a false positive, so this must be clean first
+(tool's own caution, and the M2 plan).
+
+  u-2.3-replay-broadcast  : tool "Client DOESN'T accept replayed broadcast frames (this is good)"
+  p-2.10-replay-broadcast : tool "Client DOESN'T accept replayed broadcast frames (this is good)"
+
+Both clients pass the prerequisite: neither accepts replayed broadcast frames
+(the in-kernel mac80211 datapath enforces broadcast replay protection under
+hwsim regardless of the supplicant). The --group result below is therefore not
+a broadcast-replay false positive.
+  Logs: logs/u-2.3-replay-broadcast.{cl,ap}.log, logs/p-2.10-replay-broadcast.{cl,ap}.log
+
+--------------------------------------------------------------------------
+2. --group  (CVE-2017-13080, group-key handshake pairwise of the pairwise case)
+--------------------------------------------------------------------------
+The AP runs the group-key handshake and retransmits Group Message 1 carrying the
+SAME GTK with a zero RSC (AP log: "Send group message 1 for the same GTK and
+zero RSC"), 24 times; the client answers Group Message 2 each time. Whether the
+client REINSTALLS that already-in-use GTK is read from its own -dd -K log:
+
+  u-2.3-group  : GTK install 25 / guard 0    -> VULNERABLE
+                 (1 initial install + 24 reinstalls, one per retransmission, refused none)
+  p-2.10-group : GTK install  1 / guard 24   -> PATCHED
+                 (installs once, then "Not reinstalling already in-use GTK" on all 24)
+
+This is the group-key analogue of the pairwise CVE-2017-13077 result: the same
+24 retransmissions drive 24 reinstalls on 2.3 and 24 guard refusals on 2.10; the
+single factor that changes the outcome is the reinstallation guard, not the
+cipher. Markers counted in the client (.cl.log):
+    GTK install : "WPA: Installing GTK to the driver"
+    GTK guard   : "WPA: Not reinstalling already in-use GTK to the driver"
+  Logs: logs/u-2.3-group.{cl,ap}.log, logs/p-2.10-group.{cl,ap}.log
+
+--------------------------------------------------------------------------
+3. --gtkinit  (CVE-2017-13079 / CVE-2017-13081, GTK/IGTK installed with wrong RSC)
+--------------------------------------------------------------------------
+The AP retransmits 4-way Message 3 carrying the GTK "with a max RSC" (AP log:
+"sending a new 4-way message 3 where the GTK has a max RSC"), 25 times, to test
+whether the client installs the group key with a reset/incorrect receive replay
+counter.
+
+  u-2.3-gtkinit  : tool "Client installs the group key ... with the given replay counter (good)"
+                   victim PTK install 26 / guard 0,  GTK install 26 / guard 0
+  p-2.10-gtkinit : tool "Client installs the group key ... with the given replay counter (good)"
+                   victim PTK install  1 / guard 25, GTK install 26 / guard 0
+
+Result for the gtkinit-specific pathology: NEGATIVE on both clients. Neither
+client installs the group key with a zero RSC here; both honour the RSC supplied
+in the handshake, so the CVE-2017-13079/-13081 "zero-RSC group-key init"
+behaviour is not exhibited in this environment. (The GTK install=26 on both
+clients reflects a freshly keyed Message 3 accepted each interval, not an
+in-use-GTK reinstall, which is why no GTK guard fires even on the patched 2.10.)
+What the --gtkinit run still shows is the underlying 4-way reinstall split in the
+pairwise key: 2.3 reinstalls the PTK on every retransmission (26) while 2.10
+guards every one (install 1 / guard 25), reconfirming CVE-2017-13077.
+  Logs: logs/u-2.3-gtkinit.{cl,ap}.log, logs/p-2.10-gtkinit.{cl,ap}.log
+
+--------------------------------------------------------------------------
+Evidence model and the hwsim limitation (same as the pairwise case)
+--------------------------------------------------------------------------
+krack-test-client.py reaches its on-air verdict for the group family by sending
+the client a replayed broadcast ARP (reused IV / low RSC) and watching for the
+client to REPLY. Under mac80211_hwsim the in-kernel datapath enforces broadcast
+replay protection, so the replayed ARP is dropped before the supplicant sees it
+and the tool records "DOESN'T reinstall / DOESN'T accept (this is good)" for the
+unpatched client too -- a false negative of the on-air verdict, exactly parallel
+to the pairwise case where the on-air packet-number reset is never exposed.
+
+The authoritative evidence is therefore the victim's own -dd -K debug log,
+counted per test (GTK/PTK install line vs guard line), not the tool's on-air
+verdict. The --group counts above (25/0 vs 1/24) are unambiguous and are the
+direct observation of CVE-2017-13080, with the patched 2.10 refusing the
+identical attack as the control.
+
+Note on counts: the number of retransmissions (hence installs) is emergent from
+the run duration (DUR, default per run-variant.sh) and the tool's ~2s interval,
+not a fixed knob; a re-run may land on a slightly different count, but the
+before/after contrast (guard 0 vs guard = retransmissions) is invariant.
