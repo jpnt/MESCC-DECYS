@@ -1,0 +1,120 @@
+[00:34:16] Note: disable Wi-Fi in network manager & disable hardware encryption. Both may interfere with this script.[1;0m
+[00:34:17] Starting hostapd ...[1;0m
+Configuration file: /home/v/krackattacks-scripts/krackattack/hostapd.conf
+Using interface wlan0 with hwaddr 02:00:00:00:00:00 and ssid "testnetwork"
+wlan0: interface state UNINITIALIZED->ENABLED
+wlan0: AP-ENABLED 
+[00:34:18] [0;32mReady. Connect to this Access Point to start the tests. Make sure the client requests an IP using DHCP![1;0m
+[00:34:19] Reset PN for GTK
+[00:34:21] Reset PN for GTK
+[00:34:23] Reset PN for GTK
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: authenticated
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: associated (aid 1)
+wlan0: AP-STA-CONNECTED 02:00:00:00:01:00
+wlan0: STA 02:00:00:00:01:00 RADIUS: starting accounting session D161D30E3B0DBC4F
+[00:34:23] 02:00:00:00:01:00: 4-way handshake completed (RSN)
+[00:34:25] Reset PN for GTK
+[00:34:25] [0;32m02:00:00:00:01:00: DHCP reply 192.168.100.2 to 02:00:00:00:01:00[1;0m
+[00:34:27] Reset PN for GTK
+[00:34:28] 02:00:00:00:01:00: client has IP address -> now sending replayed broadcast ARP packets[1;0m
+[00:34:28] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:28] 02:00:00:00:01:00: received a new group message 2
+[00:34:28] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 0 ARPs this interval)[1;0m
+[00:34:29] Reset PN for GTK
+[00:34:30] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:30] 02:00:00:00:01:00: received a new group message 2
+[00:34:30] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:34:31] Reset PN for GTK
+[00:34:32] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:32] 02:00:00:00:01:00: received a new group message 2
+[00:34:32] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:34:33] Reset PN for GTK
+[00:34:34] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:34] 02:00:00:00:01:00: received a new group message 2
+[00:34:34] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:34:35] Reset PN for GTK
+[00:34:36] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:36] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:34:36] 02:00:00:00:01:00: received a new group message 2
+[00:34:37] Reset PN for GTK
+[00:34:38] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:38] 02:00:00:00:01:00: received a new group message 2
+[00:34:38] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:34:39] Reset PN for GTK
+[00:34:40] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:40] 02:00:00:00:01:00: received a new group message 2
+[00:34:40] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:34:41] Reset PN for GTK
+[00:34:42] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:42] 02:00:00:00:01:00: received a new group message 2
+[00:34:42] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:34:43] Reset PN for GTK
+[00:34:44] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:44] 02:00:00:00:01:00: received a new group message 2
+[00:34:44] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:34:45] Reset PN for GTK
+[00:34:46] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:46] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:34:46] 02:00:00:00:01:00: received a new group message 2
+[00:34:47] Reset PN for GTK
+[00:34:48] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:48] 02:00:00:00:01:00: received a new group message 2
+[00:34:48] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:34:49] Reset PN for GTK
+[00:34:50] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:50] 02:00:00:00:01:00: received a new group message 2
+[00:34:50] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:34:51] Reset PN for GTK
+[00:34:52] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:52] 02:00:00:00:01:00: received a new group message 2
+[00:34:52] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:34:53] Reset PN for GTK
+[00:34:54] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:54] 02:00:00:00:01:00: received a new group message 2
+[00:34:54] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:34:56] Reset PN for GTK
+[00:34:57] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:57] 02:00:00:00:01:00: received a new group message 2
+[00:34:57] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:34:58] Reset PN for GTK
+[00:34:59] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:34:59] 02:00:00:00:01:00: received a new group message 2
+[00:34:59] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:35:00] Reset PN for GTK
+[00:35:01] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:01] 02:00:00:00:01:00: received a new group message 2
+[00:35:01] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:35:02] Reset PN for GTK
+[00:35:03] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:03] 02:00:00:00:01:00: received a new group message 2
+[00:35:03] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:35:04] Reset PN for GTK
+[00:35:05] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:05] 02:00:00:00:01:00: received a new group message 2
+[00:35:05] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:35:06] Reset PN for GTK
+[00:35:07] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:07] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m[00:35:07] 02:00:00:00:01:00: received a new group message 2
+
+[00:35:08] Reset PN for GTK
+[00:35:09] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:09] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:35:09] 02:00:00:00:01:00: received a new group message 2
+[00:35:10] Reset PN for GTK
+[00:35:10] [0;32m02:00:00:00:01:00: Client DOESN'T reinstall the group key in the group key handshake (this is good)[1;0m
+[00:35:11] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:11] 02:00:00:00:01:00: received a new group message 2
+[00:35:11] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:35:12] Reset PN for GTK
+[00:35:13] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:13] 02:00:00:00:01:00: received a new group message 2
+[00:35:13] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:35:14] Reset PN for GTK
+[00:35:15] 02:00:00:00:01:00: Send group message 1 for the same GTK and zero RSC
+[00:35:15] 02:00:00:00:01:00: received a new group message 2
+[00:35:15] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+wlan0: interface state ENABLED->DISABLED
+wlan0: AP-STA-DISCONNECTED 02:00:00:00:01:00
+wlan0: AP-DISABLED 
+wlan0: CTRL-EVENT-TERMINATING 
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0

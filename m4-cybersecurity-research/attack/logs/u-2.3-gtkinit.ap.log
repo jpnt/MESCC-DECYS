@@ -1,0 +1,122 @@
+[00:35:21] Note: disable Wi-Fi in network manager & disable hardware encryption. Both may interfere with this script.[1;0m
+[00:35:22] Starting hostapd ...[1;0m
+Configuration file: /home/v/krackattacks-scripts/krackattack/hostapd.conf
+Using interface wlan0 with hwaddr 02:00:00:00:00:00 and ssid "testnetwork"
+wlan0: interface state UNINITIALIZED->ENABLED
+wlan0: AP-ENABLED 
+[00:35:23] [0;32mReady. Connect to this Access Point to start the tests. Make sure the client requests an IP using DHCP![1;0m
+[00:35:24] Renewed the group key
+[00:35:26] Renewed the group key
+[00:35:28] Renewed the group key
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: authenticated
+wlan0: STA 02:00:00:00:01:00 IEEE 802.11: associated (aid 1)
+wlan0: AP-STA-CONNECTED 02:00:00:00:01:00
+wlan0: STA 02:00:00:00:01:00 RADIUS: starting accounting session 2A0772DD1C3255CE
+[00:35:28] 02:00:00:00:01:00: 4-way handshake completed (RSN)
+[00:35:30] Renewed the group key
+[00:35:30] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:30] 02:00:00:00:01:00: received a new message 4
+[00:35:30] [0;32m02:00:00:00:01:00: DHCP reply 192.168.100.2 to 02:00:00:00:01:00[1;0m
+[00:35:32] Renewed the group key
+[00:35:32] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:32] 02:00:00:00:01:00: received a new message 4
+[00:35:33] 02:00:00:00:01:00: client has IP address -> now sending replayed broadcast ARP packets[1;0m
+[00:35:33] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 0 ARPs this interval)[1;0m
+[00:35:34] Renewed the group key
+[00:35:34] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:34] 02:00:00:00:01:00: received a new message 4
+[00:35:35] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:35:36] Renewed the group key
+[00:35:36] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:36] 02:00:00:00:01:00: received a new message 4
+[00:35:37] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:35:38] Renewed the group key
+[00:35:38] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:38] 02:00:00:00:01:00: received a new message 4
+[00:35:39] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:35:40] Renewed the group key
+[00:35:40] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:40] 02:00:00:00:01:00: received a new message 4
+[00:35:41] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:35:43] Renewed the group key
+[00:35:43] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:43] 02:00:00:00:01:00: received a new message 4
+[00:35:44] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:35:45] Renewed the group key
+[00:35:45] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:45] 02:00:00:00:01:00: received a new message 4
+[00:35:46] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:35:47] Renewed the group key
+[00:35:47] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:47] 02:00:00:00:01:00: received a new message 4
+[00:35:48] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:35:49] Renewed the group key
+[00:35:49] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:49] 02:00:00:00:01:00: received a new message 4
+[00:35:50] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:35:51] Renewed the group key
+[00:35:51] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:51] 02:00:00:00:01:00: received a new message 4
+[00:35:52] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:35:53] Renewed the group key
+[00:35:53] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:53] 02:00:00:00:01:00: received a new message 4
+[00:35:54] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:35:55] Renewed the group key
+[00:35:55] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:55] 02:00:00:00:01:00: received a new message 4
+[00:35:56] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:35:57] Renewed the group key
+[00:35:57] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:57] 02:00:00:00:01:00: received a new message 4
+[00:35:58] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:35:59] Renewed the group key
+[00:35:59] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:35:59] 02:00:00:00:01:00: received a new message 4
+[00:36:00] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:36:01] Renewed the group key
+[00:36:01] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:01] 02:00:00:00:01:00: received a new message 4
+[00:36:02] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:36:03] Renewed the group key
+[00:36:03] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:03] 02:00:00:00:01:00: received a new message 4
+[00:36:04] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:36:05] Renewed the group key
+[00:36:05] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:05] 02:00:00:00:01:00: received a new message 4
+[00:36:06] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:36:07] Renewed the group key
+[00:36:07] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:07] 02:00:00:00:01:00: received a new message 4
+[00:36:08] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:36:09] Renewed the group key
+[00:36:09] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:09] 02:00:00:00:01:00: received a new message 4
+[00:36:10] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:36:11] Renewed the group key
+[00:36:11] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:11] 02:00:00:00:01:00: received a new message 4
+[00:36:12] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+[00:36:13] Renewed the group key
+[00:36:13] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:13] 02:00:00:00:01:00: received a new message 4
+[00:36:14] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 4 ARPs this interval)[1;0m
+[00:36:15] Renewed the group key
+[00:36:15] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:15] [0;32m02:00:00:00:01:00: Client installs the group key in the 4-way handshake with the given replay counter (this is good)[1;0m
+[00:36:15] 02:00:00:00:01:00: received a new message 4
+[00:36:16] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 1 ARPs this interval)[1;0m
+[00:36:17] Renewed the group key
+[00:36:17] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:17] 02:00:00:00:01:00: received a new message 4
+[00:36:18] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 2 ARPs this interval)[1;0m
+[00:36:19] Renewed the group key
+[00:36:19] 02:00:00:00:01:00: sending a new 4-way message 3 where the GTK has a max RSC
+[00:36:19] 02:00:00:00:01:00: received a new message 4
+[00:36:20] 02:00:00:00:01:00: sending broadcast ARP to 192.168.100.2 from 192.168.100.1 (sent 3 ARPs this interval)[1;0m
+wlan0: interface state ENABLED->DISABLED
+wlan0: AP-STA-DISCONNECTED 02:00:00:00:01:00
+wlan0: AP-DISABLED 
+wlan0: CTRL-EVENT-TERMINATING 
+nl80211: deinit ifname=wlan0 disabled_11b_rates=0
