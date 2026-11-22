@@ -131,24 +131,13 @@ It prints the four EAPOL messages and the decrypted protocol hierarchy. In the
 Wireshark GUI the same key is added under Edit > Preferences > Protocols >
 IEEE 802.11 > Decryption keys, type `wpa-pwd`, value `abcdefgh:testnetwork`.
 
-## Group-key-family tests
+## Optional / supplementary
 
-The group-key family is reproduced on the same lab with `scripts/run-variant.sh`.
-It runs the tool with unbuffered output so the on-air verdict is captured, and
-keeps the victim `-dd -K` log, from which the GTK install-vs-guard counts (the
-authoritative evidence) are read. Run the prerequisite first, then the two
-tests, against each client:
-
-```
-KDIR=/path/to/krackattacks-scripts/krackattack CONF="$PWD/config/client.conf" \
-  MODE=--replay-broadcast scripts/run-variant.sh <client-binary> logs/<prefix>-replay-broadcast
-MODE=--group   scripts/run-variant.sh <client-binary> logs/<prefix>-group
-MODE=--gtkinit scripts/run-variant.sh <client-binary> logs/<prefix>-gtkinit
-```
-
-where `<client-binary>` is the unpatched 2.3 build for the before case and the
-patched 2.10 (`/usr/sbin/wpa_supplicant`) for the after case. Results are
-summarised in `analysis/group-family-evidence-summary.txt`.
-
-The temporary-PTK variant (`--tptk`, `wpa_supplicant` 2.6) and the
-`wifi-framework` route are out of scope for this repository.
+The core demonstration above is the pairwise four-way reinstallation on 2.3 vs
+2.10. Logs from supplementary runs that are **not** part of it — the group-key
+handshake (`--group`), the `--gtkinit` and `--replay-broadcast` variants, the
+temporary-PTK path (`--tptk`) against `wpa_supplicant` 2.6, and a software-only
+tool verdict via the `wifi-framework` — are kept outside this directory under
+`../lab/supplementary/` (`logs/` and `wifi-framework/`). To reproduce one, pass
+its flag through the script's `MODE` variable, e.g.
+`MODE=--group scripts/run-attack.sh ...`.

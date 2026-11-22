@@ -14,8 +14,7 @@ eaaa5bf3055270e521b2dff64f2d203ec8040f71958b8588269a82c00c9d7b6a  /home/v/vuln/w
 2.3   : 0  (no guard -> fully vulnerable)
 2.10  : 1  (guard condition ptk.installed -> patched)
 
-(The group-key-family variants (--group, --gtkinit, --replay-broadcast) are
-reproduced on 2.3 vs 2.10; see analysis/group-family-evidence-summary.txt. The
-2.6 / 2.5 clients and the wifi-framework route are out of scope here.)
+(The supplementary 2.6 / 2.5 clients used by the relocated variant and
+wifi-framework runs are documented under ../../lab/supplementary/.)
 
 SSID=testnetwork  PSK=abcdefgh  cipher=CCMP  AP iface=wlan0  client iface=wlan1  DHCP pool=192.168.100.0/24 (AP .254)

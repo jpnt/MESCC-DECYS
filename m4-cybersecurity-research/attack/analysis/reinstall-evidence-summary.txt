@@ -31,8 +31,6 @@ Evidence model (hwsim is software-only):
   modified hostapd from krackattacks-scripts, retransmitting Message 3.
 
 ==========================================================================
-GROUP-KEY-FAMILY RUNS (included: see group-family-evidence-summary.txt)
-==========================================================================
 The group-key handshake (--group, CVE-2017-13080), the GTK-init RSC test
 (--gtkinit, CVE-2017-13079/-13081) and the --replay-broadcast prerequisite have
 been reproduced on this same 2.3-vs-2.10 lab, driven by scripts/run-variant.sh.
@@ -42,3 +40,10 @@ Headline: unpatched 2.3 reinstalls the group key 25 times (guard 0); patched
 
 The temporary-PTK variant (--tptk, client 2.6) and the software-only
 wifi-framework route are not part of this repository.
+SUPPLEMENTARY RUNS (relocated outside the attack demo)
+The group-key (--group), --gtkinit, --replay-broadcast and temporary-PTK
+(--tptk, client 2.6) variant logs, and the software-only wifi-framework route,
+are not part of this pairwise attack demonstration. They have been moved out of
+attack/ to lab/supplementary/ (sibling of attack/): see
+lab/supplementary/logs/ and lab/supplementary/wifi-framework/ for those
+artifacts and their per-test notes.

@@ -45,15 +45,14 @@ incrementing monotonically even while `wpa_supplicant` reinstalls the key, so
 the sniffer sees no reset to flag. The reinstallation itself is not in doubt —
 it is proved directly from the victim's own key-install log, with the patched
 client refusing the identical attack as the control. For an on-air tool verdict
-one would use a real old device, or the software-only `wifi-framework`, which is
-outside the scope of this attack demo.
+one would use a real old device, or the software-only `wifi-framework` (kept
+outside this attack demo under `../lab/supplementary/wifi-framework/`).
 
 ## Directory map
 
 ```
 scripts/
-  run-attack.sh                drives the pairwise four-way attack; prints PTK install/guard counts
-  run-variant.sh               drives the group-key family (--group/--gtkinit/--replay-broadcast)
+  run-attack.sh                drives the attack against one client; prints install/guard counts
   capture-normal-handshake.sh  captures + decrypts one clean four-way handshake
 krackattacks-scripts/          git submodule: Vanhoef's modified hostapd + krack-test-client.py
                                (pinned; `git submodule update --init` to fetch, then build per REPRODUCE.md)
@@ -63,19 +62,13 @@ config/
   krack-hostapd.conf           AP config used by the KRACK harness
   environment.txt              host, kernel, client versions, tarball sha256, guard provenance
 logs/
-  u-2.3-attack.{cl,ap}.log     unpatched victim (PTK 17/0) + access-point log
-  p-2.10-attack.{cl,ap}.log    patched victim (PTK 1/16) + access-point log
-  u-2.3-group.{cl,ap}.log      unpatched group-key (GTK 25/0) + AP log
-  p-2.10-group.{cl,ap}.log     patched group-key (GTK 1/24) + AP log
-  u-2.3-gtkinit.{cl,ap}.log    unpatched --gtkinit run + AP log
-  p-2.10-gtkinit.{cl,ap}.log   patched --gtkinit run + AP log
-  {u-2.3,p-2.10}-replay-broadcast.{cl,ap}.log  broadcast-replay prerequisite
+  u-2.3-attack.{cl,ap}.log     unpatched victim (17/0) + access-point log
+  p-2.10-attack.{cl,ap}.log    patched victim (1/16) + access-point log
 captures/
   normal-handshake.pcap        clean 4-way handshake, decryptable with abcdefgh:testnetwork
   attack-4way-retransmit.pcap  capture during the attack
 analysis/
-  reinstall-evidence-summary.txt   the before/after pairwise install-vs-guard counts
-  group-family-evidence-summary.txt  --group / --gtkinit / --replay-broadcast results
+  reinstall-evidence-summary.txt   the before/after install-vs-guard counts
   handshake-eapol-fields.txt       per-message Key Info / Replay Counter / Nonce / MIC
   normal-handshake-eapol.txt       the four EAPOL frames
   decrypted-protocol-hierarchy.txt tshark protocol hierarchy after decryption
@@ -85,18 +78,12 @@ analysis/
 See `REPRODUCE.md` for the build and run steps, and `config/environment.txt`
 for versions, hashes and guard provenance.
 
-## Group-key-family tests (included)
+## Supplementary material (moved out of this directory)
 
-Besides the core pairwise four-way demonstration, the group-key family is
-reproduced on the same 2.3-vs-2.10 lab via `scripts/run-variant.sh`: the
-group-key handshake (`--group`, CVE-2017-13080), the GTK-init RSC test
-(`--gtkinit`, CVE-2017-13079/-13081) and the `--replay-broadcast` prerequisite.
-The before/after result is read the same way as the pairwise case — from the
-victim's own `-dd -K` GTK install-vs-guard log, since the tool's on-air verdict
-is a false negative under `mac80211_hwsim` (kernel broadcast-replay protection
-drops the tool's probe). Headline: unpatched 2.3 reinstalls the group key 25×
-(guard 0); patched 2.10 installs once and guards all 24. Full write-up in
-`analysis/group-family-evidence-summary.txt`; raw logs under `logs/`.
-
-The temporary-PTK variant (`--tptk`, `wpa_supplicant` 2.6) and the software-only
-`wifi-framework` route are **not** part of this repository.
+`attack/` holds only the core pairwise demonstration. The group-key handshake,
+the `--gtkinit`, `--replay-broadcast` and `--tptk` (temporary-PTK, v2.6)
+variants, the extra `wpa_supplicant` 2.6 client, and the software-only
+`wifi-framework` route are **not** part of it. Their logs and material have been
+relocated to `../lab/supplementary/` (`logs/` and `wifi-framework/`) for
+reference. `REPRODUCE.md` explains how to re-run a variant via the script's
+`MODE` variable.
